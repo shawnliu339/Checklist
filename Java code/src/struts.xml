@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+	<!-- 表示Action由Spring来管理，可以直接使用Spring的依赖注入进行注入 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+    <package name="shop" extends="struts-default" namespace="/">
+
+        <!-- 配置首页访问的Action -->
+		<action name="index_*" class="index"  method="{1}">
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
+			<result name="userManagementPage">/WEB-INF/jsp/userManagement.jsp</result>
+			<result name="storageManagementPage">/WEB-INF/jsp/storageManagement.jsp</result>
+		</action>
+		
+		<!-- 配置用户模块 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
+			<result name="logout">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
+			<result name="logout">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		
+		<!-- 配置商品管理模块 -->
+		<action name="commodityAction_*" class="commodityAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/commodityManagement.jsp</result>
+			
+		</action>
+		
+		<!-- 配置商品类别模块 -->
+		<action name="cmdtCtgrAction_*" class="cmdtCtgrAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/commodityCategoryManagement.jsp</result>
+			
+		</action>
+		
+		<!-- 配置计量单位管理模块 -->
+		<action name="unitAction_*" class="unitAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/unitManagement.jsp</result>
+			
+		</action>
+		
+		<!-- 配置供应商管理模块 -->
+		<action name="supplierAction_*" class="supplierAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/supplierManagement.jsp</result>
+			
+		</action>
+		
+		<!-- 配置客户管理模块 -->
+		<action name="clientAction_*" class="clientAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/clientManagement.jsp</result>
+			
+		</action>
+		
+		<!-- 进货管理模块 -->
+		<action name="purchaseAction_*" class="purchaseAction" method="{1}">
+			<result name="addPage">/WEB-INF/jsp/purchaseAdd.jsp</result>
+			<result name="queryPage">/WEB-INF/jsp/purchaseQuery.jsp</result>
+			
+		</action>
+		
+		<!-- 销售管理模块 -->
+		<action name="saleAction_*" class="saleAction" method="{1}">
+			<result name="addPage">/WEB-INF/jsp/saleAdd.jsp</result>
+			
+		</action>
+		
+		<!-- 入库管理模块 -->
+		<action name="inStockAction_*" class="inStockAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/inStockManagement.jsp</result>
+			<result name="queryPage">/WEB-INF/jsp/inStockQuery.jsp</result>
+			
+		</action>
+		
+		<!-- 仓库管理模块 -->
+		<action name="storageAction_*" class="storageAction" method="{1}">
+		</action>
+		
+		<!-- 架位管理模块 -->
+		<action name="shelfAction_*" class="shelfAction" method="{1}">
+		</action>
+		
+		<!-- 库存管理模块 -->
+		<action name="stockAction_*" class="stockAction" method="{1}">
+			<result name="stockQueryPage">/WEB-INF/jsp/stockQuery.jsp</result>
+		</action>
+		
+		<!-- 配置退货管理模块 -->
+		<action name="returnedAction_*" class="returnedAction" method="{1}">
+			<result name="managementPage">/WEB-INF/jsp/returnedManagement.jsp</result>
+			<result name="purchaseReturnQueryPage">/WEB-INF/jsp/purchaseReturnQuery.jsp</result>
+			<result name="purchaseReturnStockOutPage">/WEB-INF/jsp/purchaseReturnStockOut.jsp</result>
+			<result name="returnStockOutQueryPage">/WEB-INF/jsp/returnStockOutQuery.jsp</result>
+			
+		</action>
+		
+		<!-- 配置中间表 -->
+		<action name="shelfRemainAction_*" class="shelfRemainAction" method="{1}">
+			
+		</action>
+		
+		<!--===== 重构后配置 =====-->
+		<!-- 进货管理模块 -->
+		<action name="purchaseManagement_*" class="purchaseManagementAction" method="{1}">
+			<result name="purchaseReturnStockOutPage">/WEB-INF/jsp/purchaseReturnStockOut.jsp</result>
+		</action>
+		
+		<!-- 销售管理模块 -->
+		<action name="saleManagement_*" class="saleManagementAction" method="{1}">
+			<result name="saleAddPage">/WEB-INF/jsp/saleAdd.jsp</result>
+			<result name="saleStockOutPage">/WEB-INF/jsp/saleStockOut.jsp</result>
+			<result name="saleReturnPage">/WEB-INF/jsp/saleReturn.jsp</result>
+			<result name="returnStockInPage">/WEB-INF/jsp/returnStockIn.jsp</result>
+			<result name="saleQueryPage">/WEB-INF/jsp/saleQuery.jsp</result>
+			<result name="saleReturnQueryPage">/WEB-INF/jsp/saleReturnQuery.jsp</result>
+			<result name="saleStockOutQueryPage">/WEB-INF/jsp/saleStockOutQuery.jsp</result>
+			<result name="returnStockInQueryPage">/WEB-INF/jsp/returnStockInQuery.jsp</result>
+		</action>
+		
+		<!-- 库存管理模块 -->
+		<action name="stockManagement_*" class="stockManagementAction" method="{1}">
+			<result name="stockWarningPage">/WEB-INF/jsp/stockWarning.jsp</result>
+			<result name="reportBreakPage">/WEB-INF/jsp/reportBreak.jsp</result>
+			<result name="reportBreakStockOutPage">/WEB-INF/jsp/reportBreakStockOut.jsp</result>
+			<result name="reportBreakQueryPage">/WEB-INF/jsp/reportBreakQuery.jsp</result>
+			<result name="reportBreakStockOutQueryPage">/WEB-INF/jsp/reportBreakStockOutQuery.jsp</result>
+		</action>
+		
+    </package>
+
+
+</struts>
