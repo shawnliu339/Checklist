@@ -18,13 +18,19 @@
 	<!-- scan all the packages -->
 	<context:component-scan base-package="com.ncut" />
 
+
+    <!-- ここまではおｋ -->
+
+
+
 	<!-- 配置连接池: -->
 	<!-- configure connection pool: -->
 	<!-- 引入外部属性文件 -->
 	<!-- import external property's files -->
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:property-placeholder location="classpath:jdbc.properties"/>
 	<!-- 配置C3P0连接池: -->
 	<!-- configure C3P0 connection pool: -->
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
