@@ -3,18 +3,26 @@ package com.ocms.persistance;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Entity()
+@Entity
 public class Checkitem {
+	@Id
+	@GeneratedValue
 	private Integer checkitemId;
 	private String content;
 	private Integer relatedItemId;
 	private Integer relatedGoalId;
 	private Set<CheckitemStatus> checkitemstatus;
 
+
+
+
 	public Integer getCheckitemId() {
 		return checkitemId;
 	}
+
 	public void setCheckitemId(Integer checkitemId) {
 		this.checkitemId = checkitemId;
 	}
