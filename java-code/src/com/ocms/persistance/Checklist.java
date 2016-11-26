@@ -10,6 +10,7 @@ import javax.persistence.Id;
 public class Checklist {
 	@Id
 	@GeneratedValue
+
 	private int checklistId;
 	private String name;
 	private double percentage;
