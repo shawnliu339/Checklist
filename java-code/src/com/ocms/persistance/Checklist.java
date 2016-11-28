@@ -8,15 +8,16 @@ import javax.persistence.Id;
 
 @Entity
 public class Checklist {
-	@Id
-	@GeneratedValue
+
+
 
 	private int checklistId;
 	private String name;
 	private double percentage;
 	private Set<Item> items;
 
-
+	@Id
+	@GeneratedValue
 	public int getChecklistId() {
 		return checklistId;
 	}

@@ -9,8 +9,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Item {
-	@Id
-	@GeneratedValue
+
+
 	private int itemId;
 	private String name;
 	private double percentage;
@@ -20,7 +20,8 @@ public class Item {
 
 
 
-
+	@Id
+	@GeneratedValue
 	public int getItemId() {
 		return itemId;
 	}

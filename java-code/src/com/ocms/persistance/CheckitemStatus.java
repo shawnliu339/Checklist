@@ -3,12 +3,13 @@ package com.ocms.persistance;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="checkite_status")
 public class CheckitemStatus {
-	@Id
-	@GeneratedValue
+
 	private int checkItemStatusId;
 	private String comment;
 	private String deliverables;
@@ -21,7 +22,8 @@ public class CheckitemStatus {
 
 
 
-
+	@Id
+	@GeneratedValue
 	public int getCheckItemStatusId() {
 		return checkItemStatusId;
 	}

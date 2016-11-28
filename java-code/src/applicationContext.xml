@@ -16,6 +16,8 @@
 	<context:annotation-config />
 	<!-- 扫描所有包中的组件 -->
 	<!-- scan all the packages -->
+
+	<!-- this will be changed -->
 	<context:component-scan base-package="com.ncut" />
 
 
@@ -63,6 +65,7 @@
 		<!-- map entity by Hibernate -->
 		<property name="packagesToScan">
 			<list>
+				<!-- this will be changed -->
 				<value>com.ncut.wms.*.model</value>
 			</list>
 		</property>

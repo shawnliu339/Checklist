@@ -9,8 +9,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Project {
-	@Id
-	@GeneratedValue
+
+
 	private int projectId;
 	private int prjId;
 	private String name;
@@ -18,7 +18,8 @@ public class Project {
 
 
 
-
+	@Id
+	@GeneratedValue
 	public int getProjectId() {
 		return projectId;
 	}
