@@ -8,8 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Checkitem {
-	@Id
-	@GeneratedValue
+
 	private Integer checkitemId;
 	private String content;
 	private Integer relatedItemId;
@@ -18,7 +17,8 @@ public class Checkitem {
 
 
 
-
+	@Id
+	@GeneratedValue
 	public Integer getCheckitemId() {
 		return checkitemId;
 	}
