@@ -1,12 +1,11 @@
-package com.ocms.persistance;
+package com.ocms.persistence;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "checkitem")
 public class Checkitem {
 
 	private Integer checkitemId;
@@ -15,44 +14,47 @@ public class Checkitem {
 	private Integer relatedGoalId;
 	private Set<CheckitemStatus> checkitemstatus;
 
-
-
 	@Id
 	@GeneratedValue
+	@Column(name = "checkitem_id")
 	public Integer getCheckitemId() {
 		return checkitemId;
+	}
+
+	@Column(name = "content")
+	public String getContent() {
+		return content;
+	}
+
+	@Column(name = "related_item_id")
+	public Integer getRelatedItemId() {
+		return relatedItemId;
+	}
+
+	@Column(name = "related_goal_id")
+	public Integer getRelatedGoalId() {
+		return relatedGoalId;
+	}
+
+	@OneToMany(mappedBy = "checkitem")
+	public Set<CheckitemStatus> getCheckitemstatus() {
+		return checkitemstatus;
 	}
 
 	public void setCheckitemId(Integer checkitemId) {
 		this.checkitemId = checkitemId;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Integer getRelatedItemId() {
-		return relatedItemId;
 	}
 
 	public void setRelatedItemId(Integer relatedItemId) {
 		this.relatedItemId = relatedItemId;
 	}
 
-	public Integer getRelatedGoalId() {
-		return relatedGoalId;
-	}
-
 	public void setRelatedGoalId(Integer relatedGoalId) {
 		this.relatedGoalId = relatedGoalId;
-	}
-
-	public Set<CheckitemStatus> getCheckitemstatus() {
-		return checkitemstatus;
 	}
 
 	public void setCheckitemstatus(Set<CheckitemStatus> checkitemstatus) {

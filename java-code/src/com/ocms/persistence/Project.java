@@ -1,4 +1,4 @@
-package com.ocms.persistance;
+package com.ocms.persistence;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
-@Entity
+
 public class Project {
 
 

@@ -1,4 +1,4 @@
-package com.ocms.dao;
+package com.ocms.dao.base;
 
 import java.util.List;
 import java.util.Map;

@@ -18,7 +18,7 @@
 	<!-- scan all the packages -->
 
 	<!-- this will be changed -->
-	<context:component-scan base-package="com.ncut" />
+	<context:component-scan base-package="com" />
 
 
     <!-- ここまではおｋ -->
@@ -57,7 +57,8 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- Automatically create or update database according to classes. -->
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
 			</props>
 		</property>
 		<!-- 配置Hibernate的映射文件 -->
@@ -65,7 +66,7 @@
 		<property name="packagesToScan">
 			<list>
 				<!-- this will be changed -->
-				<value>com.ncut.wms.*.model</value>
+				<value>com.ocms</value>
 			</list>
 		</property>
 	</bean>
