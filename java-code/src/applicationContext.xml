@@ -58,7 +58,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- Automatically create or update database according to classes. -->
-				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 			</props>
 		</property>
 		<!-- 配置Hibernate的映射文件 -->
@@ -66,7 +66,7 @@
 		<property name="packagesToScan">
 			<list>
 				<!-- this will be changed -->
-				<value>com.ocms</value>
+				<value>com.sic.ocms</value>
 			</list>
 		</property>
 	</bean>
