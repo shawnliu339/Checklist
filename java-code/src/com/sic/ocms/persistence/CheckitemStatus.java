@@ -1,9 +1,13 @@
 package com.sic.ocms.persistence;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
-@Table(name = "checkite_status")
+@Table(name = "checkitem_status")
 public class CheckitemStatus {
 
 	private Integer checkItemStatusId;
@@ -13,7 +17,7 @@ public class CheckitemStatus {
 	private Integer prjtype;
 	private Integer importance;
 	private String description;
-	private Integer history;
+	private Date history;
 	private Integer problem;
 	private Checkitem checkitem;
 
@@ -29,6 +33,7 @@ public class CheckitemStatus {
 		return status;
 	}
 
+	@Type(type = "text")
 	@Column(name = "comment")
 	public String getComment() {
 		return comment;
@@ -49,13 +54,15 @@ public class CheckitemStatus {
 		return importance;
 	}
 
+	@Type(type = "text")
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
 
 	@Column(name = "history")
-	public Integer getHistory() {
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getHistory() {
 		return history;
 	}
 
@@ -98,7 +105,7 @@ public class CheckitemStatus {
 		this.description = description;
 	}
 
-	public void setHistory(Integer history) {
+	public void setHistory(Date history) {
 		this.history = history;
 	}
 

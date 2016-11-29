@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "checkitem")
 public class Checkitem {
@@ -21,6 +23,7 @@ public class Checkitem {
 		return checkitemId;
 	}
 
+	@Type(type = "text")
 	@Column(name = "content")
 	public String getContent() {
 		return content;
