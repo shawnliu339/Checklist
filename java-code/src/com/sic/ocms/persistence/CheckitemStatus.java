@@ -2,7 +2,15 @@ package com.sic.ocms.persistence;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
@@ -20,6 +28,7 @@ public class CheckitemStatus {
 	private Date history;
 	private Integer problem;
 	private Checkitem checkitem;
+	//private Item item;
 
 	@Id
 	@GeneratedValue
@@ -76,7 +85,11 @@ public class CheckitemStatus {
 	public Checkitem getCheckitem() {
 		return checkitem;
 	}
-
+/*
+	public Item getItem() {
+		return item;
+	}
+*/
 	public void setCheckItemStatusId(Integer checkItemStatusId) {
 		this.checkItemStatusId = checkItemStatusId;
 	}
@@ -116,5 +129,9 @@ public class CheckitemStatus {
 	public void setCheckitem(Checkitem checkitem) {
 		this.checkitem = checkitem;
 	}
-
+/*
+	public void setItem(Item item) {
+		this.item = item;
+	}
+*/
 }
