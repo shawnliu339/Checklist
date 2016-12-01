@@ -1,12 +1,14 @@
 package com.sic.ocms.persistence;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +30,7 @@ public class CheckitemStatus {
 	private Date history;
 	private Integer problem;
 	private Checkitem checkitem;
-	//private Item item;
+	private Set<Item> item;
 
 	@Id
 	@GeneratedValue
@@ -85,11 +87,12 @@ public class CheckitemStatus {
 	public Checkitem getCheckitem() {
 		return checkitem;
 	}
-/*
-	public Item getItem() {
+
+	@ManyToMany(mappedBy="checkitemstatus")
+	public Set<Item> getItem() {
 		return item;
 	}
-*/
+
 	public void setCheckItemStatusId(Integer checkItemStatusId) {
 		this.checkItemStatusId = checkItemStatusId;
 	}
@@ -129,9 +132,9 @@ public class CheckitemStatus {
 	public void setCheckitem(Checkitem checkitem) {
 		this.checkitem = checkitem;
 	}
-/*
-	public void setItem(Item item) {
+
+	public void setItem(Set<Item> item) {
 		this.item = item;
 	}
-*/
+
 }

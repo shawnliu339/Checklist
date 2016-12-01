@@ -1,11 +1,16 @@
 package com.sic.ocms.persistence;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,9 +21,9 @@ public class Item {
 	private String name;
 	private Double percentage;
 	private Checklist checklist;
-//	private Item parent;
-//	private Set<Item> children;
-//	private CheckitemStatus checkitemstatus;
+	private Item parent;
+	private Set<Item> children;
+	private Set<CheckitemStatus> checkitemstatus;
 
 
 
@@ -44,23 +49,27 @@ public class Item {
 	public Checklist getChecklist() {
 		return checklist;
 	}
-/*
+
 	@ManyToOne
-	@JoinColumn(name = "item_id")
+	@JoinColumn(name = "parent_id",referencedColumnName = "item_id")
 	public Item getParent() {
 		return parent;
 	}
 
-
-	@OneToMany(mappedBy = "item")
+	@OneToMany(mappedBy = "parent")
 	public Set<Item> getChildren() {
 		return children;
 	}
 
-	public CheckitemStatus getCheckitemstatus() {
+	@ManyToMany
+	@JoinTable(name="item_checkitem_status",
+		joinColumns=@JoinColumn(name="item_id"),
+		inverseJoinColumns = @JoinColumn(name = "checkitem_status_id")
+	)
+	public Set<CheckitemStatus> getCheckitemstatus() {
 		return checkitemstatus;
 	}
-*/
+
 	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
@@ -76,7 +85,7 @@ public class Item {
 	public void setChecklist (Checklist checklist) {
 		this.checklist = checklist;
 	}
-/*
+
 	public void setParent(Item parent) {
 		this.parent = parent;
 	}
@@ -85,8 +94,8 @@ public class Item {
 		this.children = children;
 	}
 
-	public void setCheckitemstatus(CheckitemStatus checkitemstatus) {
+	public void setCheckitemstatus(Set<CheckitemStatus> checkitemstatus) {
 		this.checkitemstatus = checkitemstatus;
 	}
-*/
+
 }
