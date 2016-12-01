@@ -14,11 +14,11 @@
 <!-- ======================================================================= -->
 	<!-- Spring的相关配置 -->
 	<!-- Configuration of Spring -->
-	
+
 	<!-- 以注解的方式注入数据 -->
 	<!-- use Spring's annotation to inject data -->
 	<context:annotation-config />
-	
+
 	<!-- 扫描所有包中的组件 -->
 	<!-- scan all the packages -->
 	<context:component-scan base-package="com.sic" />
@@ -26,7 +26,7 @@
 	<!-- 引入外部连接池属性文件 -->
 	<!-- import external property's file of connection pool -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
-	
+
 	<!-- 配置C3P0连接池: -->
 	<!-- configure C3P0 connection pool: -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -35,11 +35,11 @@
 		<property name="user" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	
+
 <!-- ======================================================================= -->
 	<!-- Hibernate的相关配置 -->
 	<!-- Configuration of Hibernate -->
-	
+
 	<!-- Session工厂的配置 -->
 	<!-- Configuration of Session Factory -->
 	<bean id="sessionFactory"
@@ -108,7 +108,7 @@
 	<!-- configure aspect of transaction -->
 	<aop:config>
 		<aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />
-		<aop:pointcut id="daoOperation" expression="excution(* com.sic.ocms.dao.*(..))" />
+		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
 	</aop:config>
