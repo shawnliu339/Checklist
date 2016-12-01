@@ -21,7 +21,7 @@
 	
 	<!-- 扫描所有包中的组件 -->
 	<!-- scan all the packages -->
-	<context:component-scan base-package="com" />
+	<context:component-scan base-package="com.sic" />
 
 	<!-- 引入外部连接池属性文件 -->
 	<!-- import external property's file of connection pool -->
@@ -108,6 +108,8 @@
 	<!-- configure aspect of transaction -->
 	<aop:config>
 		<aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />
+		<aop:pointcut id="daoOperation" expression="excution(* com.sic.ocms.dao.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
 	</aop:config>
 </beans>
