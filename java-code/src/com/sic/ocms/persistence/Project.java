@@ -13,13 +13,10 @@ import javax.persistence.Table;
 @Table(name = "project")
 public class Project {
 
-
 	private int projectId;
 	private Integer prjId;
 	private String name;
 	private Set<Checklist> checklists;
-
-
 
 	@Id
 	@GeneratedValue

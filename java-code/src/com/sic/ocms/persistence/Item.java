@@ -25,8 +25,6 @@ public class Item {
 	private Set<Item> children;
 	private Set<CheckitemStatus> checkitemstatus;
 
-
-
 	@Id
 	@GeneratedValue
 	@Column(name = "item_id")
