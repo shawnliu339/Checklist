@@ -107,9 +107,10 @@
 	<!-- 配置事务切面 -->
 	<!-- configure aspect of transaction -->
 	<aop:config>
-		<aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />
-		<aop:pointcut id="daoOperation" expression="excution(* com.sic.ocms.dao.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+		<!-- AspectJ语法，第一个*表示方法返回值，..表示有子包，第二个*表示该包下任意类，第三个*表示任意方法，(..)表示任意参数 -->
+		<!--  <aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />-->
+		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
+		<!--  <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />-->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
 	</aop:config>
 </beans>
