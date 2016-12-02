@@ -3,7 +3,7 @@ package com.sic.ocms.dao;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.sic.ocms.dao.checkitemstatus.CheckitemStatusDAO;
+import com.sic.ocms.dao.checkitem.status.CheckitemStatusDAO;
 import com.sic.ocms.persistence.Checkitem;
 import com.sic.ocms.persistence.CheckitemStatus;
 import com.sic.ocms.persistence.Item;
