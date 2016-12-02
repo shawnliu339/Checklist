@@ -107,9 +107,15 @@
 	<!-- 配置事务切面 -->
 	<!-- configure aspect of transaction -->
 	<aop:config>
+<<<<<<< HEAD
+		<!--  <aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />-->
+		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
+		<!--  <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />-->
+=======
 		<aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />
 		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+>>>>>>> 8cdd96951c6184c5d9a2efc8af86779ce439034b
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
 	</aop:config>
 </beans>
