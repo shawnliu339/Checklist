@@ -13,12 +13,11 @@ public class ProjectDAOTest {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 
-		ProjectDAO dao = (ProjectDAO) ctx.getBean("ProjectDAO");
+		ProjectDAO dao = (ProjectDAO) ctx.getBean("projectDAO");
 		Project prj = new Project();
-		prj.setProjectId(1);
-		prj.setPrjId(2);
-		prj.setName("Project1");
-		dao.add(prj);;
+		prj.setName("ocms");
+		prj.setPrjId(1);
+		dao.add(prj);
 		ctx.destroy();
 
 	}
