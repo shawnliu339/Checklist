@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "project")
 public class Project {
 
-	private int projectId;
+	private Integer projectId;
 	private Integer prjId;
 	private String name;
 	private Set<Checklist> checklists;
@@ -21,12 +21,12 @@ public class Project {
 	@Id
 	@GeneratedValue
 	@Column(name = "project_id")
-	public int getProjectId() {
+	public Integer getProjectId() {
 		return projectId;
 	}
 
 	@Column(name = "prj_id")
-	public int getPrjId() {
+	public Integer getPrjId() {
 		return prjId;
 	}
 
@@ -42,11 +42,11 @@ public class Project {
 	}
 
 
-	public void setProjectId(int projectId) {
+	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
 
-	public void setPrjId(int prjId) {
+	public void setPrjId(Integer prjId) {
 		this.prjId = prjId;
 	}
 

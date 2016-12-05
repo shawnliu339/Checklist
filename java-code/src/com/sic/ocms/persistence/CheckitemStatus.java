@@ -1,20 +1,16 @@
 package com.sic.ocms.persistence;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "checkitem_status")
@@ -26,10 +22,10 @@ public class CheckitemStatus {
 	private String deliverables;
 	private Integer prjtype;
 	private Integer importance;
-	private String description;
 	private Date history;
 	private Integer problem;
 	private Checkitem checkitem;
+	private Item item;
 
 	@Id
 	@GeneratedValue
@@ -43,7 +39,6 @@ public class CheckitemStatus {
 		return status;
 	}
 
-	@Type(type = "text")
 	@Column(name = "comment")
 	public String getComment() {
 		return comment;
@@ -64,12 +59,6 @@ public class CheckitemStatus {
 		return importance;
 	}
 
-	@Type(type = "text")
-	@Column(name = "description")
-	public String getDescription() {
-		return description;
-	}
-
 	@Column(name = "history")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getHistory() {
@@ -85,6 +74,12 @@ public class CheckitemStatus {
 	@JoinColumn(name = "checkitem_id")
 	public Checkitem getCheckitem() {
 		return checkitem;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "item_id")
+	public Item getItem() {
+		return item;
 	}
 
 	public void setCheckItemStatusId(Integer checkItemStatusId) {
@@ -111,10 +106,6 @@ public class CheckitemStatus {
 		this.importance = importance;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public void setHistory(Date history) {
 		this.history = history;
 	}
@@ -127,5 +118,7 @@ public class CheckitemStatus {
 		this.checkitem = checkitem;
 	}
 
-
+	public void setItem(Item item) {
+		this.item = item;
+	}
 }

@@ -23,6 +23,7 @@ public class Item {
 	private Item parent;
 	private Set<Item> children;
 	private Set<Checkitem> checkitems;
+	private Checklist checklist;
 
 	@Id
 	@GeneratedValue
@@ -61,6 +62,12 @@ public class Item {
 		return checkitems;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "checklist_id")
+	public Checklist getChecklist() {
+		return checklist;
+	}
+
 	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
@@ -85,4 +92,7 @@ public class Item {
 		this.checkitems = checkitems;
 	}
 
+	public void setChecklist(Checklist checklist) {
+		this.checklist = checklist;
+	}
 }
