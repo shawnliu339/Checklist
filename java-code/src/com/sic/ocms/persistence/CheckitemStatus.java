@@ -30,7 +30,6 @@ public class CheckitemStatus {
 	private Date history;
 	private Integer problem;
 	private Checkitem checkitem;
-	private Set<Item> item;
 
 	@Id
 	@GeneratedValue
@@ -88,11 +87,6 @@ public class CheckitemStatus {
 		return checkitem;
 	}
 
-	@ManyToMany(mappedBy="checkitemstatus")
-	public Set<Item> getItem() {
-		return item;
-	}
-
 	public void setCheckItemStatusId(Integer checkItemStatusId) {
 		this.checkItemStatusId = checkItemStatusId;
 	}
@@ -133,8 +127,5 @@ public class CheckitemStatus {
 		this.checkitem = checkitem;
 	}
 
-	public void setItem(Set<Item> item) {
-		this.item = item;
-	}
 
 }

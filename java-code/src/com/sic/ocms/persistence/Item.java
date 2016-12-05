@@ -20,10 +20,9 @@ public class Item {
 	private Integer itemId;
 	private String name;
 	private Double percentage;
-	private Checklist checklist;
 	private Item parent;
 	private Set<Item> children;
-	private Set<CheckitemStatus> checkitemstatus;
+	private Set<Checkitem> checkitems;
 
 	@Id
 	@GeneratedValue
@@ -43,13 +42,7 @@ public class Item {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="checklist_id")
-	public Checklist getChecklist() {
-		return checklist;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "parent_id",referencedColumnName = "item_id")
+	@JoinColumn(name = "parent_id")
 	public Item getParent() {
 		return parent;
 	}
@@ -60,12 +53,12 @@ public class Item {
 	}
 
 	@ManyToMany
-	@JoinTable(name="item_checkitem_status",
+	@JoinTable(name="checkitem_status",
 		joinColumns=@JoinColumn(name="item_id"),
-		inverseJoinColumns = @JoinColumn(name = "checkitem_status_id")
+		inverseJoinColumns = @JoinColumn(name = "checkitem_id")
 	)
-	public Set<CheckitemStatus> getCheckitemstatus() {
-		return checkitemstatus;
+	public Set<Checkitem> getCheckitems() {
+		return checkitems;
 	}
 
 	public void setItemId(Integer itemId) {
@@ -80,10 +73,6 @@ public class Item {
 		this.percentage = percentage;
 	}
 
-	public void setChecklist (Checklist checklist) {
-		this.checklist = checklist;
-	}
-
 	public void setParent(Item parent) {
 		this.parent = parent;
 	}
@@ -92,8 +81,8 @@ public class Item {
 		this.children = children;
 	}
 
-	public void setCheckitemstatus(Set<CheckitemStatus> checkitemstatus) {
-		this.checkitemstatus = checkitemstatus;
+	public void setCheckitems(Set<Checkitem> checkitems) {
+		this.checkitems = checkitems;
 	}
 
 }
