@@ -2,6 +2,7 @@ package com.sic.ocms.persistence;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,7 +49,7 @@ public class Item {
 		return parent;
 	}
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "parent")
 	public Set<Item> getChildren() {
 		return children;
 	}

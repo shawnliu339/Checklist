@@ -17,12 +17,19 @@ public class ItemDAOTest {
 
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
 		Item itm = new Item();
+		Item itm1 = new Item();
 		Item itm2 = new Item();
-		itm2.setItemId(4);
-		itm.setName("課題の識別");
-		itm.setPercentage(0.0);
-		itm.setParent(itm2);
-		itm.setItemId(5);
+		
+		itm.setName("顧客");
+		itm1.setName("機会");
+		itm2.setName("ステークホルダー");
+		
+		itm.getChildren().add(itm1);
+		itm.getChildren().add(itm2);
+		
+		itm1.setParent(itm);
+		itm2.setParent(itm);
+		
 		dao.add(itm);
 
 //		dao.delete(5);
