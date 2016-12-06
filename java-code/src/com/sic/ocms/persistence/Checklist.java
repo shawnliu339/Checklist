@@ -15,16 +15,16 @@ import javax.persistence.Table;
 @Table(name = "checklist")
 public class Checklist {
 
-	private int checklistId;
+	private Integer checklistId;
 	private String name;
-	private double percentage;
+	private Double percentage;
 	private Set<Item> items;
 	private Project project;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "checklist_id")
-	public int getChecklistId() {
+	public Integer getChecklistId() {
 		return checklistId;
 	}
 
@@ -34,12 +34,11 @@ public class Checklist {
 	}
 
 	@Column(name = "percentage")
-	public double getPercentage() {
+	public Double getPercentage() {
 		return percentage;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "item_id")
+	@OneToMany(mappedBy = "checklist")
 	public Set<Item> getItems() {
 		return items;
 	}
@@ -50,7 +49,7 @@ public class Checklist {
 		return project;
 	}
 
-	public void setChecklistId(int checklistId) {
+	public void setChecklistId(Integer checklistId) {
 		this.checklistId = checklistId;
 	}
 
@@ -58,7 +57,7 @@ public class Checklist {
 		this.name = name;
 	}
 
-	public void setPercentage(double percentage) {
+	public void setPercentage(Double percentage) {
 		this.percentage = percentage;
 	}
 
@@ -69,4 +68,5 @@ public class Checklist {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
 }

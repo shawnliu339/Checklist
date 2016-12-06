@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
 @Entity
 @Table(name = "checkitem")
 public class Checkitem {
@@ -19,7 +17,10 @@ public class Checkitem {
 	private String content;
 	private Integer relatedItemId;
 	private Integer relatedGoalId;
+	private String Descrition;
+	private String typicalDeliverables;
 	private Set<CheckitemStatus> checkitemstatus;
+//	private Item item;
 
 	@Id
 	@GeneratedValue
@@ -28,7 +29,6 @@ public class Checkitem {
 		return checkitemId;
 	}
 
-	@Type(type = "text")
 	@Column(name = "content")
 	public String getContent() {
 		return content;
@@ -44,11 +44,27 @@ public class Checkitem {
 		return relatedGoalId;
 	}
 
+	@Column(name = "description")
+	public String getDescrition() {
+		return Descrition;
+	}
+
+	@Column(name = "typical_deliverables")
+	public String getTypicalDeliverables() {
+		return typicalDeliverables;
+	}
+
 	@OneToMany(mappedBy = "checkitem")
 	public Set<CheckitemStatus> getCheckitemstatus() {
 		return checkitemstatus;
 	}
-
+/*
+	@ManyToOne
+	@Column(name = "item_id")
+	public Item getItem() {
+		return item;
+	}
+*/
 	public void setCheckitemId(Integer checkitemId) {
 		this.checkitemId = checkitemId;
 	}
@@ -64,8 +80,19 @@ public class Checkitem {
 	public void setRelatedGoalId(Integer relatedGoalId) {
 		this.relatedGoalId = relatedGoalId;
 	}
+	public void setDescrition(String descrition) {
+		Descrition = descrition;
+	}
 
+	public void setTypicalDeliverables(String typicalDeliverables) {
+		this.typicalDeliverables = typicalDeliverables;
+	}
 	public void setCheckitemstatus(Set<CheckitemStatus> checkitemstatus) {
 		this.checkitemstatus = checkitemstatus;
 	}
+/*
+	public void setItem(Item item) {
+		this.item = item;
+	}
+*/
 }
