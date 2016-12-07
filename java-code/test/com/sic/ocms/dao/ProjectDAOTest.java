@@ -15,9 +15,7 @@ public class ProjectDAOTest {
 
 		ProjectDAO dao = (ProjectDAO) ctx.getBean("projectDAO");
 		Project prj = new Project();
-		prj.setName("ocms");
-		prj.setPrjId(1);
-		dao.add(prj);
+		dao.delete(2);
 		ctx.destroy();
 
 	}
