@@ -115,13 +115,14 @@ public class ItemDAOTest {
 
 		List<ChecklistDTO> table = new ArrayList<ChecklistDTO>();
 
-
+		//最小単位であるcheckitemlistから挿入していく
 		for(Checkitem citem:citemlist){
 			ChecklistDTO row = new ChecklistDTO();
 			row.setCheckitem_content(citem.getContent());
 			row.setDescription(citem.getDescrition());
 			row.setTypical_deliverables(citem.getTypicalDeliverables());
 			row.setCheckitem_content_id(citem.getCheckitemId());
+			//次にCheckitemsStatus
 			for(CheckitemStatus cs:csitemlist){
 				if(citem.getCheckitemId()==cs.getCheckitem().getCheckitemId()){
 					row.setStatus(cs.getStatus());
@@ -130,6 +131,7 @@ public class ItemDAOTest {
 					row.setPrjtype(cs.getPrjtype());
 					row.setImportance(cs.getImportance());
 					Item itm = cs.getItem();
+					//最後にItem
 					for(Item g3:itemlist){
 						if(g3.getItemId()==itm.getItemId()){
 							row.setGroup3_name(g3.getName());
