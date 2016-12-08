@@ -3,6 +3,7 @@ package com.sic.ocms.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,6 +22,7 @@ public class ItemDAOTest {
 		 ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 	}
 	
+	@AfterClass
 	public static void afterClass() {
 
 		ctx.destroy();
@@ -49,7 +51,7 @@ public class ItemDAOTest {
 	public void testDelete() {
 		
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
-		dao.delete(2);
+		dao.delete(7);
 		
 	}
 
@@ -57,6 +59,9 @@ public class ItemDAOTest {
 	public void testLoad() {
 		
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
+		Item itm = dao.load(15);
+		System.out.println(itm);
+		
 	}
 
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<!-- ======================================================================= -->
+	<!-- Spring的相关配置 -->
+	<!-- Configuration of Spring -->
+
+	<!-- 以注解的方式注入数据 -->
+	<!-- use Spring's annotation to inject data -->
+	<context:annotation-config />
+
+	<!-- 扫描所有包中的组件 -->
+	<!-- scan all the packages -->
+	<context:component-scan base-package="com.sic" />
+
+	<!-- 引入外部连接池属性文件 -->
+	<!-- import external property's file of connection pool -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<!-- 配置C3P0连接池: -->
+	<!-- configure C3P0 connection pool: -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+<!-- ======================================================================= -->
+	<!-- Hibernate的相关配置 -->
+	<!-- Configuration of Hibernate -->
+
+	<!-- Session工厂的配置 -->
+	<!-- Configuration of Session Factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 注入连接池 -->
+		<!-- inject connection pool -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 配置Hibernate的其他的属性 -->
+		<!-- configure another properties of Hibernate -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- Automatically create or update database according to classes. -->
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+			</props>
+		</property>
+		<!-- 扫描需要被映射的实体类 -->
+		<!-- scan Entity Classes which need to be mapped. -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.sic.ocms</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<!-- configure of transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置事务传播属性 -->
+	<!-- configure propogation of transaction -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!--hibernate4必须配置为开启事务,否则 getCurrentSession()获取不到 -->
+			<tx:method name="list*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="do*" propagation="REQUIRED" />
+			<tx:method name="megor*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="execute*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="new*" propagation="REQUIRED" />
+			<tx:method name="set*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="change*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置事务切面 -->
+	<!-- configure aspect of transaction -->
+	<aop:config>
+		<!-- AspectJ语法，第一个*表示方法返回值，..表示有子包，第二个*表示该包下任意类，第三个*表示任意方法，(..)表示任意参数 -->
+		<!--  <aop:pointcut id="serviceOperation" expression="execution(* com.ncut.wms.*.service.*.*(..))" />-->
+		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
+		<!--  <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />-->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
+	</aop:config>
+</beans>

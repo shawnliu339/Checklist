@@ -38,8 +38,7 @@ public class Checklist {
 		return percentage;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "checklist_id")
+	@OneToMany(mappedBy = "checklist")
 	public Set<Item> getItems() {
 		return items;
 	}

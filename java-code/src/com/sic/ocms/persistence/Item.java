@@ -24,7 +24,8 @@ public class Item {
 	private Double percentage;
 	private Item parent;
 	private Set<Item> children = new HashSet<>();
-	private Set<Checkitem> checkitems;
+	private Set<Checkitem> checkitems = new HashSet<>();
+	private Checklist checklist;
 
 	@Id
 	@GeneratedValue
@@ -63,6 +64,11 @@ public class Item {
 		return checkitems;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "checklist_id")
+	public Checklist getChecklist() {
+		return checklist;
+	}
 
 	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
@@ -87,4 +93,9 @@ public class Item {
 	public void setCheckitems(Set<Checkitem> checkitems) {
 		this.checkitems = checkitems;
 	}
+
+	public void setChecklist(Checklist checklist) {
+		this.checklist = checklist;
+	}
+
 }
