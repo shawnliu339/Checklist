@@ -13,22 +13,50 @@ public class ItemDAOTest {
 
 
 	@Test
-	public void testSave() throws Exception {
+	public void testSave() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
 
 		List<Item> itemlist = new ArrayList<Item>();
-		itemlist=dao.list("select itemId,name from Item u where 1=1");
+		itemlist=dao.list("from Item");
 
-		for(Item item:itemlist){
-			System.out.println(item.getName());
+
+		Item root = new Item();
+
+		for(Item item : itemlist){
+			if(item.getItemId()==item.getParent().getItemId()){
+				root=item;
+				System.out.println(root.getName());
+			}
 		}
+		for(Item item : root.getChildren()){
+			if(item.getItemId()!=item.getParent().getItemId()){
+				System.out.println("+--"+item.getName());
+				for(Item child: item.getChildren()){
+					System.out.println(" +--"+child.getName());
+				}
+			}
+		}
+
+		printChildren(root);
+
 
 
 		ctx.destroy();
+	}
+
+	public void printChildren(Item item){
+		if(item == null)return;
+		System.out.println(item.getName());
+//		for(Item i: item.getChildren()){
+			printChildren(i);
+//		}
+
 
 	}
+
+
 
 }
