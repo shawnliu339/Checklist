@@ -16,7 +16,7 @@ public class ChecklistDTO {
 
 	//hidden
 	private Integer group1_id;
-	private Integer checkitem_conent_id;
+	private Integer checkitem_content_id;
 
 	//detagrid field
 	private int page;
@@ -98,11 +98,11 @@ public class ChecklistDTO {
 	public void setGroup1_id(Integer group1_id) {
 		this.group1_id = group1_id;
 	}
-	public Integer getCheckitem_conent_id() {
-		return checkitem_conent_id;
+	public Integer getCheckitem_content_id() {
+		return checkitem_content_id;
 	}
-	public void setCheckitem_conent_id(Integer checkitem_conent_id) {
-		this.checkitem_conent_id = checkitem_conent_id;
+	public void setCheckitem_content_id(Integer checkitem_conent_id) {
+		this.checkitem_content_id = checkitem_conent_id;
 	}
 	public int getPage() {
 		return page;
