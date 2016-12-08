@@ -40,7 +40,7 @@ public class ItemDAOTest {
 			}
 		}
 
-		printChildren(root);
+		//printChildren(root);
 
 
 
@@ -48,12 +48,6 @@ public class ItemDAOTest {
 	}
 
 	public void printChildren(Item item){
-		if(item == null)return;
-		System.out.println(item.getName());
-//		for(Item i: item.getChildren()){
-			printChildren(i);
-//		}
-
 
 	}
 
