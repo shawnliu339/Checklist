@@ -1,5 +1,6 @@
 package com.sic.ocms.persistence;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,8 +27,8 @@ public class Item {
 	private String name;
 	private Double percentage;
 	private Item parent;
-	private Set<Item> children;
-	private Set<Checkitem> checkitems;
+	private Set<Item> children = new HashSet<>();
+	private Set<Checkitem> checkitems = new HashSet<>();
 	private Checklist checklist;
 
 	@Id
@@ -102,4 +103,5 @@ public class Item {
 	public void setChecklist(Checklist checklist) {
 		this.checklist = checklist;
 	}
+
 }
