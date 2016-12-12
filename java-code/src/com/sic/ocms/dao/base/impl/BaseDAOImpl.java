@@ -16,9 +16,9 @@ import com.sic.ocms.dao.base.BaseDAO;
 
 @SuppressWarnings("unchecked")
 public class BaseDAOImpl<T> implements BaseDAO<T> {
-	
+
 	private SessionFactory sessionFactory;
-	
+
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -36,7 +36,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	@Override
 	public void update(T t) {
 		this.getSession().update(t);
-		
+
 	}
 
 	private Class<T> cls;
@@ -47,12 +47,12 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 		}
 		return cls;
 	}
-	
+
 	@Override
 	public T load(int id) {
 		return (T)this.getSession().get(this.getCls(), id);
 	}
-	
+
 	@Override
 	public T load(String id) {
 		return (T) this.getSession().get(this.getCls(), id);
@@ -132,7 +132,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	@Override
 	public void merge(T t) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
