@@ -3,8 +3,6 @@ package com.sic.ocms.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -104,16 +102,13 @@ public class ItemDAOTest {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		ItemDAO idao = (ItemDAO) ctx.getBean("itemDAO");
-		List<Item> itemlist = new ArrayList<Item>();
-		itemlist=idao.list("from Item");
+		List<Item> itemlist = idao.list("from Item");
 
 		CheckitemDAO cidao = (CheckitemDAO) ctx.getBean("checkitemDAO");
-		List<Checkitem> citemlist = new ArrayList<Checkitem>();
-		citemlist=cidao.list("from Checkitem");
+		List<Checkitem> citemlist = cidao.list("from Checkitem");
 
 		CheckitemStatusDAO csdao =(CheckitemStatusDAO) ctx.getBean("checkitemstatusDAO");
-		List<CheckitemStatus> csitemlist = new ArrayList<CheckitemStatus>();
-		csitemlist=csdao.list("from CheckitemStatus");
+		List<CheckitemStatus> csitemlist = csdao.list("from CheckitemStatus");
 
 		List<ChecklistDTO> table = new ArrayList<ChecklistDTO>();
 
@@ -163,22 +158,11 @@ public class ItemDAOTest {
 			System.out.printf("%-30s\t%-30s\t%-30s\t%-25s\t%-8s\t%-8s\t%-8d\t%-8d\t%-8d\t%-8d\t%-8d\n",dto.getGroup1_name(),dto.getGroup2_name(),dto.getGroup3_name(),dto.getCheckitem_content(),dto.getDescription(),dto.getTypical_deliverables(),dto.getStatus(),dto.getProblem(),dto.getComment(),dto.getPrjtype(),dto.getImportance());
 		}
 
-/*
-		for(Item item:itemlist){
-			System.out.println(item.getName());
-		}
-		for(Checkitem citem:citemlist){
-			System.out.println(citem.getContent());
-		}
-		for(CheckitemStatus csitem:csitemlist){
-			System.out.println(csitem.getStatus());
-		}
-*/
 
 
 		ctx.destroy();
 	}
-
+/*
 	private static ClassPathXmlApplicationContext ctx;
 
 	@BeforeClass
@@ -228,5 +212,5 @@ public class ItemDAOTest {
 		System.out.println(itm);
 
 	}
-
+*/
 }
