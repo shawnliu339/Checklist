@@ -1,6 +1,8 @@
 package com.sic.ocms.dto;
 
 public class ChecklistDO {
+	
+	//今の命名はデータベースの命名なので、コーディングルールをもう一度、確認して、そして、そのルールを基づいて、直してください。
 	//not hidden
 	private String group1_name;
 	private String group2_name;

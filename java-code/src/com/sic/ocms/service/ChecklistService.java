@@ -16,17 +16,22 @@ import com.sic.ocms.util.easyui.DataGrid;
 
 public class ChecklistService {
 	private DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
+	
+	//SpringのAnnotationを使って、Injectionするので、これいらない。
 	private ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
+	//SpringのAnnotationを使って
 	private ItemDAO idao = (ItemDAO) ctx.getBean("itemDAO");;
 	private CheckitemDAO cidao = (CheckitemDAO) ctx.getBean("checkitemDAO");;
 	private CheckitemStatusDAO csdao =(CheckitemStatusDAO) ctx.getBean("checkitemstatusDAO");;
 
+	//したは全部業務ロジックなので、関数に入れてください。
 	private List<Item> itemlist = idao.list("from Item");
 	private List<Checkitem> citemlist = cidao.list("from Checkitem");
 	private List<CheckitemStatus> citemslist = csdao.list("from CheckitemStatus");
 
 
+	//この関数をテストパッケージでテストしてください。
 	public DataGrid<ChecklistDO> getDataGrid(){
 
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
