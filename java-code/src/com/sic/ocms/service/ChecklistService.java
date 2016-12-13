@@ -34,10 +34,10 @@ public class ChecklistService {
 		//最小単位であるcheckitemlistから挿入していく
 		for(Checkitem citem:citemlist){
 			ChecklistDO row = new ChecklistDO();
-			row.setCheckitem_content(citem.getContent());
+			row.setCheckitemContent(citem.getContent());
 			row.setDescription(citem.getDescrition());
-			row.setTypical_deliverables(citem.getTypicalDeliverables());
-			row.setCheckitem_content_id(citem.getCheckitemId());
+			row.setTypicalDeliverables(citem.getTypicalDeliverables());
+			row.setCheckitemContentId(citem.getCheckitemId());
 			//次にCheckitemsStatus
 			for(CheckitemStatus cs:citemslist){
 				if(citem.getCheckitemId()==cs.getCheckitem().getCheckitemId()){
@@ -50,14 +50,14 @@ public class ChecklistService {
 					//最後にItem
 					for(Item g3:itemlist){
 						if(g3.getItemId()==itm.getItemId()){
-							row.setGroup3_name(g3.getName());
+							row.setGroup3Name(g3.getName());
 							for(Item g2:itemlist){
 								if(g2.getItemId()==g3.getParent().getItemId()){
-									row.setGroup2_name(g2.getName());
+									row.setGroup2Name(g2.getName());
 									for(Item g1:itemlist){
 										if(g1.getItemId()==g2.getParent().getItemId()){
-											row.setGroup1_id(g1.getItemId());
-											row.setGroup1_name(g1.getName());
+											row.setGroup1Id(g1.getItemId());
+											row.setGroup1Name(g1.getName());
 										}
 									}
 								}
@@ -83,7 +83,7 @@ public class ChecklistService {
 		for(ChecklistDO cldto:table){
 			for(CheckitemStatus cs:citemslist){
 				//同じIDかつステータスまたはコメントが変更されているならアップデート
-				if(cldto.getCheckitem_content_id()==cs.getCheckItemStatusId() && (cldto.getStatus()!=cs.getStatus() || cldto.getComment()!=cs.getComment())){
+				if(cldto.getCheckitemContentId()==cs.getCheckItemStatusId() && (cldto.getStatus()!=cs.getStatus() || cldto.getComment()!=cs.getComment())){
 					cs.setStatus(cldto.getStatus());
 					cs.setComment(cldto.getComment());
 					csdao.update(cs);
