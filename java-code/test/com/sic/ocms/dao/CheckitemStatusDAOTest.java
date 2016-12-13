@@ -1,12 +1,12 @@
 package com.sic.ocms.dao;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sic.ocms.dao.checkitem.status.CheckitemStatusDAO;
-import com.sic.ocms.persistence.Checkitem;
 import com.sic.ocms.persistence.CheckitemStatus;
-import com.sic.ocms.persistence.Item;
 
 public class CheckitemStatusDAOTest {
 
@@ -16,21 +16,22 @@ public class CheckitemStatusDAOTest {
 
 
 		CheckitemStatusDAO dao = (CheckitemStatusDAO) ctx.getBean("checkitemstatusDAO");
+		List<CheckitemStatus> csitemlist = dao.list("from CheckitemStatus");
+
 		CheckitemStatus cs = new CheckitemStatus();
-		Checkitem si = new Checkitem();
-		Item itm = new Item();
-		itm.setItemId(5);
-//		si.setCheckitemId(1);
-//		cs.setStatus(1);
-//		cs.setComment("test");
-//		cs.setDeliverables("test");
-//		cs.setPrjtype(1);
-//		cs.setImportance(1);
-//		cs.setDescription("test");
-//		cs.setHistory(null);
-//		cs.setProblem(0);
-//		cs.setCheckitem(si);
-		dao.add(cs);
+
+		cs.setCheckItemStatusId(45);
+		cs.setStatus(0);
+		cs.setComment("test");
+
+		for(CheckitemStatus cis:csitemlist){
+			if(cis.getCheckItemStatusId()==cs.getCheckItemStatusId()){
+				cis.setStatus(cs.getStatus());
+				cis.setComment(cs.getComment());
+				dao.update(cis);
+			}
+		}
+
 		ctx.destroy();
 
 	}

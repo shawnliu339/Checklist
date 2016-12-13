@@ -1,6 +1,6 @@
 package com.sic.ocms.dto;
 
-public class ChecklistDTO {
+public class ChecklistDO {
 	//not hidden
 	private String group1_name;
 	private String group2_name;
@@ -18,12 +18,7 @@ public class ChecklistDTO {
 	private Integer group1_id;
 	private Integer checkitem_content_id;
 
-	//detagrid field
-	private int page;
-	private int rows;
-	private String order;
-	private String sort;
-	private String ids;
+
 
 
 	public String getGroup1_name() {
@@ -104,36 +99,7 @@ public class ChecklistDTO {
 	public void setCheckitem_content_id(Integer checkitem_conent_id) {
 		this.checkitem_content_id = checkitem_conent_id;
 	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
-	public int getRows() {
-		return rows;
-	}
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-	public String getOrder() {
-		return order;
-	}
-	public void setOrder(String order) {
-		this.order = order;
-	}
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-	public String getIds() {
-		return ids;
-	}
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
+
 
 
 
