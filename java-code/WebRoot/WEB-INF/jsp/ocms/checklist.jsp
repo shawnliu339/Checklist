@@ -36,67 +36,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 */
 			$('#commodityTable').datagrid({
 				
-				idField:'commodityId',
+				idField:'group1Id',
 				//ajax异步后台请求
 				url: 'commodityAction_getDatagrid',
 				fit: true,
 				//自动列间距
 				fitColumns: false,
-				border: false,
+				border: true,
 				//分页查询
-				pagination: true,
+				pagination: false,
 				//加载等待提示
 				loadMsg:'数据正在加载中，请耐心等待…',
 				//列内容
 				columns:[[
 				    {
+				    	title:'主キー',
+						field:'group1Id',
+						width:100,
+						hidden:true,
+				    },{
 				    	title:'関心領域',
-						field:'commodityId',
+						field:'group1Name',
 						width:100,
 				    },{
 						title:'アルファ',
-						field:'commodityName',
+						field:'group2Name',
 						width:100,
 					},{
 						title:'ステータス',
-						field:'commodityType',
+						field:'group3Name',
 						width:100
 					},{
 						title:'チェック項目',
-						field:'categoryName',
+						field:'checkitemContent',
 						width:100,
-					},{
-						title:'チェック項目',
-						field:'categoryName',
-						width:100,
-						hidden:true,
 					},{
 						title:'補足説明',
-						field:'unitName',
+						field:'description',
 						width:100,
 					},{
 						title:'成果物',
-						field:'salePrice',
+						field:'typicalDeliverables',
 						width:100,
 					},{
+				    	title:'チェック項目の状態のId',
+						field:'checkitemStatusId',
+						width:100,
+						hidden:true,
+				    },{
 						title:'ステータス',
-						field:'vip1Price',
+						field:'status',
 						width:100,
 					},{
 						title:'不遵守事項有無',
-						field:'vip2Price',
+						field:'problem',
 						width:100,
 					},{
 						title:'コメント記入',
-						field:'vip3Price',
+						field:'comment',
 						width:100,
 					},{
 						title:'prjタイプ',
-						field:'minimum',
+						field:'prjtype',
 						width:100,
 					},{
 						title:'重要度',
-						field:'remark',
+						field:'importance',
 						width:270
 					}
 				]],

@@ -3,29 +3,70 @@ package com.sic.ocms.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sic.ocms.dao.checkitem.CheckitemDAO;
 import com.sic.ocms.dao.checkitem.status.CheckitemStatusDAO;
 import com.sic.ocms.dao.item.ItemDAO;
-import com.sic.ocms.dto.ChecklistDTO;
+import com.sic.ocms.dto.ChecklistDO;
 import com.sic.ocms.persistence.Checkitem;
 import com.sic.ocms.persistence.CheckitemStatus;
 import com.sic.ocms.persistence.Item;
 
 public class ItemDAOTest {
-/*
-	@Test
-	public void testSave() throws Exception{
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
+	
+	private static ClassPathXmlApplicationContext ctx;
+
+	@BeforeClass
+	public static void beforeClass() {
+		
+		 ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+
 		ctx.destroy();
 	}
-*/
+	
+	public void testSave() throws Exception {
 
-/*
-	@Test
+		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
+		Item itm = new Item();
+		Item itm1 = new Item();
+		Item itm2 = new Item();
+		
+		itm.setName("顧客");
+		itm1.setName("機会");
+		itm2.setName("ステークホルダー");
+		
+		itm.getChildren().add(itm1);
+		itm.getChildren().add(itm2);
+		
+		itm1.setParent(itm);
+		itm2.setParent(itm);
+		
+		dao.add(itm);
+	}
+	
+	public void testDelete() {
+		
+		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
+		dao.delete(7);
+		
+	}
+
+	public void testLoad() {
+		
+		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
+		Item itm = dao.load(15);
+		System.out.println(itm);
+	}
+		
+
 	public void testPrint1() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -49,9 +90,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-*/
-/*
-	@Test
+	
 	public void testPrint2() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -73,9 +112,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-*/
-/*
-	@Test
+	
 	public void testPrint3() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -95,9 +132,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-*/
 
-	@Test
 	public void testView() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -110,11 +145,11 @@ public class ItemDAOTest {
 		CheckitemStatusDAO csdao =(CheckitemStatusDAO) ctx.getBean("checkitemstatusDAO");
 		List<CheckitemStatus> csitemlist = csdao.list("from CheckitemStatus");
 
-		List<ChecklistDTO> table = new ArrayList<ChecklistDTO>();
+		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
 		//最小単位であるcheckitemlistから挿入していく
 		for(Checkitem citem:citemlist){
-			ChecklistDTO row = new ChecklistDTO();
+			ChecklistDO row = new ChecklistDO();
 			row.setCheckitem_content(citem.getContent());
 			row.setDescription(citem.getDescrition());
 			row.setTypical_deliverables(citem.getTypicalDeliverables());
@@ -154,7 +189,7 @@ public class ItemDAOTest {
 
 
 		System.out.printf("%-30s\t%-30s\t%-30s\t%-30s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\n","グループ1","グループ2","グループ3","チェック項目","補足説明","成果物","ステータス","不遵守事項","コメント","Prjタイプ","重要度");
-		for(ChecklistDTO dto:table){
+		for(ChecklistDO dto:table){
 			System.out.printf("%-30s\t%-30s\t%-30s\t%-25s\t%-8s\t%-8s\t%-8d\t%-8d\t%-8d\t%-8d\t%-8d\n",dto.getGroup1_name(),dto.getGroup2_name(),dto.getGroup3_name(),dto.getCheckitem_content(),dto.getDescription(),dto.getTypical_deliverables(),dto.getStatus(),dto.getProblem(),dto.getComment(),dto.getPrjtype(),dto.getImportance());
 		}
 
@@ -162,55 +197,5 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-/*
-	private static ClassPathXmlApplicationContext ctx;
 
-	@BeforeClass
-	public static void beforeClass() {
-
-		 ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-	}
-
-	@AfterClass
-	public static void afterClass() {
-
-		ctx.destroy();
-	}
-
-	public void testSave() throws Exception {
-
-		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
-		Item itm = new Item();
-		Item itm1 = new Item();
-		Item itm2 = new Item();
-
-		itm.setName("顧客");
-		itm1.setName("機会");
-		itm2.setName("ステークホルダー");
-
-		itm.getChildren().add(itm1);
-		itm.getChildren().add(itm2);
-
-		itm1.setParent(itm);
-		itm2.setParent(itm);
-
-		dao.add(itm);
-	}
-
-	public void testDelete() {
-
-		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
-		dao.delete(7);
-
-	}
-
-	@Test
-	public void testLoad() {
-
-		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
-		Item itm = dao.load(15);
-		System.out.println(itm);
-
-	}
-*/
 }
