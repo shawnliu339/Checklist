@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				idField:'group1Id',
 				//ajax异步后台请求
-				url: 'commodityAction_getDatagrid',
+				url: 'checklist_getDatagrid',
 				fit: true,
 				//自动列间距
 				fitColumns: false,
