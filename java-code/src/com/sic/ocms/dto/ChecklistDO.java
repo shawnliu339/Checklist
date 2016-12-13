@@ -1,15 +1,14 @@
 package com.sic.ocms.dto;
 
 public class ChecklistDO {
-	
-	//今の命名はデータベースの命名なので、コーディングルールをもう一度、確認して、そして、そのルールを基づいて、直してください。
+
 	//not hidden
-	private String group1_name;
-	private String group2_name;
-	private String group3_name;
-	private String checkitem_content;
+	private String group1Name;
+	private String group2Name;
+	private String group3Name;
+	private String checkitemContent;
 	private String description;
-	private String typical_deliverables;
+	private String typicalDeliverables;
 	private Integer status;
 	private Integer problem;
 	private String comment;
@@ -17,93 +16,94 @@ public class ChecklistDO {
 	private Integer importance;
 
 	//hidden
-	private Integer group1_id;
-	//名前問題がある。checkitemStatusIdのほうがいい
-	private Integer checkitem_content_id;
+	private Integer group1Id;
+	private Integer checkitemStatusId;
 
 
-
-
-	public String getGroup1_name() {
-		return group1_name;
+	public String getGroup1Name() {
+		return group1Name;
 	}
-	public void setGroup1_name(String group1_name) {
-		this.group1_name = group1_name;
+	public String getGroup2Name() {
+		return group2Name;
 	}
-	public String getGroup2_name() {
-		return group2_name;
+	public String getGroup3Name() {
+		return group3Name;
 	}
-	public void setGroup2_name(String group2_name) {
-		this.group2_name = group2_name;
-	}
-	public String getGroup3_name() {
-		return group3_name;
-	}
-	public void setGroup3_name(String group3_name) {
-		this.group3_name = group3_name;
-	}
-	public String getCheckitem_content() {
-		return checkitem_content;
-	}
-	public void setCheckitem_content(String checkitem_content) {
-		this.checkitem_content = checkitem_content;
+	public String getCheckitemContent() {
+		return checkitemContent;
 	}
 	public String getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getTypical_deliverables() {
-		return typical_deliverables;
-	}
-	public void setTypical_deliverables(String typical_deliverables) {
-		this.typical_deliverables = typical_deliverables;
+	public String getTypicalDeliverables() {
+		return typicalDeliverables;
 	}
 	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 	public Integer getProblem() {
 		return problem;
-	}
-	public void setProblem(Integer problem) {
-		this.problem = problem;
 	}
 	public String getComment() {
 		return comment;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
 	public Integer getPrjtype() {
 		return prjtype;
-	}
-	public void setPrjtype(Integer prjtype) {
-		this.prjtype = prjtype;
 	}
 	public Integer getImportance() {
 		return importance;
 	}
+	public Integer getGroup1Id() {
+		return group1Id;
+	}
+	public Integer getCheckitemStatusId() {
+		return checkitemStatusId;
+	}
+	public void setGroup1Name(String group1Name) {
+		this.group1Name = group1Name;
+	}
+	public void setGroup2Name(String group2Name) {
+		this.group2Name = group2Name;
+	}
+	public void setGroup3Name(String group3Name) {
+		this.group3Name = group3Name;
+	}
+	public void setCheckitemContent(String checkitemContent) {
+		this.checkitemContent = checkitemContent;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public void setTypicalDeliverables(String typicalDeliverables) {
+		this.typicalDeliverables = typicalDeliverables;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public void setProblem(Integer problem) {
+		this.problem = problem;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public void setPrjtype(Integer prjtype) {
+		this.prjtype = prjtype;
+	}
 	public void setImportance(Integer importance) {
 		this.importance = importance;
 	}
-	public Integer getGroup1_id() {
-		return group1_id;
+	public void setGroup1Id(Integer group1Id) {
+		this.group1Id = group1Id;
 	}
-	public void setGroup1_id(Integer group1_id) {
-		this.group1_id = group1_id;
+	public void setCheckitemStatusId(Integer checkitemStatusId) {
+		this.checkitemStatusId = checkitemStatusId;
 	}
-	public Integer getCheckitem_content_id() {
-		return checkitem_content_id;
+	@Override
+	public String toString() {
+		return "ChecklistDO [group1Name=" + group1Name + ", group2Name=" + group2Name + ", group3Name=" + group3Name
+				+ ", checkitemContent=" + checkitemContent + ", description=" + description + ", typicalDeliverables="
+				+ typicalDeliverables + ", status=" + status + ", problem=" + problem + ", comment=" + comment
+				+ ", prjtype=" + prjtype + ", importance=" + importance + ", group1Id=" + group1Id
+				+ ", checkitemStatusId=" + checkitemStatusId + "]";
 	}
-	public void setCheckitem_content_id(Integer checkitem_conent_id) {
-		this.checkitem_content_id = checkitem_conent_id;
-	}
-
-
-
-
 }

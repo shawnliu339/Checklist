@@ -1,28 +1,31 @@
 package com.sic.ocms.service;
 
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.sic.ocms.persistence.CheckitemStatus;
+import com.sic.ocms.dto.ChecklistDO;
+import com.sic.ocms.util.easyui.DataGrid;
 
 public class ChecklistServiceTest {
 
 
 	@Test
-	public void test() throws Exception{
+	public void testCheckitem() throws Exception{
 
-		ChecklistService cs = new ChecklistService();
-		CheckitemStatus cis = new CheckitemStatus();
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
 
 
-		cis.setCheckItemStatusId(45);
-		cis.setStatus(1);
-		cis.setComment("");
+		DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
 
-		cs.changeCheckitemStatus(cis);
+		dg=cs.getDataGrid();
+
+
+		for(ChecklistDO csd : dg.getRows()) {
+			System.out.println(csd.toString());
+		}
+
 
 	}
-
-
-
-
 }
