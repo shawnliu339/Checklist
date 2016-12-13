@@ -18,6 +18,7 @@ public class ChecklistDO {
 
 	//hidden
 	private Integer group1_id;
+	//名前問題がある。checkitemStatusIdのほうがいい
 	private Integer checkitem_content_id;
 
 

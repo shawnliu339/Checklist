@@ -11,7 +11,7 @@
 	<constant name="struts.objectFactory" value="spring"></constant>
     <package name="shop" extends="struts-default" namespace="/">
 
-		<action name="checklist_*" class="checklist" method="{1}">
+		<action name="checklist_*" class="checklistAction" method="{1}">
 			<result name="show">/WEB-INF/jsp/ocms/checklist.jsp</result>
 		</action>
 
