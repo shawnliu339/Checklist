@@ -2,7 +2,6 @@ package com.sic.ocms.dto;
 
 public class ChecklistDO {
 
-	//今の命名はデータベースの命名なので、コーディングルールをもう一度、確認して、そして、そのルールを基づいて、直してください。
 	//not hidden
 	private String group1Name;
 	private String group2Name;
@@ -18,8 +17,7 @@ public class ChecklistDO {
 
 	//hidden
 	private Integer group1Id;
-	private Integer checkitemContentId;
-
+	private Integer checkitemStatusId;
 
 
 	public String getGroup1Name() {
@@ -58,8 +56,8 @@ public class ChecklistDO {
 	public Integer getGroup1Id() {
 		return group1Id;
 	}
-	public Integer getCheckitemContentId() {
-		return checkitemContentId;
+	public Integer getCheckitemStatusId() {
+		return checkitemStatusId;
 	}
 	public void setGroup1Name(String group1Name) {
 		this.group1Name = group1Name;
@@ -97,13 +95,15 @@ public class ChecklistDO {
 	public void setGroup1Id(Integer group1Id) {
 		this.group1Id = group1Id;
 	}
-	public void setCheckitemContentId(Integer checkitemContentId) {
-		this.checkitemContentId = checkitemContentId;
+	public void setCheckitemStatusId(Integer checkitemStatusId) {
+		this.checkitemStatusId = checkitemStatusId;
 	}
-
-
-
-
-
-
+	@Override
+	public String toString() {
+		return "ChecklistDO [group1Name=" + group1Name + ", group2Name=" + group2Name + ", group3Name=" + group3Name
+				+ ", checkitemContent=" + checkitemContent + ", description=" + description + ", typicalDeliverables="
+				+ typicalDeliverables + ", status=" + status + ", problem=" + problem + ", comment=" + comment
+				+ ", prjtype=" + prjtype + ", importance=" + importance + ", group1Id=" + group1Id
+				+ ", checkitemStatusId=" + checkitemStatusId + "]";
+	}
 }
