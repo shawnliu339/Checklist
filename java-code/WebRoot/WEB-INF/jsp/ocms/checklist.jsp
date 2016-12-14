@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/default/easyui.css" />
 	<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/icon.css" />
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.edatagrid.js"></script>
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/common2.css" />
@@ -47,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				pagination: false,
 				//加载等待提示
 				loadMsg:'数据正在加载中，请耐心等待…',
+				singleSelect: true,
 				//列内容
 				columns:[[
 				    {
@@ -87,10 +89,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title:'ステータス',
 						field:'status',
 						width:100,
+						editor:{
+							type:'combobox',
+							options:{
+							 	valueField:'storageId',
+                                textField:'storageName',
+                                required:true
+							}
+						}
 					},{
 						title:'不遵守事項有無',
 						field:'problem',
 						width:100,
+						editor:{
+							type:'combobox',
+							options:{
+							 	valueField:'storageId',
+                                textField:'storageName',
+                                required:true
+							}
+						}
 					},{
 						title:'コメント記入',
 						field:'comment',
