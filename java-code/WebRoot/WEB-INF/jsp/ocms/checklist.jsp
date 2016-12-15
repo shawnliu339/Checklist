@@ -76,10 +76,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title:'補足説明',
 						field:'description',
 						width:100,
+						editor:{
+							type:'textarea',
+							
+						}
 					},{
 						title:'成果物',
 						field:'typicalDeliverables',
 						width:100,
+						editor:{
+							type:'textarea',
+							
+						}
 					},{
 				    	title:'チェック項目の状態のId',
 						field:'checkitemStatusId',
@@ -89,30 +97,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title:'ステータス',
 						field:'status',
 						width:100,
+						formatter:function(value){
+							
+							var text = 'NO';
+							if(value==1)
+								text = 'YES';
+							if(value==0)
+								text = 'NO';
+							return text;	
+						},
 						editor:{
 							type:'combobox',
 							options:{
-							 	valueField:'storageId',
-                                textField:'storageName',
-                                required:true
+								valueField: 'value',
+								textField: 'text',
+								
+								data: [{
+									value: '1',
+									text: 'YES'
+								},{
+									value: '0',
+									text: 'NO'
+								}]
 							}
 						}
 					},{
 						title:'不遵守事項有無',
 						field:'problem',
 						width:100,
+						formatter:function(value){
+							
+							var text = 'NO';
+							if(value==1)
+								text = 'YES';
+							if(value==0)
+								text = 'NO';
+							return text;	
+						},
 						editor:{
 							type:'combobox',
 							options:{
-							 	valueField:'storageId',
-                                textField:'storageName',
-                                required:true
+								valueField: 'value',
+								textField: 'text',
+								data: [{
+									value: '1',
+									text: 'YES'
+								},{
+									value: '0',
+									text: 'NO'
+								}]
 							}
 						}
 					},{
 						title:'コメント記入',
 						field:'comment',
 						width:100,
+						editor:{
+							type:'textarea',
+							
+						}
 					},{
 						title:'prjタイプ',
 						field:'prjtype',
