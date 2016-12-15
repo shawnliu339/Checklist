@@ -31,7 +31,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-
+	
 	@Test
 	public void testSave() throws Exception {
 
@@ -39,17 +39,34 @@ public class ItemDAOTest {
 		Item itm = new Item();
 		Item itm1 = new Item();
 		Item itm2 = new Item();
+		Item itm11 = new Item();
+		Item itm12 = new Item();
+		Item itm21 = new Item();
+		Item itm22 = new Item();
+		
 
 		itm.setName("顧客");
 		itm1.setName("機会");
+		itm11.setName("課題の識別");
+		itm12.setName("解決策の方向");
 		itm2.setName("ステークホルダー");
-
+		itm21.setName("関係者の特定");
+		itm22.setName("代表者の選定");
+		
 		itm.getChildren().add(itm1);
+		itm1.getChildren().add(itm11);
+		itm1.getChildren().add(itm12);
 		itm.getChildren().add(itm2);
-
+		itm2.getChildren().add(itm21);
+		itm2.getChildren().add(itm22);
+		
 		itm1.setParent(itm);
+		itm11.setParent(itm1);
+		itm12.setParent(itm1);
 		itm2.setParent(itm);
-
+		itm21.setParent(itm2);
+		itm22.setParent(itm2);
+		
 		dao.add(itm);
 	}
 
@@ -134,7 +151,7 @@ public class ItemDAOTest {
 		ctx.destroy();
 	}
 
-	public void testView() throws Exception{
+/*	public void testView() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		ItemDAO idao = (ItemDAO) ctx.getBean("itemDAO");
@@ -197,6 +214,6 @@ public class ItemDAOTest {
 
 
 		ctx.destroy();
-	}
+	}*/
 
 }
