@@ -17,15 +17,15 @@ import com.sic.ocms.persistence.CheckitemStatus;
 import com.sic.ocms.persistence.Item;
 
 public class ItemDAOTest {
-	
+
 	private static ClassPathXmlApplicationContext ctx;
 
 	@BeforeClass
 	public static void beforeClass() {
-		
+
 		 ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 	}
-	
+
 	@AfterClass
 	public static void afterClass() {
 
@@ -44,6 +44,7 @@ public class ItemDAOTest {
 		Item itm21 = new Item();
 		Item itm22 = new Item();
 		
+
 		itm.setName("顧客");
 		itm1.setName("機会");
 		itm11.setName("課題の識別");
@@ -68,21 +69,21 @@ public class ItemDAOTest {
 		
 		dao.add(itm);
 	}
-	
+
 	public void testDelete() {
-		
+
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
 		dao.delete(7);
-		
+
 	}
 
 	public void testLoad() {
-		
+
 		ItemDAO dao = (ItemDAO) ctx.getBean("itemDAO");
 		Item itm = dao.load(15);
 		System.out.println(itm);
 	}
-		
+
 
 	public void testPrint1() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -107,7 +108,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-	
+
 	public void testPrint2() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -129,7 +130,7 @@ public class ItemDAOTest {
 
 		ctx.destroy();
 	}
-	
+
 	public void testPrint3() throws Exception{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
