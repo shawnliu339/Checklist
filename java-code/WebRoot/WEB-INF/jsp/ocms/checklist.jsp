@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						iconCls:'icon-save',
 						handler:function(){
 							var rows = $(checklist).datagrid('getRows');
-							$.post('checklist_update', JSON.stringify(rows))
+							$.post('checklist_update', {rows:JSON.stringify(rows)})
 							/* var arr = $(checklist).datagrid('getRows');
 							for(var i=0; i<arr.length; i++) {
 								
