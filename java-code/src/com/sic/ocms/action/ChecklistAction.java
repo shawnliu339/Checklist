@@ -37,13 +37,25 @@ public class ChecklistAction extends ActionSupport {
 	}
 	
 	public String update() {
-		System.out.println(checklistDO.getCheckitemStatusId());
+		checklistService.update(rows);
 		return NONE;
 	}
 	
+	
+	/*
+	 * 
+	 * 以下宣言
+	 * 
+	 * */
+	
 	private ChecklistService checklistService;
 	private ChecklistDO checklistDO;
+	private String rows;
 	
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
 	public void setChecklistDO(ChecklistDO checklistDO) {
 		this.checklistDO = checklistDO;
 	}

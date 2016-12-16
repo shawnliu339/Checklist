@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/datagrid-cellediting.js"></script>
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/json2.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/common2.css" />
 	<script type="text/javascript" src="js/commons.js"></script>
@@ -174,8 +175,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){
-							var arr = $(checklist).datagrid('getRows');
-							$.post('checklist_update', {arr})
+							var rows = $(checklist).datagrid('getRows');
+							$.post('checklist_update', JSON.stringify(rows))
 							/* var arr = $(checklist).datagrid('getRows');
 							for(var i=0; i<arr.length; i++) {
 								
