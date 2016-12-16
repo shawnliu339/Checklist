@@ -19,7 +19,7 @@ public class ChecklistDAOTest {
 		Project prj = new Project();
 		prj.setProjectId(1);
 		cl.setName("SEMAT");
-		cl.setPercentage(0);
+		cl.setPercentage(0.0);
 		cl.setProject(prj);
 		dao.add(cl);
 		ctx.destroy();

@@ -117,9 +117,9 @@ public class ChecklistService {
 		return dg;
 	}
 
-	public void update(ChecklistDO checklistDO) {
+	public void update(String rows) {
 
-		JSONArray jArr = JSONArray.fromObject(checklistDO);
+		JSONArray jArr = JSONArray.fromObject(rows);
 
 		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();

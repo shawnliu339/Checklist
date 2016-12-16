@@ -38,15 +38,6 @@ public class ChecklistServiceTest {
 
 		dg=cs.getDataGrid();
 
-
-		ChecklistDO checklistDO = new ChecklistDO();
-		checklistDO.setCheckitemStatusId(45);
-		checklistDO.setStatus(1);
-		checklistDO.setComment("test2");
-		checklistDO.setProblem(1);
-
-		cs.update(checklistDO);
-
 		System.out.println();
 
 		for(ChecklistDO csd : dg.getRows()) {
