@@ -35,11 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			/**
 			 * 表格初始化
 			 */
-			$('#commodityTable').datagrid({
+			$('#checklist').datagrid({
 				
 				idField:'group1Id',
 				//ajax异步后台请求
-				url: 'checklist_getDataGrid',
+				url: 'checklist_dataGrid',
 				fit: true,
 				//自动列间距
 				fitColumns: false,
@@ -174,14 +174,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){
-							
-							//标志为添加
-							flag = 'add';
-							//动态设定对话框标题
-							$('#addDialog').dialog({
-								title: '添加商品信息'
-							});
-							$('#addDialog').dialog('open');
+							var arr = $(checklist).datagrid('getRows');
+							$.post('checklist_update', {arr})
+							/* var arr = $(checklist).datagrid('getRows');
+							for(var i=0; i<arr.length; i++) {
+								
+							} */
 							
 						}
 					},'-',{
@@ -398,7 +396,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<div id="lay" class="easyui-layout" fit=true >
 		<div region="center" title="チェックリスト一覧">
-			<table id="commodityTable"></table>
+			<table id="checklist"></table>
 		</div>
 	</div>
 	

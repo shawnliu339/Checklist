@@ -23,7 +23,7 @@ public class ChecklistAction extends ActionSupport {
 		return "show";
 	}
 	
-	public String getDataGrid() {
+	public String dataGrid() {
 		
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid();
 		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
@@ -36,7 +36,17 @@ public class ChecklistAction extends ActionSupport {
 		
 	}
 	
+	public String update() {
+		System.out.println(checklistDO.getCheckitemStatusId());
+		return NONE;
+	}
+	
 	private ChecklistService checklistService;
+	private ChecklistDO checklistDO;
+	
+	public void setChecklistDO(ChecklistDO checklistDO) {
+		this.checklistDO = checklistDO;
+	}
 
 	@Resource
 	public void setChecklistService(ChecklistService checklistService) {
