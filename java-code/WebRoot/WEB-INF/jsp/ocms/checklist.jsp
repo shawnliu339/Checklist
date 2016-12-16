@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				columns:[[
 				    {
 				    	title:'主キー',
-						field:'group1Id',
+						field:'group1ID',
 						width:100,
 						hidden:true,
 				    },{
@@ -69,6 +69,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title:'ステータス',
 						field:'group3Name',
 						width:100
+					},{
+						title:'チェック項目ID',
+						field:'checkitemId',
+						width:100,
+						hidden:true,
 					},{
 						title:'チェック項目',
 						field:'checkitemContent',
@@ -90,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 						}
 					},{
-				    	title:'チェック項目の状態のId',
+				    	title:'チェック項目の状態のID',
 						field:'checkitemStatusId',
 						width:100,
 						hidden:true,
