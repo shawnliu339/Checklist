@@ -180,12 +180,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){
+							var cell = $(checklist).datagrid('cell');
+							$(checklist).datagrid('endEdit',cell.index);
 							var rows = $(checklist).datagrid('getRows');
 							$.post('checklist_update', {rows:JSON.stringify(rows)})
-							/* var arr = $(checklist).datagrid('getRows');
-							for(var i=0; i<arr.length; i++) {
-								
-							} */
 							
 						}
 					},'-',{
