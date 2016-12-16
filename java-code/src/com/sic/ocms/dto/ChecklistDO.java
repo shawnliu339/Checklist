@@ -3,12 +3,15 @@ package com.sic.ocms.dto;
 public class ChecklistDO {
 
 	//not hidden
+	//item
 	private String group1Name;
 	private String group2Name;
 	private String group3Name;
+	//checkitem
 	private String checkitemContent;
 	private String description;
 	private String typicalDeliverables;
+	//checkitemstatus
 	private Integer status;
 	private Integer problem;
 	private String comment;
