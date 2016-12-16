@@ -97,6 +97,7 @@ public class ChecklistService {
 															row.setComment(cis.getComment());
 															row.setPrjtype(cis.getPrjtype());
 															row.setImportance(cis.getImportance());
+															row.setCheckitemId(ci.getCheckitemId());
 															table.add(row);
 														}
 													}
@@ -133,6 +134,7 @@ public class ChecklistService {
 			cis.setStatus(jObj.getInt("status"));
 			cis.setProblem(jObj.getInt("problem"));
 			cis.setComment(jObj.getString("comment"));
+
 		}
 
 		int f = 0;//存在フラグ

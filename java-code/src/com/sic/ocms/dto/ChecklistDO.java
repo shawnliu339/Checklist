@@ -21,6 +21,9 @@ public class ChecklistDO {
 	//hidden
 	private Integer group1Id;
 	private Integer checkitemStatusId;
+	private Integer checkitemId;
+
+
 
 
 	public String getGroup1Name() {
@@ -62,6 +65,9 @@ public class ChecklistDO {
 	public Integer getCheckitemStatusId() {
 		return checkitemStatusId;
 	}
+	public Integer getCheckitemId() {
+		return checkitemId;
+	}
 	public void setGroup1Name(String group1Name) {
 		this.group1Name = group1Name;
 	}
@@ -100,6 +106,9 @@ public class ChecklistDO {
 	}
 	public void setCheckitemStatusId(Integer checkitemStatusId) {
 		this.checkitemStatusId = checkitemStatusId;
+	}
+	public void setCheckitemId(Integer checkitemId) {
+		this.checkitemId = checkitemId;
 	}
 	@Override
 	public String toString() {
