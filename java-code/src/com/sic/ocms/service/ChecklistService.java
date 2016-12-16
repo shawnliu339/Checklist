@@ -2,6 +2,7 @@ package com.sic.ocms.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -16,35 +17,22 @@ import com.sic.ocms.persistence.CheckitemStatus;
 import com.sic.ocms.persistence.Item;
 import com.sic.ocms.util.easyui.DataGrid;
 
+import net.sf.json.JSONArray;
+
 @Service
 public class ChecklistService {
 
-	public static void setCheckitem(Checkitem citem,ChecklistDO row){
-		row.setCheckitemContent(citem.getContent());
-		row.setDescription(citem.getDescrition());
-		row.setTypicalDeliverables(citem.getTypicalDeliverables());
-		row.setCheckitemStatusId(citem.getCheckitemId());
-	}
 
-	public static void setCheckitemStatus(CheckitemStatus cs,ChecklistDO row){
-		row.setStatus(cs.getStatus());
-		row.setProblem(cs.getProblem());
-		row.setComment(cs.getComment());
-		row.setPrjtype(cs.getPrjtype());
-		row.setImportance(cs.getImportance());
-	}
 
 	private DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
 
 	public DataGrid<ChecklistDO> getDataGrid() {
 
 		List<Item> itemlist = itemDAO.list("from Item");
-		List<Checkitem> citemlist = checkitemDAO.list("from Checkitem");
-		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
 
-
+/*
 		// 最小単位であるcheckitemから挿入していく
 		for (Checkitem citem : citemlist) {
 			ChecklistDO row = new ChecklistDO();
@@ -75,6 +63,53 @@ public class ChecklistService {
 			}
 			if(row.getGroup1Name()!=null&&row.getGroup2Name()!=null&&row.getGroup3Name()!=null)table.add(row);
 		}
+*/
+		//上から表示したい順に挿入していく
+		for(int n=1;n<itemlist.size();n++){
+			for(Item g1:itemlist){
+				if(g1.getParent().getItemId()==g1.getItemId()&&g1.getRank()==n){
+					Set<Item> group2 = g1.getChildren();
+					for(int j=1;j<=group2.size();j++){
+						for(Item g2:group2){
+							if(g2.getItemId()!=g2.getParent().getItemId()&&g2.getRank()==j){
+								Set<Item> group3 = g2.getChildren();
+								for(int k=1;k<=group3.size();k++){
+									for(Item g3:group3){
+										if(g3.getItemId()!=g3.getParent().getItemId()&&g3.getRank()==k){
+											Set<Checkitem> checkitems = g3.getCheckitems();
+											for(int i=1;i<=checkitems.size();i++){
+												for(Checkitem ci:checkitems){
+													if(ci.getRank()==i){
+														Set<CheckitemStatus> checkitemstatuses = ci.getCheckitemstatus();
+														for(CheckitemStatus cis:checkitemstatuses){
+															ChecklistDO row = new ChecklistDO();
+															row.setGroup1Id(g1.getItemId());
+															row.setGroup1Name(g1.getName());
+															row.setGroup2Name(g2.getName());
+															row.setGroup3Name(g3.getName());
+															row.setCheckitemContent(ci.getContent());
+															row.setDescription(ci.getDescrition());
+															row.setTypicalDeliverables(ci.getTypicalDeliverables());
+															row.setCheckitemStatusId(ci.getCheckitemId());
+															row.setStatus(cis.getStatus());
+															row.setProblem(cis.getProblem());
+															row.setComment(cis.getComment());
+															row.setPrjtype(cis.getPrjtype());
+															row.setImportance(cis.getImportance());
+															table.add(row);
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		dg.setRows(table);
 		dg.setTotal(table.size());
 
@@ -82,8 +117,11 @@ public class ChecklistService {
 	}
 
 	public void updateCheckitemStatus(ChecklistDO checklistDO) {
+
+		JSONArray jArr = JSONArray.fromObject(checklistDO);
+
 		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
-		List<ChecklistDO> table = dg.getRows();
+		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
 		int f = 0;//存在フラグ
 

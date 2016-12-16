@@ -19,6 +19,7 @@ public class Checkitem {
 	private Integer relatedGoalId;
 	private String Descrition;
 	private String typicalDeliverables;
+	private Integer rank;
 	private Set<CheckitemStatus> checkitemstatus;
 //	private Item item;
 
@@ -54,10 +55,16 @@ public class Checkitem {
 		return typicalDeliverables;
 	}
 
+	@Column(name = "rank")
+	public Integer getRank() {
+		return rank;
+	}
+
 	@OneToMany(mappedBy = "checkitem")
 	public Set<CheckitemStatus> getCheckitemstatus() {
 		return checkitemstatus;
 	}
+
 /*
 	@ManyToOne
 	@Column(name = "item_id")
@@ -87,6 +94,11 @@ public class Checkitem {
 	public void setTypicalDeliverables(String typicalDeliverables) {
 		this.typicalDeliverables = typicalDeliverables;
 	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
 	public void setCheckitemstatus(Set<CheckitemStatus> checkitemstatus) {
 		this.checkitemstatus = checkitemstatus;
 	}

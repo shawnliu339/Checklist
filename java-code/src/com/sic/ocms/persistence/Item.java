@@ -26,6 +26,7 @@ public class Item {
 	private Integer itemId;
 	private String name;
 	private Double percentage;
+	private Integer rank;
 	private Item parent;
 	private Set<Item> children = new HashSet<>();
 	private Set<Checkitem> checkitems = new HashSet<>();
@@ -46,6 +47,11 @@ public class Item {
 	@Column(name = "percentage")
 	public Double getPercentage() {
 		return percentage;
+	}
+
+	@Column(name = "rank")
+	public Integer getRank() {
+		return rank;
 	}
 
 	@ManyToOne
@@ -86,6 +92,10 @@ public class Item {
 
 	public void setPercentage(Double percentage) {
 		this.percentage = percentage;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
 	}
 
 	public void setParent(Item parent) {
