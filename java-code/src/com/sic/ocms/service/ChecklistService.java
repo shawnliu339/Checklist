@@ -18,6 +18,7 @@ import com.sic.ocms.persistence.Item;
 import com.sic.ocms.util.easyui.DataGrid;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Service
 public class ChecklistService {
@@ -116,30 +117,37 @@ public class ChecklistService {
 		return dg;
 	}
 
-	public void updateCheckitemStatus(ChecklistDO checklistDO) {
+	public void update(ChecklistDO checklistDO) {
 
 		JSONArray jArr = JSONArray.fromObject(checklistDO);
 
 		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
+		CheckitemStatus cis = new CheckitemStatus();
+
+		for(int i=0;i<jArr.size();i++){
+			JSONObject jObj = JSONObject.fromObject(jArr.get(i));
+
+			cis.setCheckItemStatusId(jObj.getInt("checkitemStatusId"));
+			cis.setStatus(jObj.getInt("status"));
+			cis.setProblem(jObj.getInt("problem"));
+			cis.setComment(jObj.getString("comment"));
+		}
+
 		int f = 0;//存在フラグ
 
 		for (CheckitemStatus cs : citemslist) {
 			// 同じIDならアップデート
-			if (checklistDO.getCheckitemStatusId() == cs.getCheckItemStatusId()) {
-				cs.setStatus(checklistDO.getStatus());
-				cs.setComment(checklistDO.getComment());
-				cs.setProblem(checklistDO.getProblem());
+			if (cis.getCheckItemStatusId() == cs.getCheckItemStatusId()) {
+				cs.setStatus(cis.getStatus());
+				cs.setComment(cis.getComment());
+				cs.setProblem(cis.getProblem());
 				checkitemStatusDAO.update(cs);
 				f = 1;
 			}
 		}
 		if(f==0){
-			CheckitemStatus cis = new CheckitemStatus();
-			cis.setStatus(checklistDO.getStatus());
-			cis.setComment(checklistDO.getComment());
-			cis.setProblem(checklistDO.getProblem());
 			checkitemStatusDAO.add(cis);
 		}
 	}

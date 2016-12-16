@@ -9,7 +9,7 @@ import com.sic.ocms.util.easyui.DataGrid;
 public class ChecklistServiceTest {
 
 
-@Test
+
 	public void testCheckitem() throws Exception{
 
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -28,8 +28,8 @@ public class ChecklistServiceTest {
 	}
 
 
-
-	public void testUpdateCheckitemStatus(){
+@Test
+	public void testUpdate(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
@@ -38,12 +38,20 @@ public class ChecklistServiceTest {
 
 		dg=cs.getDataGrid();
 
+
+		ChecklistDO checklistDO = new ChecklistDO();
+		checklistDO.setCheckitemStatusId(45);
+		checklistDO.setStatus(1);
+		checklistDO.setComment("test2");
+		checklistDO.setProblem(1);
+
+		cs.update(checklistDO);
+
+		System.out.println();
+
 		for(ChecklistDO csd : dg.getRows()) {
 			System.out.println(csd.toString());
 		}
 
-		ChecklistDO checklistDO = new ChecklistDO();
-
-		//cs.updateCheckitemStatus(checklistDO);
 	}
 }
