@@ -23,7 +23,7 @@ public class ChecklistAction extends ActionSupport {
 		return "show";
 	}
 	
-	public String getDataGrid() {
+	public String dataGrid() {
 		
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid();
 		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
@@ -36,7 +36,29 @@ public class ChecklistAction extends ActionSupport {
 		
 	}
 	
+	public String update() {
+		checklistService.update(rows);
+		return NONE;
+	}
+	
+	
+	/*
+	 * 
+	 * 以下宣言
+	 * 
+	 * */
+	
 	private ChecklistService checklistService;
+	private ChecklistDO checklistDO;
+	private String rows;
+	
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public void setChecklistDO(ChecklistDO checklistDO) {
+		this.checklistDO = checklistDO;
+	}
 
 	@Resource
 	public void setChecklistService(ChecklistService checklistService) {
