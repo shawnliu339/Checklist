@@ -91,7 +91,7 @@ public class ChecklistService {
 															row.setCheckitemContent(ci.getContent());
 															row.setDescription(ci.getDescrition());
 															row.setTypicalDeliverables(ci.getTypicalDeliverables());
-															row.setCheckitemStatusId(ci.getCheckitemId());
+															row.setCheckitemStatusId(cis.getCheckItemStatusId());
 															row.setStatus(cis.getStatus());
 															row.setProblem(cis.getProblem());
 															row.setComment(cis.getComment());
@@ -123,7 +123,6 @@ public class ChecklistService {
 		JSONArray jArr = JSONArray.fromObject(rows);
 
 		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
-		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
 		CheckitemStatus cis = new CheckitemStatus();
 
@@ -134,24 +133,20 @@ public class ChecklistService {
 			cis.setStatus(jObj.getInt("status"));
 			cis.setProblem(jObj.getInt("problem"));
 			cis.setComment(jObj.getString("comment"));
-
-		}
-
-		int f = 0;//存在フラグ
-
-		for (CheckitemStatus cs : citemslist) {
-			// 同じIDならアップデート
-			if (cis.getCheckItemStatusId() == cs.getCheckItemStatusId()) {
-				cs.setStatus(cis.getStatus());
-				cs.setComment(cis.getComment());
-				cs.setProblem(cis.getProblem());
-				checkitemStatusDAO.update(cs);
-				f = 1;
+			for (CheckitemStatus cs : citemslist) {
+				// 同じIDならアップデート
+				if (cis.getCheckItemStatusId() == cs.getCheckItemStatusId()) {
+					cs.setStatus(cis.getStatus());
+					cs.setComment(cis.getComment());
+					cs.setProblem(cis.getProblem());
+					checkitemStatusDAO.update(cs);
+				}
 			}
+
 		}
-		if(f==0){
-			checkitemStatusDAO.add(cis);
-		}
+
+
+
 	}
 
 
