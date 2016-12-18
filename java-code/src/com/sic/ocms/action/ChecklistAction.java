@@ -5,9 +5,11 @@ import java.io.IOException;
 import javax.annotation.Resource;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.ncut.wms.util.json.Json;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sic.ocms.dto.ChecklistDO;
 import com.sic.ocms.service.ChecklistService;
@@ -37,7 +39,22 @@ public class ChecklistAction extends ActionSupport {
 	}
 	
 	public String update() {
-		checklistService.update(rows);
+		Json json = new Json();
+		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+		try {
+			checklistService.update(rows);
+			json.setSuccess(true);
+			json.setMessage("登録成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage("登録失敗");
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().write(JSONObject.fromObject(json).toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return NONE;
 	}
 	
