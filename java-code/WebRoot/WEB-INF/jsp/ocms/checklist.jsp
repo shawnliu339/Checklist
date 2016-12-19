@@ -183,10 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							var cell = $(checklist).datagrid('cell');
 							$(checklist).datagrid('endEdit',cell.index);
 							var rows = $(checklist).datagrid('getRows');
-<<<<<<< HEAD
-							$.post('checklist_update', {rows:JSON.stringify(rows)})
 
-=======
 							$.post('checklist_update', {rows:JSON.stringify(rows)}, function(result){
 								if(result){
 									$.messager.show ({
@@ -200,8 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									});
 								}
 							})
-							
->>>>>>> origin/dev
+
 						}
 					},'-',{
 						text:'删除商品信息',
