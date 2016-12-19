@@ -183,8 +183,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							var cell = $(checklist).datagrid('cell');
 							$(checklist).datagrid('endEdit',cell.index);
 							var rows = $(checklist).datagrid('getRows');
+<<<<<<< HEAD
 							$.post('checklist_update', {rows:JSON.stringify(rows)})
 
+=======
+							$.post('checklist_update', {rows:JSON.stringify(rows)}, function(result){
+								if(result){
+									$.messager.show ({
+										title: 'ok!',
+										msg: '登録成功！'
+									});
+								} else {
+									$.messager.show ({
+										title: 'fail!',
+										msg: '登録失敗！'
+									});
+								}
+							})
+							
+>>>>>>> origin/dev
 						}
 					},'-',{
 						text:'删除商品信息',
