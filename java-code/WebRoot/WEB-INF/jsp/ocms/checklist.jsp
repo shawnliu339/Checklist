@@ -9,11 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
+
     <title>チェックリスト一覧</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.min.js"></script>
@@ -23,12 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/datagrid-cellediting.js"></script>
 	<script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="js/json2.js"></script>
-	
+
 	<link rel="stylesheet" type="text/css" href="css/common2.css" />
 	<script type="text/javascript" src="js/commons.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			
+
 			//添加修改标志
 			var flag = '';
 			//搜索框展开标志
@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 * 表格初始化
 			 */
 			$('#checklist').datagrid({
-				
+
 				idField:'group1Id',
 				//ajax异步后台请求
 				url: 'checklist_dataGrid',
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						editor:{
 							type:'textarea',
-							
+
 						}
 					},{
 						title:'成果物',
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						editor:{
 							type:'textarea',
-							
+
 						}
 					},{
 				    	title:'チェック項目の状態のID',
@@ -104,20 +104,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'status',
 						width:100,
 						formatter:function(value){
-							
+
 							var text = 'NO';
 							if(value==1)
 								text = 'YES';
 							if(value==0)
 								text = 'NO';
-							return text;	
+							return text;
 						},
 						editor:{
 							type:'combobox',
 							options:{
 								valueField: 'value',
 								textField: 'text',
-								
+
 								data: [{
 									value: '1',
 									text: 'YES'
@@ -132,13 +132,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'problem',
 						width:100,
 						formatter:function(value){
-							
+
 							var text = 'NO';
 							if(value==1)
 								text = 'YES';
 							if(value==0)
 								text = 'NO';
-							return text;	
+							return text;
 						},
 						editor:{
 							type:'combobox',
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						editor:{
 							type:'textarea',
-							
+
 						}
 					},{
 						title:'prjタイプ',
@@ -172,8 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:270
 					}
 				]],
-				
-				
+
+
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
@@ -184,13 +184,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$(checklist).datagrid('endEdit',cell.index);
 							var rows = $(checklist).datagrid('getRows');
 							$.post('checklist_update', {rows:JSON.stringify(rows)})
-							
+
 						}
 					},'-',{
 						text:'删除商品信息',
 						iconCls:'icon-remove',
 						handler:function(){
-							
+
 							var arr = $('#commodityTable').datagrid('getSelections');
 							if(arr.length < 1) {
 								$.messager.show({
@@ -198,10 +198,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									msg: '至少选择一行记录进行修改！'
 								});
 							} else {
-								
+
 								$.messager.confirm('提示信息' , '删除后商品信息无法回复，是否确认删除？' , function(result){
 									if(result) {
-										
+
 										var ids = '';
 										for(var i=0; i<arr.length; i++) {
 											ids += arr[i].commodityId + ',';
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												});
 												//3.清楚数据表格勾选
 												$('#commodityTable').datagrid('clearSelections');
-												
+
 											} else {
 												$.messager.show ({
 													title: 'fail!',
@@ -226,20 +226,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												});
 											}
 										});
-										
+
 									} else {
 										return;
 									}
 								});
-								
+
 							}
-							
-						}						
+
+						}
 					},'-',{
 						text:'修改商品信息',
 						iconCls:'icon-edit',
 						handler:function(){
-							
+
 							//标志位修改
 							flag = 'edit';
 							//动态设定对话框标题
@@ -269,8 +269,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									remark: arr[0].remark
 								});
 							}
-							
-						}						
+
+						}
 					},'-',{
 						text:'查询商品信息',
 						iconCls:'icon-search',
@@ -282,23 +282,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								searchStatus = 0;
 								$('#lay').layout('collapse' , 'north');
 							}
-							
+
 						}
 					}
 				]
-				
+
 			}).datagrid('enableCellEditing');
-			
+
 			/**
 			 * 商品编号输入框初始化
 			 */
 			$('#commodityNum').validatebox({
 				required : true ,
-				validType : 'midLength[2,5]' , 
+				validType : 'midLength[2,5]' ,
 				invalidMessage : '商品编号必须在2到5个长度之间' ,
 				missingMessage : '请填写商品编号'
 			});
-			
+
 			/**
 			 * 表单提交按钮
 			 */
@@ -334,28 +334,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});
 				}
 			});
-			
+
 			/**
 			 * 表单取消按钮
 			 */
 			$('#cancelButton').click(function(){
 				$('#addDialog').dialog('close');
 			});
-			
+
 			/**
 			 * 搜索按钮
 			 */
 			$('#searchButton').click(function() {
 				$('#commodityTable').datagrid('load', serializeForm($('#commoditySearch')));
 			});
-			
+
 			/**
 			 * 清空按钮
 			 */
 			$('#clearButton').click(function() {
 				$('#commoditySearch').form('reset');
 			});
-			
+
 			/**
 			 * 计量单位下拉菜单
 			 */
@@ -365,7 +365,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    valueField:'unitId',
 			    textField:'unitName',
 			});
-			
+
 			/**
 			 * 商品类别下拉菜单
 			 */
@@ -375,10 +375,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    valueField:'cid',
 			    textField:'cname',
 			});
-			
+
 		});
-		
-		//js方法：序列化表单 			
+
+		//js方法：序列化表单
 		function serializeForm(form) {
 			var obj = {};
 			$.each(form.serializeArray(), function(index) {
@@ -390,19 +390,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			return obj;
 		}
-		
-	
+
+
 	</script>
-	
-		
+
+
   </head>
-  
+
   <body>
   	<div id="lay" class="easyui-layout" fit=true >
 		<div region="center" title="チェックリスト一覧">
 			<table id="checklist"></table>
 		</div>
 	</div>
-	
+
 </body>
 </html>
