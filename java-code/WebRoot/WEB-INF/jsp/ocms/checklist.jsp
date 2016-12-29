@@ -26,6 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<link rel="stylesheet" type="text/css" href="css/common2.css" />
 	<script type="text/javascript" src="js/commons.js"></script>
+	<style type="text/css">
+		.datagrid-row {
+		  height: 35px;
+		}
+	</style>
 	<script type="text/javascript">
 		$(function(){
 
@@ -50,21 +55,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//加载等待提示
 				loadMsg:'数据正在加载中，请耐心等待…',
 				singleSelect: true,
+				striped:true,
 				//列内容
 				columns:[[
 				    {
 				    	title:'主キー',
 						field:'group1ID',
 						width:100,
-						hidden:true,
+						hidden:true
 				    },{
 				    	title:'関心領域',
 						field:'group1Name',
 						width:100,
+						
 				    },{
 						title:'アルファ',
 						field:'group2Name',
-						width:100,
+						width:100
 					},{
 						title:'ステータス',
 						field:'group3Name',
@@ -73,11 +80,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title:'チェック項目ID',
 						field:'checkitemId',
 						width:100,
-						hidden:true,
+						hidden:true
 					},{
 						title:'チェック項目',
 						field:'checkitemContent',
-						width:100,
+						width:100
 					},{
 						title:'補足説明',
 						field:'description',
@@ -98,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	title:'チェック項目の状態のID',
 						field:'checkitemStatusId',
 						width:100,
-						hidden:true,
+						hidden:true
 				    },{
 						title:'ステータス',
 						field:'status',
@@ -165,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},{
 						title:'prjタイプ',
 						field:'prjtype',
-						width:100,
+						width:100
 					},{
 						title:'重要度',
 						field:'importance',
