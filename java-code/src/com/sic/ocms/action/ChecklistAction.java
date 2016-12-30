@@ -25,6 +25,10 @@ public class ChecklistAction extends ActionSupport {
 		return "show";
 	}
 	
+	/**
+	 * datagridを表示する
+	 * @return
+	 */
 	public String dataGrid() {
 		
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid();
@@ -36,6 +40,10 @@ public class ChecklistAction extends ActionSupport {
 		}
 		return NONE;
 		
+	}
+	
+	public String goSubChecklist() {
+		return "goSubChecklist";
 	}
 	
 	public String update() {

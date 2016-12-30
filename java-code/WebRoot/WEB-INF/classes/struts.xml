@@ -13,6 +13,7 @@
 
 		<action name="checklist_*" class="checklistAction" method="{1}">
 			<result name="show">/WEB-INF/jsp/ocms/checklist.jsp</result>
+			<result name="goSubChecklist">/WEB-INF/jsp/ocms/subchecklist.jsp</result>
 		</action>
 
         <!-- 配置首页访问的Action -->
