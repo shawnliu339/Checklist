@@ -77,7 +77,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},{
 						title:'',
 						field:'order',
-						width:50
+						width:50,
+						formatter:function(value,row,index){
+							
+							index += 1;
+							var rows = $('#checklist').datagrid('getRows');
+							rows = rows.length;
+							return index + '/' + rows;
+						}
 					},{
 						title:'状態',
 						field:'group3Name',
