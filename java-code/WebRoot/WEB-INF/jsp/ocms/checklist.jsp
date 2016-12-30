@@ -30,6 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.datagrid-row {
 		  height: 35px;
 		}
+		.datagrid-body td{
+			border-style:solid;
+			#border-color:black;
+        }
 	</style>
 	<script type="text/javascript">
 		$(function(){
@@ -48,10 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				url: 'checklist_dataGrid',
 				fit: true,
 				//自动列间距
-				fitColumns: false,
 				border: true,
-				//分页查询
-				pagination: false,
 				//加载等待提示
 				loadMsg:'数据正在加载中，请耐心等待…',
 				singleSelect: true,
