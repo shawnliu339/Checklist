@@ -450,6 +450,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					field:'group3Percentage',
 					rowspan:merges[i].rowspan
 				});
+<<<<<<< HEAD
 			
 			for(var i=0; i<merges.length; i++)
 				$('#checklist').datagrid('mergeCells',{
@@ -464,6 +465,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					field:'order',
 					rowspan:merges[i].rowspan
 				});
+=======
+>>>>>>> bc865ddafc1f519bd0672427098ed7843b7a33a7
 		}
 
 
