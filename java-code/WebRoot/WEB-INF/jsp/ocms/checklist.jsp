@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		.datagrid-body td{
 			border-style:solid;
-			#border-color:black;
+			border-color:black;
         }
 	</style>
 	<script type="text/javascript">
@@ -57,6 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				loadMsg:'数据正在加载中，请耐心等待…',
 				singleSelect: true,
 				striped:true,
+				nowrap:false,
 				//列内容
 				columns:[[
 				    {
@@ -68,19 +69,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	title:'関心領域',
 						field:'group1Name',
 						width:100,
+				    },{
+						title:'達成度',
+						field:'group1Percentage',
+						width:50
+					},{
+						title:'アルファ',
+						field:'group2Name',
+						width:100,
 						formatter: function(value) {
 							
 							return '<a href="checklist_goSubChecklist">'+value+'</a>';
 							
 						}
-				    },{
-						title:'アルファ',
-						field:'group2Name',
-						width:100
+					},{
+						title:'達成度',
+						field:'group2Percentage',
+						width:50
 					},{
 						title:'ステータス',
 						field:'group3Name',
 						width:100
+					},{
+						title:'達成度',
+						field:'group3Percentage',
+						width:50
 					},{
 						title:'チェック項目ID',
 						field:'checkitemId',
@@ -214,10 +227,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							$.post('checklist_update', {rows:JSON.stringify(rows)}, function(result){
 								if(result){
+									
 									$.messager.show ({
 										title: 'ok!',
 										msg: '登録成功！'
 									});
+									$('#checklist').datagrid('reload');
+									
 								} else {
 									$.messager.show ({
 										title: 'fail!',

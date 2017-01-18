@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		.datagrid-body td{
 			border-style:solid;
-			#border-color:black;
+			border-color:black;
         }
 	</style>
 	<script type="text/javascript">
@@ -69,7 +69,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	title:'関心領域',
 						field:'group1Name',
 						width:100,
-						
+						formatter: function(value) {
+							
+							return '<a href="checklist">'+value+'</a>';
+							
+						}
 				    },{
 						title:'アルファ',
 						field:'group2Name',
@@ -90,15 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'group3Name',
 						width:100
 					},{
-						title:'達成度1',
-						field:'group1Percentage',
-						width:50
-					},{
-						title:'達成度2',
-						field:'group2Percentage',
-						width:50
-					},{
-						title:'達成度3',
+						title:'達成度',
 						field:'group3Percentage',
 						width:50
 					},{
@@ -195,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										title: 'ok!',
 										msg: '登録成功！'
 									});
+									$('#checklist').datagrid('reload');
 								} else {
 									$.messager.show ({
 										title: 'fail!',
