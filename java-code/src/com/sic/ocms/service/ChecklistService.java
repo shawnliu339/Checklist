@@ -1,5 +1,6 @@
 package com.sic.ocms.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -96,6 +97,8 @@ public class ChecklistService {
 
 	}
 
+
+
 	public DataGrid<ChecklistDO> getDataGrid() {
 
 		List<Item> itemｓ = itemDAO.list("from Item");
@@ -122,11 +125,12 @@ public class ChecklistService {
 															ChecklistDO row = new ChecklistDO();
 															row.setGroup1Id(g1.getItemId());
 															row.setGroup1Name(g1.getName());
-															row.setGroup1Percentage(g1.getPercentage());
+															DecimalFormat df = new DecimalFormat("#");
+															row.setGroup1Percentage( Double.valueOf(df.format(g1.getPercentage())));
 															row.setGroup2Name(g2.getName());
-															row.setGroup2Percentage(g2.getPercentage());
+															row.setGroup2Percentage( Double.valueOf(df.format(g2.getPercentage())));
 															row.setGroup3Name(g3.getName());
-															row.setGroup3Percentage(g3.getPercentage());
+															row.setGroup3Percentage( Double.valueOf(df.format(g3.getPercentage())));
 															row.setCheckitemContent(checkitem.getContent());
 															row.setDescription(checkitem.getDescrition());
 															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
