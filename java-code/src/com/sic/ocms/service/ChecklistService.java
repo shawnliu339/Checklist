@@ -2,7 +2,6 @@ package com.sic.ocms.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,71 +31,6 @@ public class ChecklistService {
 	ChecklistDO row = new ChecklistDO();
 
 	List<ChecklistDO> table = new ArrayList<ChecklistDO>();
-
-	public void setCheckitemAndCheckitemStatus(Set<Checkitem> checkitems,int index){
-		for(Checkitem checkitem:checkitems){
-			if(checkitem.getRank()==index){
-				row.setCheckitemContent(checkitem.getContent());
-				row.setDescription(checkitem.getDescrition());
-				row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
-				row.setCheckitemId(checkitem.getCheckitemId());
-				Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
-				for(CheckitemStatus checkitemstatus:checkitemstatuses){
-					row.setCheckitemStatusId(checkitemstatus.getCheckItemStatusId());
-					row.setStatus(checkitemstatus.getStatus());
-					row.setProblem(checkitemstatus.getProblem());
-					row.setComment(checkitemstatus.getComment());
-					row.setPrjtype(checkitemstatus.getPrjtype());
-					row.setImportance(checkitemstatus.getImportance());
-				}
-				table.add(row);
-			}
-		}
-	}
-
-	public void setRow(Set<Item> items,int index){
-		for(Item item:items){
-			if(item.getParent().getItemId()==item.getItemId()&&item.getRank()==index){
-				row.setGroup1Id(item.getItemId());
-				row.setGroup1Name(item.getName());
-				row.setGroup1Percentage(item.getPercentage());
-				for(int i=1;i<item.getChildren().size();i++){
-					setRow(item.getChildren(),i);
-				}
-			}else if(item.getChildren().size()==0&&item.getRank()==index){
-				row.setGroup3Name(item.getName());
-				row.setGroup3Percentage(item.getPercentage());
-				for(int i=1;i<item.getCheckitems().size();i++){
-					setCheckitemAndCheckitemStatus(item.getCheckitems(),i);
-				}
-
-			}else if(item.getRank()==index){
-				row.setGroup2Name(item.getName());
-				row.setGroup2Percentage(item.getPercentage());
-				for(int i=1;i<item.getChildren().size();i++){
-					setRow(item.getChildren(),i);
-				}
-			}
-		}
-
-	}
-
-	public DataGrid<ChecklistDO> getDataGrid2(){
-		List<Item> items = itemDAO.list("from Item");
-		Set<Item> group1 = new HashSet<Item>();
-		for(Item item:items){
-			group1.add(item);
-		}
-
-		setRow(group1,1);
-
-		dg.setRows(table);
-		dg.setTotal(table.size());
-
-		return dg;
-
-	}
-
 
 
 	public DataGrid<ChecklistDO> getDataGrid() {
