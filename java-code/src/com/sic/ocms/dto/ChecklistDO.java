@@ -5,8 +5,11 @@ public class ChecklistDO {
 	//not hidden
 	//item
 	private String group1Name;
+	private Double group1Percentage;
 	private String group2Name;
+	private Double group2Percentage;
 	private String group3Name;
+	private Double group3Percentage;
 	//checkitem
 	private String checkitemContent;
 	private String description;
@@ -25,15 +28,23 @@ public class ChecklistDO {
 
 
 
-
 	public String getGroup1Name() {
 		return group1Name;
+	}
+	public Double getGroup1Percentage() {
+		return group1Percentage;
 	}
 	public String getGroup2Name() {
 		return group2Name;
 	}
+	public Double getGroup2Percentage() {
+		return group2Percentage;
+	}
 	public String getGroup3Name() {
 		return group3Name;
+	}
+	public Double getGroup3Percentage() {
+		return group3Percentage;
 	}
 	public String getCheckitemContent() {
 		return checkitemContent;
@@ -71,11 +82,20 @@ public class ChecklistDO {
 	public void setGroup1Name(String group1Name) {
 		this.group1Name = group1Name;
 	}
+	public void setGroup1Percentage(Double group1Percentage) {
+		this.group1Percentage = group1Percentage;
+	}
 	public void setGroup2Name(String group2Name) {
 		this.group2Name = group2Name;
 	}
+	public void setGroup2Percentage(Double group2Percentage) {
+		this.group2Percentage = group2Percentage;
+	}
 	public void setGroup3Name(String group3Name) {
 		this.group3Name = group3Name;
+	}
+	public void setGroup3Percentage(Double group3Percentage) {
+		this.group3Percentage = group3Percentage;
 	}
 	public void setCheckitemContent(String checkitemContent) {
 		this.checkitemContent = checkitemContent;
@@ -112,10 +132,12 @@ public class ChecklistDO {
 	}
 	@Override
 	public String toString() {
-		return "ChecklistDO [group1Name=" + group1Name + ", group2Name=" + group2Name + ", group3Name=" + group3Name
-				+ ", checkitemContent=" + checkitemContent + ", description=" + description + ", typicalDeliverables="
-				+ typicalDeliverables + ", status=" + status + ", problem=" + problem + ", comment=" + comment
-				+ ", prjtype=" + prjtype + ", importance=" + importance + ", group1Id=" + group1Id
-				+ ", checkitemStatusId=" + checkitemStatusId + "]";
+		return "ChecklistDO [group1Name=" + group1Name + ", group1Percentage=" + group1Percentage + ", group2Name="
+				+ group2Name + ", group2Percentage=" + group2Percentage + ", group3Name=" + group3Name
+				+ ", group3Percentage=" + group3Percentage + ", checkitemContent=" + checkitemContent + ", description="
+				+ description + ", typicalDeliverables=" + typicalDeliverables + ", status=" + status + ", problem="
+				+ problem + ", comment=" + comment + ", prjtype=" + prjtype + ", importance=" + importance
+				+ ", group1Id=" + group1Id + ", checkitemStatusId=" + checkitemStatusId + ", checkitemId=" + checkitemId
+				+ "]";
 	}
 }

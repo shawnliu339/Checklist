@@ -29,45 +29,12 @@ public class ChecklistService {
 
 	public DataGrid<ChecklistDO> getDataGrid() {
 
-		List<Item> itemlist = itemDAO.list("from Item");
+		List<Item> itemｓ = itemDAO.list("from Item");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
-
-/*
-		// 最小単位であるcheckitemから挿入していく
-		for (Checkitem citem : citemlist) {
-			ChecklistDO row = new ChecklistDO();
-			setCheckitem(citem,row);
-			// 次にCheckitemsStatus
-			for (CheckitemStatus cs : citemslist) {
-				if (citem.getCheckitemId() == cs.getCheckitem().getCheckitemId()) {
-					setCheckitemStatus(cs,row);
-					Item itm = cs.getItem();
-					// 最後にItem
-					for (Item g3 : itemlist) {
-						if (g3.getItemId() == itm.getItemId()) {
-							row.setGroup3Name(g3.getName());
-							for (Item g2 : itemlist) {
-								if (g2.getItemId() == g3.getParent().getItemId()) {
-									row.setGroup2Name(g2.getName());
-									for (Item g1 : itemlist) {
-										if (g1.getItemId() == g2.getParent().getItemId()) {
-											row.setGroup1Id(g1.getItemId());
-											row.setGroup1Name(g1.getName());
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if(row.getGroup1Name()!=null&&row.getGroup2Name()!=null&&row.getGroup3Name()!=null)table.add(row);
-		}
-*/
 		//上から表示したい順に挿入していく
-		for(int n=1;n<itemlist.size();n++){
-			for(Item g1:itemlist){
+		for(int n=1;n<itemｓ.size();n++){
+			for(Item g1:itemｓ){
 				if(g1.getParent().getItemId()==g1.getItemId()&&g1.getRank()==n){
 					Set<Item> group2 = g1.getChildren();
 					for(int j=1;j<=group2.size();j++){
@@ -79,25 +46,28 @@ public class ChecklistService {
 										if(g3.getItemId()!=g3.getParent().getItemId()&&g3.getRank()==k){
 											Set<Checkitem> checkitems = g3.getCheckitems();
 											for(int i=1;i<=checkitems.size();i++){
-												for(Checkitem ci:checkitems){
-													if(ci.getRank()==i){
-														Set<CheckitemStatus> checkitemstatuses = ci.getCheckitemstatus();
-														for(CheckitemStatus cis:checkitemstatuses){
+												for(Checkitem checkitem:checkitems){
+													if(checkitem.getRank()==i){
+														Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
+														for(CheckitemStatus checkitemstatus:checkitemstatuses){
 															ChecklistDO row = new ChecklistDO();
 															row.setGroup1Id(g1.getItemId());
 															row.setGroup1Name(g1.getName());
+															row.setGroup1Percentage(g1.getPercentage());
 															row.setGroup2Name(g2.getName());
+															row.setGroup2Percentage(g2.getPercentage());
 															row.setGroup3Name(g3.getName());
-															row.setCheckitemContent(ci.getContent());
-															row.setDescription(ci.getDescrition());
-															row.setTypicalDeliverables(ci.getTypicalDeliverables());
-															row.setCheckitemStatusId(cis.getCheckItemStatusId());
-															row.setStatus(cis.getStatus());
-															row.setProblem(cis.getProblem());
-															row.setComment(cis.getComment());
-															row.setPrjtype(cis.getPrjtype());
-															row.setImportance(cis.getImportance());
-															row.setCheckitemId(ci.getCheckitemId());
+															row.setGroup3Percentage(g3.getPercentage());
+															row.setCheckitemContent(checkitem.getContent());
+															row.setDescription(checkitem.getDescrition());
+															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
+															row.setCheckitemStatusId(checkitemstatus.getCheckItemStatusId());
+															row.setStatus(checkitemstatus.getStatus());
+															row.setProblem(checkitemstatus.getProblem());
+															row.setComment(checkitemstatus.getComment());
+															row.setPrjtype(checkitemstatus.getPrjtype());
+															row.setImportance(checkitemstatus.getImportance());
+															row.setCheckitemId(checkitem.getCheckitemId());
 															table.add(row);
 														}
 													}
@@ -122,33 +92,119 @@ public class ChecklistService {
 
 		JSONArray jArr = JSONArray.fromObject(rows);
 
-		List<CheckitemStatus> citemslist = checkitemStatusDAO.list("from CheckitemStatus");
+		List<CheckitemStatus> checkitemstatuses = checkitemStatusDAO.list("from CheckitemStatus");
 
-		CheckitemStatus cis = new CheckitemStatus();
+		CheckitemStatus updatedcheckitemstatus = new CheckitemStatus();
 
 		for(int i=0;i<jArr.size();i++){
 			JSONObject jObj = JSONObject.fromObject(jArr.get(i));
 
-			cis.setCheckItemStatusId(jObj.getInt("checkitemStatusId"));
-			cis.setStatus(jObj.getInt("status"));
-			cis.setProblem(jObj.getInt("problem"));
-			cis.setComment(jObj.getString("comment"));
-			for (CheckitemStatus cs : citemslist) {
+			updatedcheckitemstatus.setCheckItemStatusId(jObj.getInt("checkitemStatusId"));
+			updatedcheckitemstatus.setStatus(jObj.getInt("status"));
+			updatedcheckitemstatus.setProblem(jObj.getInt("problem"));
+			updatedcheckitemstatus.setComment(jObj.getString("comment"));
+			for (CheckitemStatus checkitemstatus : checkitemstatuses) {
 				// 同じIDならアップデート
-				if (cis.getCheckItemStatusId() == cs.getCheckItemStatusId()) {
-					cs.setStatus(cis.getStatus());
-					cs.setComment(cis.getComment());
-					cs.setProblem(cis.getProblem());
-					checkitemStatusDAO.update(cs);
+				if (updatedcheckitemstatus.getCheckItemStatusId() == checkitemstatus.getCheckItemStatusId()) {
+					checkitemstatus.setStatus(updatedcheckitemstatus.getStatus());
+					checkitemstatus.setComment(updatedcheckitemstatus.getComment());
+					checkitemstatus.setProblem(updatedcheckitemstatus.getProblem());
+					checkitemStatusDAO.update(checkitemstatus);
+					//updateの時にいちいち全部の得点を計算をする必要はない？別個に関数を用意する？
+					calculatePercentage();
 				}
 			}
 
 		}
-
-
-
 	}
 
+	public void calculatePercentage(){
+
+		List<Item> items = itemDAO.list("from Item");
+
+		List<Item> group1 = new ArrayList<Item>();
+		List<Item> group2 = new ArrayList<Item>();
+		List<Item> group3 = new ArrayList<Item>();
+		for(Item item:items){
+			if(item.getChildren().size()==0){
+				group3.add(item);
+			}else if(item.getItemId()==item.getParent().getItemId()){
+				group1.add(item);
+			}else{
+				group2.add(item);
+			}
+		}
+
+		for(Item item:group3){//まずグループ3
+			int completioncounter = 0;
+			int correspondencecounter = 0;
+			int notstartedcounter = 0;
+			Set<Checkitem> checkitems = item.getCheckitems();
+			for(Checkitem checkitem:checkitems){
+				Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
+				for(CheckitemStatus checkitemstatus:checkitemstatuses){
+					if(checkitemstatus.getStatus()==5){
+						completioncounter+=1;
+					}else if(checkitemstatus.getStatus()==4){
+						correspondencecounter+=1;
+					}else if(checkitemstatus.getStatus()==3){
+						notstartedcounter+=1;
+					}
+				}
+			}
+			double percentage;
+			if(completioncounter+correspondencecounter+notstartedcounter==0){
+				percentage=0.0;
+			}else{
+				percentage=(completioncounter+(correspondencecounter*0.5))/(completioncounter+correspondencecounter+notstartedcounter);
+			}
+			item.setPercentage(percentage*100);
+			itemDAO.update(item);
+		}
+
+		for(Item item:group2){
+			Set<Item> children = item.getChildren();
+			int sum = 0;
+			for(Item child:children){
+				sum+=child.getPercentage();
+			}
+			item.setPercentage((double)sum/children.size());
+			itemDAO.update(item);
+		}
+
+		for(Item item:group1){
+			Set<Item> children = item.getChildren();
+			int sum = 0;
+			for(Item child:children){
+				sum+=child.getPercentage();
+			}
+			item.setPercentage((double)sum/children.size());
+			itemDAO.update(item);
+		}
+/*
+		for(Item item:items){
+			Double sum = 0.0;
+			if(item.getChildren().size()==0){//最下層の場合
+
+				Set<Checkitem> checkitems = item.getCheckitems();
+				for(Checkitem checkitem:checkitems){
+					Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
+					for(CheckitemStatus checkitemstatus:checkitemstatuses){
+						sum += checkitemstatus.getStatus();
+					}
+				}
+			}else{//それ以外の場合
+				Set<Item> children = item.getChildren();
+				for(Item child:children){
+					sum+=child.getPercentage();
+				}
+
+			}
+			item.setPercentage(sum/item.getChildren().size());
+			itemDAO.update(item);
+		}
+*/
+	}
 
 	private ItemDAO itemDAO;
 	private CheckitemDAO checkitemDAO;
