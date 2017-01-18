@@ -68,6 +68,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	title:'関心領域',
 						field:'group1Name',
 						width:100,
+						formatter: function(value) {
+							
+							return '<a href="checklist_goSubChecklist">'+value+'</a>';
+							
+						}
 						
 				    },{
 						title:'アルファ',
