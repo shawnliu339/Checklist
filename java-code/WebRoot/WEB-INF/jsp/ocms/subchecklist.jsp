@@ -90,7 +90,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'group3Name',
 						width:100
 					},{
-						title:'達成度',
+						title:'達成度1',
+						field:'group1Percentage',
+						width:50
+					},{
+						title:'達成度2',
+						field:'group2Percentage',
+						width:50
+					},{
+						title:'達成度3',
 						field:'group3Percentage',
 						width:50
 					},{
@@ -116,16 +124,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 				    },{
-						title:'達成？',
+						title:'ステータス',
 						field:'status',
 						width:100,
 						formatter:function(value){
 
-							var text = 'NO';
+							var text = '保留';
 							if(value==1)
-								text = 'YES';
-							if(value==0)
-								text = 'NO';
+								text = '保留';
+							if(value==2)
+								text = '対象外';
+							if(value==3)
+								text = '未着手';
+							if(value==4)
+								text = '対応中';
+							if(value==5)
+								text = '完了';
 							return text;
 						},
 						editor:{
@@ -136,11 +150,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								data: [{
 									value: '1',
-									text: 'YES'
+									text: '保留'
 								},{
-									value: '0',
-									text: 'NO'
+									value: '2',
+									text: '対象外'
+								},{
+									value: '3',
+									text: '未着手'
+								},{
+									value: '4',
+									text: '対応中'
+								},{
+									value: '5',
+									text: '完了'
 								}]
+
 							}
 						}
 					},{
