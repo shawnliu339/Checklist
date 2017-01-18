@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100
 					},{
 						title:'達成度',
-						field:'percentage',
+						field:'group3Percentage',
 						width:50
 					},{
 						title:'チェック項目ID',
