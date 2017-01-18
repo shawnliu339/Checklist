@@ -1,0 +1,7 @@
+Java7
+
+Spring 3.2.0
+Struts 2.3.16.3
+Hibernate 4.2.15
+
+Tomcat7

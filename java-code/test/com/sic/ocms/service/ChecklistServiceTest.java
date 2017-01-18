@@ -9,7 +9,7 @@ import com.sic.ocms.util.easyui.DataGrid;
 public class ChecklistServiceTest {
 
 
-
+@Test
 	public void testCheckitem() throws Exception{
 
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -19,7 +19,7 @@ public class ChecklistServiceTest {
 
 		DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
 
-		dg=cs.getDataGrid();
+		dg=cs.getDataGrid2();
 
 
 
@@ -50,7 +50,7 @@ public class ChecklistServiceTest {
 			System.out.println(csd.toString());
 		}
 	}
-@Test
+
 	public void testCalculatePercentage(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
