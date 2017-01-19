@@ -173,6 +173,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					}
 				]],
+				
+				onLoadSuccess:function(data){
+					merge(data);
+				},
+				
+				onAfterEdit: function() {
+					var data = $('#checklist').datagrid('getData');
+					merge(data);
+				},
 
 
 				//增加工具栏，添加增删改查按钮
@@ -404,6 +413,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			return obj;
+		}
+		
+		//合并单元格
+		function merge(data){
+			console.log(data);
+			var rows = data.rows;
+			var set = new Set();
+			var merges = [];
+			var merge = new Object();
+			var flg = 0;
+			for(var i=0; i<rows.length; i++) {
+				
+				if(set.has(rows[i].group3Name) == false) {
+					flg++;
+					set.clear();
+					set.add(rows[i].group3Name);
+					
+					if(flg == 2) {
+						merge.rowspan = i - merge.index;
+						merges[merges.length] = merge;
+						flg = 1;
+					}
+					merge = new Object();
+					merge.index = i;
+				}
+				
+			}
+			//添加最后一个元素
+			merge.rowspan = rows.length - merge.index;
+			merges[merges.length] = merge;
+			console.log(merges);
+			for(var i=0; i<merges.length; i++)
+				$('#checklist').datagrid('mergeCells',{
+					index:merges[i].index,
+					field:'group3Percentage',
+					rowspan:merges[i].rowspan
+				});
+			for(var i=0; i<merges.length; i++)
+				$('#checklist').datagrid('mergeCells',{
+					index:merges[i].index,
+					field:'group3Name',
+					rowspan:merges[i].rowspan
+				});
+			
+			for(var i=0; i<merges.length; i++)
+				$('#checklist').datagrid('mergeCells',{
+					index:merges[i].index,
+					field:'order',
+					rowspan:merges[i].rowspan
+				});
 		}
 
 

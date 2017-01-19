@@ -213,6 +213,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:270
 					}
 				]],
+				
+				onLoadSuccess:function(data){
+					merge(data);
+				},
+				
+				onAfterEdit: function() {
+					var data = $('#checklist').datagrid('getData');
+					merge(data);
+				},
 
 
 				//增加工具栏，添加增删改查按钮
@@ -346,93 +355,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			}).datagrid('enableCellEditing');
 
-			/**
-			 * 商品编号输入框初始化
-			 */
-			$('#commodityNum').validatebox({
-				required : true ,
-				validType : 'midLength[2,5]' ,
-				invalidMessage : '商品编号必须在2到5个长度之间' ,
-				missingMessage : '请填写商品编号'
-			});
-
-			/**
-			 * 表单提交按钮
-			 */
-			$('#saveButton').click(function(){
-				if($('#addForm').form('validate')){
-					$.ajax({
-						type: 'post',
-						url: flag=='add'? 'commodityAction_add' : 'commodityAction_update',
-						cache: false,
-						data: $('#addForm').serialize(),
-						dataType: 'json',
-						success: function(result) {
-							$('#addDialog').dialog('close');
-							if(result.success){
-								$.messager.show ({
-									title: "ok!",
-									msg: result.message
-								});
-								$('#addForm').form('reset');
-								$('#commodityTable').datagrid('reload');
-							} else {
-								$.messager.show ({
-									title: "fail!",
-									msg: result.message
-								});
-							}
-						},
-					});
-				} else {
-					$.messager.show({
-						title: '提示信息' ,
-						msg: '数据有误，不能保存！'
-					});
-				}
-			});
-
-			/**
-			 * 表单取消按钮
-			 */
-			$('#cancelButton').click(function(){
-				$('#addDialog').dialog('close');
-			});
-
-			/**
-			 * 搜索按钮
-			 */
-			$('#searchButton').click(function() {
-				$('#commodityTable').datagrid('load', serializeForm($('#commoditySearch')));
-			});
-
-			/**
-			 * 清空按钮
-			 */
-			$('#clearButton').click(function() {
-				$('#commoditySearch').form('reset');
-			});
-
-			/**
-			 * 计量单位下拉菜单
-			 */
-			$('#unitCombobox').combobox({
-				url:'commodityAction_getUnitList',
-				editable:false,
-			    valueField:'unitId',
-			    textField:'unitName',
-			});
-
-			/**
-			 * 商品类别下拉菜单
-			 */
-			$('#cotegoryCombobox').combobox({
-				url:'cmdtCtgrAction_getCategoryList',
-				editable:false,
-			    valueField:'cid',
-			    textField:'cname',
-			});
-
 		});
 
 		//js方法：序列化表单
@@ -446,6 +368,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 			return obj;
+		}
+		
+		//合并单元格
+		function merge(data){
+			console.log(data);
+			var rows = data.rows;
+			var set = new Set();
+			var merges = [];
+			var merge = new Object();
+			var flg = 0;
+			for(var i=0; i<rows.length; i++) {
+				
+				if(set.has(rows[i].group3Name) == false) {
+					flg++;
+					set.clear();
+					set.add(rows[i].group3Name);
+					
+					if(flg == 2) {
+						merge.rowspan = i - merge.index;
+						merges[merges.length] = merge;
+						flg = 1;
+					}
+					merge = new Object();
+					merge.index = i;
+				}
+				
+			}
+			//添加最后一个元素
+			merge.rowspan = rows.length - merge.index;
+			merges[merges.length] = merge;
+			console.log(merges);
+			for(var i=0; i<merges.length; i++)
+				$('#checklist').datagrid('mergeCells',{
+					index:merges[i].index,
+					field:'group3Percentage',
+					rowspan:merges[i].rowspan
+				});
+			for(var i=0; i<merges.length; i++)
+				$('#checklist').datagrid('mergeCells',{
+					index:merges[i].index,
+					field:'group3Name',
+					rowspan:merges[i].rowspan
+				});
+			
 		}
 
 
