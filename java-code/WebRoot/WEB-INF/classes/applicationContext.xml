@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
@@ -11,7 +13,7 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<!-- ======================================================================= -->
+	<!-- ======================================================================= -->
 	<!-- Spring的相关配置 -->
 	<!-- Configuration of Spring -->
 
@@ -25,18 +27,19 @@
 
 	<!-- 引入外部连接池属性文件 -->
 	<!-- import external property's file of connection pool -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties" />
 
 	<!-- 配置C3P0连接池: -->
 	<!-- configure C3P0 connection pool: -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-<!-- ======================================================================= -->
+	<!-- ======================================================================= -->
 	<!-- Hibernate的相关配置 -->
 	<!-- Configuration of Hibernate -->
 
@@ -51,7 +54,8 @@
 		<!-- configure another properties of Hibernate -->
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
@@ -96,7 +100,7 @@
 			<tx:method name="remove*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="change*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
@@ -108,7 +112,8 @@
 	<!-- configure aspect of transaction -->
 	<aop:config>
 		<!-- AspectJ语法，第一个*表示方法返回值，..表示有子包，第二个*表示该包下任意类，第三个*表示任意方法，(..)表示任意参数 -->
-		<aop:pointcut id="serviceOperation" expression="execution(* com.sic.ocms.service..*.*(..))" />
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* com.sic.ocms.service..*.*(..))" />
 		<aop:pointcut id="daoOperation" expression="execution(* com.sic.ocms.dao..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
