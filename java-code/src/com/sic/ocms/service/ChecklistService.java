@@ -124,6 +124,7 @@ public class ChecklistService {
 		}
 	}
 
+	//データベース内のitemの得点を計算
 	public void calculatePercentage(){
 
 		List<Item> items = itemDAO.list("from Item");
@@ -142,10 +143,12 @@ public class ChecklistService {
 		}
 
 		for(Item item:group3){//まずグループ3
-			int completioncounter = 0;
-			int correspondencecounter = 0;
-			int notstartedcounter = 0;
+			int completioncounter = 0;		//完了数
+			int correspondencecounter = 0;	//対応中数
+			int notstartedcounter = 0;		//未着手数
+
 			Set<Checkitem> checkitems = item.getCheckitems();
+
 			for(Checkitem checkitem:checkitems){
 				Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
 				for(CheckitemStatus checkitemstatus:checkitemstatuses){
