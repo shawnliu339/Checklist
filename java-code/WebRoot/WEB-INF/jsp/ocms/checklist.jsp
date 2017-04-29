@@ -253,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},'-',{
-						text:'删除商品信息',
+						text:'項目を削除する',
 						iconCls:'icon-remove',
 						handler:function(){
 
@@ -298,55 +298,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									}
 								});
 
-							}
-
-						}
-					},'-',{
-						text:'修改商品信息',
-						iconCls:'icon-edit',
-						handler:function(){
-
-							//标志位修改
-							flag = 'edit';
-							//动态设定对话框标题
-							$('#addDialog').dialog({
-								title: '修改商品信息'
-							});
-							var arr = $('#commodityTable').datagrid('getSelections');
-							if(arr.length != 1) {
-								$.messager.show({
-									title: '提示信息！',
-									msg: '只能选择一行记录进行修改！'
-								});
-							} else {
-								$('#addDialog').dialog('open');
-								$('#addForm').form('reset');
-								$('#addForm').form('load',{
-									commodityId: arr[0].commodityId,
-									commodityName: arr[0].commodityName,
-									commodityType: arr[0].commodityType,
-									categoryId: arr[0].categoryId,
-									unitId: arr[0].unitId,
-									salePrice:arr[0].salePrice,
-									vip1Price:arr[0].vip1Price,
-									vip2Price:arr[0].vip2Price,
-									vip3Price:arr[0].vip3Price,
-									minimum:arr[0].minimum,
-									remark: arr[0].remark
-								});
-							}
-
-						}
-					},'-',{
-						text:'查询商品信息',
-						iconCls:'icon-search',
-						handler:function(){
-							if(searchStatus == 0) {
-								searchStatus = 1;
-								$('#lay').layout('expand' , 'north');
-							} else {
-								searchStatus = 0;
-								$('#lay').layout('collapse' , 'north');
 							}
 
 						}
