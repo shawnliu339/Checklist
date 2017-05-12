@@ -21,7 +21,7 @@ public class CheckitemStatusDAOTest {
 		CheckitemStatus cs = new CheckitemStatus();
 
 		cs.setCheckItemStatusId(45);
-		cs.setStatus(0);
+		cs.setStatus(4);
 		cs.setComment("test");
 
 		for(CheckitemStatus cis:csitemlist){

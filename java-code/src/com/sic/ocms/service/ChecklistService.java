@@ -118,9 +118,9 @@ public class ChecklistService {
 					checkitemstatus.setProblem(updatedcheckitemstatus.getProblem());
 					checkitemStatusDAO.update(checkitemstatus);
 					calculatePercentage();
+					break;
 				}
 			}
-
 		}
 	}
 

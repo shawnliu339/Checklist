@@ -36,7 +36,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	@Override
 	public void update(T t) {
 		this.getSession().update(t);
-
+		this.getSession().flush();
 	}
 
 	private Class<T> cls;
