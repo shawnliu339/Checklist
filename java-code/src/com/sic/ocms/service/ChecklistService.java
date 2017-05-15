@@ -24,17 +24,12 @@ import net.sf.json.JSONObject;
 @Service
 public class ChecklistService {
 
-
-
 	private DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
-
 	ChecklistDO row = new ChecklistDO();
-
 	List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
-
+	//データベースからデータを取得
 	public DataGrid<ChecklistDO> getDataGrid() {
-
 		List<Item> itemｓ = itemDAO.list("from Item");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
@@ -91,21 +86,17 @@ public class ChecklistService {
 		}
 		dg.setRows(table);
 		dg.setTotal(table.size());
-
 		return dg;
 	}
 
+	//データベースをアップデート
 	public void update(String rows) {
-
 		JSONArray jArr = JSONArray.fromObject(rows);
-
 		List<CheckitemStatus> checkitemstatuses = checkitemStatusDAO.list("from CheckitemStatus");
-
 		CheckitemStatus updatedcheckitemstatus = new CheckitemStatus();
 
 		for(int i=0;i<jArr.size();i++){
 			JSONObject jObj = JSONObject.fromObject(jArr.get(i));
-
 			updatedcheckitemstatus.setCheckItemStatusId(jObj.getInt("checkitemStatusId"));
 			updatedcheckitemstatus.setStatus(jObj.getInt("status"));
 			updatedcheckitemstatus.setProblem(jObj.getInt("problem"));
@@ -126,9 +117,7 @@ public class ChecklistService {
 
 	//データベース内のitemの得点を計算
 	public void calculatePercentage(){
-
 		List<Item> items = itemDAO.list("from Item");
-
 		List<Item> group1 = new ArrayList<Item>();
 		List<Item> group2 = new ArrayList<Item>();
 		List<Item> group3 = new ArrayList<Item>();
@@ -146,9 +135,7 @@ public class ChecklistService {
 			int completioncounter = 0;		//完了数
 			int correspondencecounter = 0;	//対応中数
 			int notstartedcounter = 0;		//未着手数
-
 			Set<Checkitem> checkitems = item.getCheckitems();
-
 			for(Checkitem checkitem:checkitems){
 				Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
 				for(CheckitemStatus checkitemstatus:checkitemstatuses){
@@ -190,29 +177,44 @@ public class ChecklistService {
 			item.setPercentage((double)sum/children.size());
 			itemDAO.update(item);
 		}
-/*
+	}
+
+	//グループ1の取得
+	public List<Item> getGroup1(){
+		List<Item> group1 = new ArrayList<Item>();
+		List<Item> items = itemDAO.list("from Item");
+
 		for(Item item:items){
-			Double sum = 0.0;
-			if(item.getChildren().size()==0){//最下層の場合
-
-				Set<Checkitem> checkitems = item.getCheckitems();
-				for(Checkitem checkitem:checkitems){
-					Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
-					for(CheckitemStatus checkitemstatus:checkitemstatuses){
-						sum += checkitemstatus.getStatus();
-					}
-				}
-			}else{//それ以外の場合
-				Set<Item> children = item.getChildren();
-				for(Item child:children){
-					sum+=child.getPercentage();
-				}
-
+			if(item.getParent().getItemId()==item.getItemId()){
+				group1.add(item);
 			}
-			item.setPercentage(sum/item.getChildren().size());
-			itemDAO.update(item);
 		}
-*/
+		return group1;
+	}
+
+	//グループ2の取得
+	public List<Item> getGroup2(){
+		List<Item> group2 = new ArrayList<Item>();
+		List<Item> group1 = getGroup1();
+
+		for(Item item:group1){
+			for(Item child:item.getChildren()){
+				if(child.getItemId()!=item.getItemId())group2.add(child);
+			}
+		}
+		return group2;
+	}
+	//グループ3の取得
+	public List<Item> getGroup3(){
+		List<Item> group3 = new ArrayList<Item>();
+		List<Item> group2 = getGroup2();
+
+		for(Item item:group2){
+			for(Item child:item.getChildren()){
+				group3.add(child);
+			}
+		}
+		return group3;
 	}
 
 	private ItemDAO itemDAO;

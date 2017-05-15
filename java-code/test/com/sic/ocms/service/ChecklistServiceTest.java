@@ -1,9 +1,12 @@
 package com.sic.ocms.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sic.ocms.dto.ChecklistDO;
+import com.sic.ocms.persistence.Item;
 import com.sic.ocms.util.easyui.DataGrid;
 
 public class ChecklistServiceTest {
@@ -28,8 +31,6 @@ public class ChecklistServiceTest {
 		}
 	}
 
-
-@Test
 	public void testUpdate(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -74,8 +75,39 @@ public class ChecklistServiceTest {
 				i++;
 			}
 		}
+	}
 
 
+	public void testGetGroup1(){
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
 
+		List<Item> group1 = cs.getGroup1();
+
+		for(Item item:group1){
+			System.out.println(item.getName());
+		}
+	}
+
+	public void testGetGroup2(){
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
+
+		List<Item> group2 = cs.getGroup2();
+
+		for(Item item:group2){
+			System.out.println(item.getName());
+		}
+	}
+@Test
+	public void testGetGroup3(){
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
+
+		List<Item> group3 = cs.getGroup3();
+
+		for(Item item:group3){
+			System.out.println(item.getName());
+		}
 	}
 }
