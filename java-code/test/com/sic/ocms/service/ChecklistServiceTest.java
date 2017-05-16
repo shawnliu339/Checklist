@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sic.ocms.dto.ChecklistDO;
+import com.sic.ocms.dto.DashboardDO;
 import com.sic.ocms.persistence.Item;
 import com.sic.ocms.util.easyui.DataGrid;
 
@@ -93,21 +94,46 @@ public class ChecklistServiceTest {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
 
-		List<Item> group2 = cs.getGroup2();
+		List<Item> group2 = cs.getAlphas();
 
 		for(Item item:group2){
 			System.out.println(item.getName());
 		}
 	}
-@Test
+
 	public void testGetGroup3(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
 
-		List<Item> group3 = cs.getGroup3();
+		List<Item> group3 = cs.getStatuses();
 
 		for(Item item:group3){
 			System.out.println(item.getName());
+		}
+	}
+
+	public void testGetDashboard(){
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
+		List<DashboardDO> dbs = cs.getDashboard();
+
+		for(DashboardDO element:dbs){
+			System.out.println(element.getParentname());
+			for(Item item:element.getChildren()){
+				System.out.println("	"+item.getName());
+			}
+		}
+	}
+@Test
+	public void testGetDataGrid2(){
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
+		DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
+
+		dg=cs.getDataGrid("顧客");
+
+		for(ChecklistDO csd : dg.getRows()) {
+			System.out.println(csd.toString());
 		}
 	}
 }
