@@ -1,31 +1,35 @@
 package com.sic.ocms.dto;
 
-import java.util.List;
+import java.util.Set;
 
 import com.sic.ocms.persistence.Item;
 
 public class DashboardDO {
-	private List<Item> group1;
-	private List<Item> group2;
-	private List<Item> group3;
+	//id name percentage
+	private String parentname;
+	private Set<Item> children;
 
-	public List<Item> getGroup1() {
-		return group1;
+	public DashboardDO(){
+		parentname = "";
+		children = null;
 	}
-	public List<Item> getGroup2() {
-		return group2;
+
+
+	public String getParentname() {
+		return parentname;
 	}
-	public List<Item> getGroup3() {
-		return group3;
+	public Set<Item> getChildren() {
+		return children;
 	}
-	public void setGroup1(List<Item> group1) {
-		this.group1 = group1;
+	public void setParentname(String parentname) {
+		this.parentname = parentname;
 	}
-	public void setGroup2(List<Item> group2) {
-		this.group2 = group2;
+	public void setChildren(Set<Item> children) {
+		this.children = children;
 	}
-	public void setGroup3(List<Item> group3) {
-		this.group3 = group3;
-	}
+
+
+
+
 
 }

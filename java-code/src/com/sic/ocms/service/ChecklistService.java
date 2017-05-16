@@ -2,6 +2,7 @@ package com.sic.ocms.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import com.sic.ocms.dao.checkitem.CheckitemDAO;
 import com.sic.ocms.dao.checkitem.status.CheckitemStatusDAO;
 import com.sic.ocms.dao.item.ItemDAO;
 import com.sic.ocms.dto.ChecklistDO;
+import com.sic.ocms.dto.DashboardDO;
 import com.sic.ocms.persistence.Checkitem;
 import com.sic.ocms.persistence.CheckitemStatus;
 import com.sic.ocms.persistence.Item;
@@ -27,6 +29,69 @@ public class ChecklistService {
 	private DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
 	ChecklistDO row = new ChecklistDO();
 	List<ChecklistDO> table = new ArrayList<ChecklistDO>();
+
+	public List<DashboardDO> getDashboard(){
+		List<DashboardDO> elements = new ArrayList<DashboardDO>();
+
+		List<Item> alpha = getAlphas();
+		for(Item item:alpha){
+			DashboardDO element = new DashboardDO();
+			element.setParentname(item.getName());
+			element.setChildren(item.getChildren());
+			elements.add(element);
+		}
+		return elements;
+	}
+
+	public DataGrid<ChecklistDO> getDataGrid(String alphaname) {
+		List<Item> items = itemDAO.list("from Item");
+		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
+		Set<Item> statuses = new HashSet<Item>();
+
+		//上から表示したい順に挿入していく
+						for(Item g2:items){
+							if(g2.getName().equals(alphaname)){
+								Set<Item> group3 = g2.getChildren();
+								for(int k=1;k<=group3.size();k++){
+									for(Item g3:group3){
+										if(g3.getRank()==k){
+											Set<Checkitem> checkitems = g3.getCheckitems();
+											for(int i=1;i<=checkitems.size();i++){
+												for(Checkitem checkitem:checkitems){
+													if(checkitem.getRank()==i){
+														Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
+														for(CheckitemStatus checkitemstatus:checkitemstatuses){
+															ChecklistDO row = new ChecklistDO();
+															DecimalFormat df = new DecimalFormat("#");
+															row.setGroup2Name(g2.getName());
+															row.setGroup2Percentage( Double.valueOf(df.format(g2.getPercentage())));
+															row.setGroup3Name(g3.getName());
+															row.setGroup3Percentage( Double.valueOf(df.format(g3.getPercentage())));
+															row.setCheckitemContent(checkitem.getContent());
+															row.setDescription(checkitem.getDescrition());
+															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
+															row.setCheckitemStatusId(checkitemstatus.getCheckItemStatusId());
+															row.setStatus(checkitemstatus.getStatus());
+															row.setProblem(checkitemstatus.getProblem());
+															row.setComment(checkitemstatus.getComment());
+															row.setPrjtype(checkitemstatus.getPrjtype());
+															row.setImportance(checkitemstatus.getImportance());
+															row.setCheckitemId(checkitem.getCheckitemId());
+															table.add(row);
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+		dg.setRows(table);
+		dg.setTotal(table.size());
+		return dg;
+
+	}
 
 	//データベースからデータを取得
 	public DataGrid<ChecklistDO> getDataGrid() {
@@ -180,41 +245,41 @@ public class ChecklistService {
 	}
 
 	//グループ1の取得
-	public List<Item> getGroup1(){
-		List<Item> group1 = new ArrayList<Item>();
+	public List<Item> getFields(){
+		List<Item> fields = new ArrayList<Item>();
 		List<Item> items = itemDAO.list("from Item");
 
 		for(Item item:items){
 			if(item.getParent().getItemId()==item.getItemId()){
-				group1.add(item);
+				fields.add(item);
 			}
 		}
-		return group1;
+		return fields;
 	}
 
 	//グループ2の取得
-	public List<Item> getGroup2(){
-		List<Item> group2 = new ArrayList<Item>();
-		List<Item> group1 = getGroup1();
+	public List<Item> getAlphas(){
+		List<Item> alphas = new ArrayList<Item>();
+		List<Item> fields = getFields();
 
-		for(Item item:group1){
+		for(Item item:fields){
 			for(Item child:item.getChildren()){
-				if(child.getItemId()!=item.getItemId())group2.add(child);
+				if(child.getItemId()!=item.getItemId())alphas.add(child);
 			}
 		}
-		return group2;
+		return alphas;
 	}
 	//グループ3の取得
-	public List<Item> getGroup3(){
-		List<Item> group3 = new ArrayList<Item>();
-		List<Item> group2 = getGroup2();
+	public List<Item> getStatuses(){
+		List<Item> Statuses = new ArrayList<Item>();
+		List<Item> alphas = getAlphas();
 
-		for(Item item:group2){
+		for(Item item:alphas){
 			for(Item child:item.getChildren()){
-				group3.add(child);
+				Statuses.add(child);
 			}
 		}
-		return group3;
+		return Statuses;
 	}
 
 	private ItemDAO itemDAO;
