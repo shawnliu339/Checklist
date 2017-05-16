@@ -130,7 +130,7 @@ public class ChecklistServiceTest {
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
 		DataGrid<ChecklistDO> dg = new DataGrid<ChecklistDO>();
 
-		dg=cs.getDataGrid("顧客");
+		dg=cs.getDataGrid("ステークホルダー");
 
 		for(ChecklistDO csd : dg.getRows()) {
 			System.out.println(csd.toString());

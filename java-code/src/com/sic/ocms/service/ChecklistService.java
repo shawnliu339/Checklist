@@ -2,7 +2,6 @@ package com.sic.ocms.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +29,8 @@ public class ChecklistService {
 	ChecklistDO row = new ChecklistDO();
 	List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
+
+	//ダッシュボード用にデータを取得
 	public List<DashboardDO> getDashboard(){
 		List<DashboardDO> elements = new ArrayList<DashboardDO>();
 
@@ -43,19 +44,19 @@ public class ChecklistService {
 		return elements;
 	}
 
+	//アルファの名前からそれ以下の要素を抽出
 	public DataGrid<ChecklistDO> getDataGrid(String alphaname) {
 		List<Item> items = itemDAO.list("from Item");
 		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
-		Set<Item> statuses = new HashSet<Item>();
 
 		//上から表示したい順に挿入していく
-						for(Item g2:items){
-							if(g2.getName().equals(alphaname)){
-								Set<Item> group3 = g2.getChildren();
-								for(int k=1;k<=group3.size();k++){
-									for(Item g3:group3){
-										if(g3.getRank()==k){
-											Set<Checkitem> checkitems = g3.getCheckitems();
+						for(Item alpha:items){
+							if(alpha.getName().equals(alphaname)){
+								Set<Item> statuses = alpha.getChildren();
+								for(int k=1;k<=statuses.size();k++){
+									for(Item status:statuses){
+										if(alpha.getItemId()!=status.getItemId()&&status.getRank()==k){
+											Set<Checkitem> checkitems = status.getCheckitems();
 											for(int i=1;i<=checkitems.size();i++){
 												for(Checkitem checkitem:checkitems){
 													if(checkitem.getRank()==i){
@@ -63,10 +64,10 @@ public class ChecklistService {
 														for(CheckitemStatus checkitemstatus:checkitemstatuses){
 															ChecklistDO row = new ChecklistDO();
 															DecimalFormat df = new DecimalFormat("#");
-															row.setGroup2Name(g2.getName());
-															row.setGroup2Percentage( Double.valueOf(df.format(g2.getPercentage())));
-															row.setGroup3Name(g3.getName());
-															row.setGroup3Percentage( Double.valueOf(df.format(g3.getPercentage())));
+															row.setGroup2Name(alpha.getName());
+															row.setGroup2Percentage( Double.valueOf(df.format(alpha.getPercentage())));
+															row.setGroup3Name(status.getName());
+															row.setGroup3Percentage( Double.valueOf(df.format(status.getPercentage())));
 															row.setCheckitemContent(checkitem.getContent());
 															row.setDescription(checkitem.getDescrition());
 															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
