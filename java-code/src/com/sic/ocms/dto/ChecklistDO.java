@@ -4,7 +4,7 @@ public class ChecklistDO {
 
 	//not hidden
 	//item
-	private String group1Name;
+	private String fieldName;
 	private Double group1Percentage;
 	private String group2Name;
 	private Double group2Percentage;
@@ -28,8 +28,8 @@ public class ChecklistDO {
 
 
 
-	public String getGroup1Name() {
-		return group1Name;
+	public String getFieldName() {
+		return fieldName;
 	}
 	public Double getGroup1Percentage() {
 		return group1Percentage;
@@ -79,8 +79,8 @@ public class ChecklistDO {
 	public Integer getCheckitemId() {
 		return checkitemId;
 	}
-	public void setGroup1Name(String group1Name) {
-		this.group1Name = group1Name;
+	public void setFieldName(String group1Name) {
+		this.fieldName = group1Name;
 	}
 	public void setGroup1Percentage(Double group1Percentage) {
 		this.group1Percentage = group1Percentage;
@@ -132,7 +132,7 @@ public class ChecklistDO {
 	}
 	@Override
 	public String toString() {
-		return "ChecklistDO [group1Name=" + group1Name + ", group1Percentage=" + group1Percentage + ", group2Name="
+		return "ChecklistDO [group1Name=" + fieldName + ", group1Percentage=" + group1Percentage + ", group2Name="
 				+ group2Name + ", group2Percentage=" + group2Percentage + ", group3Name=" + group3Name
 				+ ", group3Percentage=" + group3Percentage + ", checkitemContent=" + checkitemContent + ", description="
 				+ description + ", typicalDeliverables=" + typicalDeliverables + ", status=" + status + ", problem="
