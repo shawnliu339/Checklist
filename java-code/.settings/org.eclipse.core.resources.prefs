@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/ocms/dashboard.jsp=UTF-8
 encoding//WebRoot/css/common2.css=GBK
 encoding//test/com/sic/ocms/dao/ItemDAOTest.java=UTF-8
 encoding/<project>=UTF-8

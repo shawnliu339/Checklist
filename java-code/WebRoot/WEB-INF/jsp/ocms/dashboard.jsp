@@ -1,3 +1,12 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -41,10 +50,16 @@
     }
 
     .overview {
-        height: 100px;
+        height: 80px;
+        margin: 5px;
     }
     
     .detail {
+    	margin: 5px;
+    }
+    
+    .hr {
+    	margin-bottom: 5px;
     }
     </style>
 </head>
@@ -56,48 +71,49 @@
             <div class="panel-heading">機会</div>
             <div class="panel-body">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">
-                    	<span name="name">課題の識別</span>
-                    	<span name="percentage">10%</span>
-                    </a>
-                    <a href="#" class="list-group-item">解決策の方向付け</a>
-                    <a href="#" class="list-group-item">価値の設定</a>
-                    <a href="#" class="list-group-item">解決策決定</a>
-                    <a href="#" class="list-group-item">課題解決</a>
-                    <a href="#" class="list-group-item">利益獲得</a>
+                	<c:forEach var="item" items="${機会}">
+                		<a href="#" class="list-group-item">
+                    		<span name="name">
+                    			<c:out value="${item.name}"/>
+                    		</span>
+                    		<span name="percentage">
+                    			<fmt:formatNumber value="${item.percentage}" pattern="#0"/>
+                    		</span>
+                    	</a>
+                	</c:forEach>
                 </div>
                 <div class="alpha-info">
                     <div class="overview">
                         <content>
-                            ソフトウェアシステムを開発、あるいは更新するための理由になり得る十分な状態
-                            <hr>
+                            ソフトウェアシステムを開発、あるいは更新するための理由になり得る十分な状況<hr>
                         </content>
                     </div>
                     <div class="detail">
-                        良い機会は…
+                       	良い機会は…
                         <ul>
-                        	<li>ソフトウェアシステムで解決すべき機会が特定されている</li>
-                        	<li>ソフトウェアシステム導入の価値が定義されている</li>
+                        	<li>ソフトウェアシステムで解決すべき機会が特定されている</li>
+                        	<li>ソフトウェアシステム導入の価値が定義されている</li>
                         	<li>QCDに見合ったソフトウェアが導入されている</li>
-                        	<li>明確な利益を生み出すことができる</li>
+                        	<li>明確な利益を生み出すことができる</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div class="panel panel-success alpha">
-            <div class="panel-heading">ステークホルダー</div>
+            <div class="panel-heading">ステークホルダ</div>
             <div class="panel-body">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">
-                    	<span name="name">課題の識別</span>
-                    	<span name="percentage">10%</span>
-                    </a>
-                    <a href="#" class="list-group-item">解決策の方向付け</a>
-                    <a href="#" class="list-group-item">価値の設定</a>
-                    <a href="#" class="list-group-item">解決策決定</a>
-                    <a href="#" class="list-group-item">課題解決</a>
-                    <a href="#" class="list-group-item">利益獲得</a>
+                    <c:forEach var="item" items="${ステークホルダー}">
+                		<a href="#" class="list-group-item">
+                    		<span name="name">
+                    			<c:out value="${item.name}"/>
+                    		</span>
+                    		<span name="percentage">
+                    			<fmt:formatNumber value="${item.percentage}" pattern="#0"/>
+                    		</span>
+                    	</a>
+                	</c:forEach>
                 </div>
                 <div class="alpha-info">
                     <div class="overview">
@@ -107,10 +123,10 @@
                         </content>
                     </div>
                     <div class="detail">
-                        健全なステークホルダは…
-                        <ul>
+                       健全なステークホルダは…
+                       	<ul>
                         	<li>ソフトウェアシステムに関与するグループや組織の代表者</li>
-                        	<li>ステークホルダ間で約束した役割を果たす</li>
+                        	<li>ステークホルダ間で約束した役割を果たす</li>
                         	<li>要求の合意形成のために協力する</li>
                         	<li>ソフトウェアシステムの恩恵を受ける</li>
                         </ul>
