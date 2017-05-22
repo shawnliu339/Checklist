@@ -3,13 +3,16 @@ package com.sic.ocms.action;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ncut.wms.util.json.Json;
 import com.sic.ocms.dto.ChecklistDO;
+import com.sic.ocms.dto.DashboardDO;
 import com.sic.ocms.service.ChecklistService;
 import com.sic.ocms.util.easyui.DataGrid;
 
@@ -18,10 +21,18 @@ import net.sf.json.JSONObject;
 @Controller
 public class ChecklistController{
 
-
 	@RequestMapping("/checklist")
 	public String index() {
 		return "checklist";
+	}
+	
+	@RequestMapping("/dashboard")
+	public String dashboard(ModelMap map) {
+		map.put("a", "aaa");
+		for(DashboardDO alpha : checklistService.getDashboard()) {
+			map.put(alpha.getParentname(), alpha.getChildren());
+		}
+		return "dashboard";
 	}
 	
 	/**
@@ -41,8 +52,22 @@ public class ChecklistController{
 		
 	}
 	
+	@RequestMapping("/checklist_subDataGrid")
+	public void dataGrid(HttpServletResponse response, String alphaName) {
+		
+		DataGrid<ChecklistDO> dg = checklistService.getDataGrid(alphaName);
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			response.getWriter().write(JSONObject.fromObject(dg).toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	@RequestMapping("/checklist_goSubChecklist")
-	public String goSubChecklist() {
+	public String goSubChecklist(String alphaName, ModelMap map) {
+		map.put("alphaName", alphaName);
 		return "subchecklist";
 	}
 	

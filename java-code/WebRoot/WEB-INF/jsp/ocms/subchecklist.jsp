@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				idField:'group1Id',
 				//ajax异步后台请求
-				url: 'checklist_dataGrid',
+				url: 'checklist_subDataGrid?alphaName=${requestScope.alphaName}',
 				fit: true,
 				//自动列间距
 				border: true,
@@ -187,6 +187,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
+						text:'ダッシュボードへ',
+						iconCls:'icon-back',
+						handler:function(){
+							window.location.href = "dashboard";
+						}
+					},'-',{
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){
@@ -211,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},'-',{
-						text:'删除商品信息',
+						text:'項目を削除する',
 						iconCls:'icon-remove',
 						handler:function(){
 
@@ -259,69 +265,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							}
 
 						}
-					},'-',{
-						text:'修改商品信息',
-						iconCls:'icon-edit',
-						handler:function(){
-
-							//标志位修改
-							flag = 'edit';
-							//动态设定对话框标题
-							$('#addDialog').dialog({
-								title: '修改商品信息'
-							});
-							var arr = $('#commodityTable').datagrid('getSelections');
-							if(arr.length != 1) {
-								$.messager.show({
-									title: '提示信息！',
-									msg: '只能选择一行记录进行修改！'
-								});
-							} else {
-								$('#addDialog').dialog('open');
-								$('#addForm').form('reset');
-								$('#addForm').form('load',{
-									commodityId: arr[0].commodityId,
-									commodityName: arr[0].commodityName,
-									commodityType: arr[0].commodityType,
-									categoryId: arr[0].categoryId,
-									unitId: arr[0].unitId,
-									salePrice:arr[0].salePrice,
-									vip1Price:arr[0].vip1Price,
-									vip2Price:arr[0].vip2Price,
-									vip3Price:arr[0].vip3Price,
-									minimum:arr[0].minimum,
-									remark: arr[0].remark
-								});
-							}
-
-						}
-					},'-',{
-						text:'查询商品信息',
-						iconCls:'icon-search',
-						handler:function(){
-							if(searchStatus == 0) {
-								searchStatus = 1;
-								$('#lay').layout('expand' , 'north');
-							} else {
-								searchStatus = 0;
-								$('#lay').layout('collapse' , 'north');
-							}
-
-						}
 					}
 				]
 
 			}).datagrid('enableCellEditing');
-
-			/**
-			 * 商品编号输入框初始化
-			 */
-			$('#commodityNum').validatebox({
-				required : true ,
-				validType : 'midLength[2,5]' ,
-				invalidMessage : '商品编号必须在2到5个长度之间' ,
-				missingMessage : '请填写商品编号'
-			});
 
 			/**
 			 * 表单提交按钮
@@ -359,111 +306,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 
-			/**
-			 * 表单取消按钮
-			 */
-			$('#cancelButton').click(function(){
-				$('#addDialog').dialog('close');
-			});
-
-			/**
-			 * 搜索按钮
-			 */
-			$('#searchButton').click(function() {
-				$('#commodityTable').datagrid('load', serializeForm($('#commoditySearch')));
-			});
-
-			/**
-			 * 清空按钮
-			 */
-			$('#clearButton').click(function() {
-				$('#commoditySearch').form('reset');
-			});
-
-			/**
-			 * 计量单位下拉菜单
-			 */
-			$('#unitCombobox').combobox({
-				url:'commodityAction_getUnitList',
-				editable:false,
-			    valueField:'unitId',
-			    textField:'unitName',
-			});
-
-			/**
-			 * 商品类别下拉菜单
-			 */
-			$('#cotegoryCombobox').combobox({
-				url:'cmdtCtgrAction_getCategoryList',
-				editable:false,
-			    valueField:'cid',
-			    textField:'cname',
-			});
 
 		});
 
-		//js方法：序列化表单
-		function serializeForm(form) {
-			var obj = {};
-			$.each(form.serializeArray(), function(index) {
-				if (obj[this['name']]) {
-					obj[this['name']] = obj[this['name']] + ',' + this['value'];
-				} else {
-					obj[this['name']] = this['value'];
-				}
-			});
-			return obj;
-		}
-		
 		//合并单元格
-		function merge(data){
-			console.log(data);
-			var rows = data.rows;
-			var set = new Set();
-			var merges = [];
-			var merge = new Object();
-			var flg = 0;
-			for(var i=0; i<rows.length; i++) {
-				
-				if(set.has(rows[i].group3Name) == false) {
-					flg++;
-					set.clear();
-					set.add(rows[i].group3Name);
-					
-					if(flg == 2) {
-						merge.rowspan = i - merge.index;
-						merges[merges.length] = merge;
-						flg = 1;
-					}
-					merge = new Object();
-					merge.index = i;
-				}
-				
-			}
-			//添加最后一个元素
-			merge.rowspan = rows.length - merge.index;
-			merges[merges.length] = merge;
-			console.log(merges);
-			for(var i=0; i<merges.length; i++)
-				$('#checklist').datagrid('mergeCells',{
-					index:merges[i].index,
-					field:'group3Percentage',
-					rowspan:merges[i].rowspan
-				});
-			for(var i=0; i<merges.length; i++)
-				$('#checklist').datagrid('mergeCells',{
-					index:merges[i].index,
-					field:'group3Name',
-					rowspan:merges[i].rowspan
-				});
-			
-			for(var i=0; i<merges.length; i++)
-				$('#checklist').datagrid('mergeCells',{
-					index:merges[i].index,
-					field:'order',
-					rowspan:merges[i].rowspan
-				});
+		function merge(data) {
+		    console.log(data);
+		    var rows = data.rows;
+		    var set = new Set();
+		    var merges = [];
+		    var merge = new Object();
+		    //存放不同列的分组
+		    var map = new Map();
+		    var flg = 0;
+		    //根据group3(Status)进行跨行分组 可以将这个逻辑抽出为方法复用，传递字符串（例如rows.group3Name）返回merges存入map
+		    for (var i = 0; i < rows.length; i++) {
+
+		        if (set.has(rows[i].group3Name) == false) {
+		            //用Set寻找相同名字的Item，以此进行分组
+		            //如果set内没有对应item代表该为第一个，或相同的item已经分组完毕，set可清空
+		            flg++;
+		            set.clear();
+		            set.add(rows[i].group3Name);
+
+		            //当flg等于2代表扫描完了前面所有相同的item，进入了新的与前面不同的item
+		            if (flg == 2) {
+		                //用现在所在行i减去第一次进入该if时设定的index可知道cell跨了多少行
+		                merge.rowspan = i - merge.index;
+		                merges[merges.length] = merge;
+		                flg = 1;
+		            }
+		            merge = new Object();
+		            merge.index = i;
+		        }
+
+		        //如果是最后一个元素且名字和上一个item一样则加入到上一个item组中
+		        if (i == rows.length - 1 && set.has(rows[i].group3Name)) {
+		            merge.rowspan = rows.length - merge.index;
+		            merges[merges.length] = merge;
+		        }
+
+		    }
+
+		    console.log(merges);
+		    //合并达成率
+		    for (var i = 0; i < merges.length; i++)
+		        $('#checklist').datagrid('mergeCells', {
+		            index: merges[i].index,
+		            field: 'group3Percentage',
+		            rowspan: merges[i].rowspan
+		        });
+		    //合并Status3
+		    for (var i = 0; i < merges.length; i++)
+		        $('#checklist').datagrid('mergeCells', {
+		            index: merges[i].index,
+		            field: 'group3Name',
+		            rowspan: merges[i].rowspan
+		        });
+		    //合并排序
+		    for (var i = 0; i < merges.length; i++)
+		        $('#checklist').datagrid('mergeCells', {
+		            index: merges[i].index,
+		            field: 'order',
+		            rowspan: merges[i].rowspan
+		        });
 		}
+
 
 
 	</script>

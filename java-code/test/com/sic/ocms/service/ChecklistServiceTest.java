@@ -111,7 +111,7 @@ public class ChecklistServiceTest {
 			System.out.println(item.getName());
 		}
 	}
-
+	@Test
 	public void testGetDashboard(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
@@ -124,7 +124,7 @@ public class ChecklistServiceTest {
 			}
 		}
 	}
-@Test
+
 	public void testGetDataGrid2(){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ChecklistService cs = (ChecklistService) ctx.getBean("checklistService");
