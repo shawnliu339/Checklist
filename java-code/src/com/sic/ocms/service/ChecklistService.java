@@ -47,49 +47,52 @@ public class ChecklistService {
 	//アルファの名前からそれ以下の要素を抽出
 	public DataGrid<ChecklistDO> getDataGrid(String alphaname) {
 		List<Item> items = itemDAO.list("from Item");
-		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
+		List<ChecklistDO> rows = new ArrayList<ChecklistDO>();
 
-		//上から表示したい順に挿入していく
-						for(Item alpha:items){
-							if(alpha.getName().equals(alphaname)){
-								Set<Item> statuses = alpha.getChildren();
-								for(int k=1;k<=statuses.size();k++){
-									for(Item status:statuses){
-										if(alpha.getItemId()!=status.getItemId()&&status.getRank()==k){
-											Set<Checkitem> checkitems = status.getCheckitems();
-											for(int i=1;i<=checkitems.size();i++){
-												for(Checkitem checkitem:checkitems){
-													if(checkitem.getRank()==i){
-														Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
-														for(CheckitemStatus checkitemstatus:checkitemstatuses){
-															ChecklistDO row = new ChecklistDO();
-															DecimalFormat df = new DecimalFormat("#");
-															row.setGroup2Name(alpha.getName());
-															row.setGroup2Percentage( Double.valueOf(df.format(alpha.getPercentage())));
-															row.setGroup3Name(status.getName());
-															row.setGroup3Percentage( Double.valueOf(df.format(status.getPercentage())));
-															row.setCheckitemContent(checkitem.getContent());
-															row.setDescription(checkitem.getDescrition());
-															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
-															row.setCheckitemStatusId(checkitemstatus.getCheckItemStatusId());
-															row.setStatus(checkitemstatus.getStatus());
-															row.setProblem(checkitemstatus.getProblem());
-															row.setComment(checkitemstatus.getComment());
-															row.setPrjtype(checkitemstatus.getPrjtype());
-															row.setImportance(checkitemstatus.getImportance());
-															row.setCheckitemId(checkitem.getCheckitemId());
-															table.add(row);
-														}
-													}
-												}
-											}
+		for(Item alpha:items){
+			if(alpha.getName().equals(alphaname)){
+				Set<Item> statuses = alpha.getChildren();
+				for(int k=1;k<=statuses.size();k++){
+					for(Item status:statuses){
+						if(status.getItemId()!=status.getParent().getItemId()&&status.getRank()==k){
+							Set<Checkitem> checkitems = status.getCheckitems();
+							for(int i=1;i<=checkitems.size();i++){
+								for(Checkitem checkitem:checkitems){
+									if(checkitem.getRank()==i){
+										Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
+										for(CheckitemStatus checkitemstatus:checkitemstatuses){
+											ChecklistDO row = new ChecklistDO();
+											row.setGroup1Id(alpha.getParent().getItemId());
+											row.setGroup1Name(alpha.getParent().getName());
+											DecimalFormat df = new DecimalFormat("#");
+											row.setGroup1Percentage( Double.valueOf(df.format(alpha.getParent().getPercentage())));
+											row.setGroup2Name(alpha.getName());
+											row.setGroup2Percentage( Double.valueOf(df.format(alpha.getPercentage())));
+											row.setGroup3Name(status.getName());
+											row.setGroup3Percentage( Double.valueOf(df.format(status.getPercentage())));
+											row.setCheckitemContent(checkitem.getContent());
+											row.setDescription(checkitem.getDescrition());
+											row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
+											row.setCheckitemStatusId(checkitemstatus.getCheckItemStatusId());
+											row.setStatus(checkitemstatus.getStatus());
+											row.setProblem(checkitemstatus.getProblem());
+											row.setComment(checkitemstatus.getComment());
+											row.setPrjtype(checkitemstatus.getPrjtype());
+											row.setImportance(checkitemstatus.getImportance());
+											row.setCheckitemId(checkitem.getCheckitemId());
+											rows.add(row);
 										}
 									}
 								}
 							}
 						}
-		dg.setRows(table);
-		dg.setTotal(table.size());
+					}
+				}
+			}
+		}
+
+		dg.setRows(rows);
+		dg.setTotal(rows.size());
 		return dg;
 
 	}
