@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				idField:'group1Id',
 				//ajax异步后台请求
-				url: 'checklist_dataGrid',
+				url: 'checklist_subDataGrid?alphaName=${requestScope.alphaName}',
 				fit: true,
 				//自动列间距
 				border: true,
@@ -187,6 +187,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
+						text:'ダッシュボードへ',
+						iconCls:'icon-back',
+						handler:function(){
+							window.location.href = "dashboard";
+						}
+					},'-',{
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){
@@ -329,16 +335,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 */
 			$('#clearButton').click(function() {
 				$('#commoditySearch').form('reset');
-			});
-
-			/**
-			 * 计量单位下拉菜单
-			 */
-			$('#unitCombobox').combobox({
-				url:'commodityAction_getUnitList',
-				editable:false,
-			    valueField:'unitId',
-			    textField:'unitName',
 			});
 
 			/**

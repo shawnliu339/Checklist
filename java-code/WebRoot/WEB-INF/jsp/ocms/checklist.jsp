@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						formatter: function(value) {
 							
-							return '<a href="checklist_goSubChecklist">'+value+'</a>';
+							return '<a href="checklist_goSubChecklist?alphaName='+value+'">'+value+'</a>';
 							
 						}
 					},{
@@ -227,6 +227,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
+						text:'ダッシュボードへ',
+						iconCls:'icon-back',
+						handler:function(){
+							window.location.href = "dashboard";
+						}
+					},'-',{
 						text:'チェックリスト登録',
 						iconCls:'icon-save',
 						handler:function(){

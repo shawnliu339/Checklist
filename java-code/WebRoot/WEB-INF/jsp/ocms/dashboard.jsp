@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="panel-body">
                 <div class="list-group">
                 	<c:forEach var="item" items="${機会}">
-                		<a href="#" class="list-group-item">
+                		<a href="checklist_goSubChecklist?alphaName=機会" class="list-group-item">
                     		<span name="name">
                     			<c:out value="${item.name}"/>
                     		</span>
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="panel-body">
                 <div class="list-group">
                     <c:forEach var="item" items="${ステークホルダー}">
-                		<a href="#" class="list-group-item">
+                		<a href="checklist_goSubChecklist?alphaName=ステークホルダー" class="list-group-item">
                     		<span name="name">
                     			<c:out value="${item.name}"/>
                     		</span>
