@@ -71,7 +71,7 @@ public class ChecklistService {
 										for(CheckitemStatus checkitemstatus:checkitemstatuses){
 											ChecklistDO row = new ChecklistDO();
 											row.setGroup1Id(alpha.getParent().getItemId());
-											row.setFieldName(alpha.getParent().getName());
+											row.setGroup1Name(alpha.getParent().getName());
 											DecimalFormat df = new DecimalFormat("#");
 											row.setGroup1Percentage( Double.valueOf(df.format(alpha.getParent().getPercentage())));
 											row.setGroup2Name(alpha.getName());
@@ -135,7 +135,7 @@ public class ChecklistService {
 														for(CheckitemStatus checkitemstatus:checkitemstatuses){
 															ChecklistDO row = new ChecklistDO();
 															row.setGroup1Id(field.getItemId());
-															row.setFieldName(field.getName());
+															row.setGroup1Name(field.getName());
 															DecimalFormat df = new DecimalFormat("#");
 															row.setGroup1Percentage( Double.valueOf(df.format(field.getPercentage())));
 															row.setGroup2Name(alpha.getName());
