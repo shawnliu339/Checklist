@@ -1,0 +1,55 @@
+.list-group {
+	display: inline-block;
+	width: 45%;
+}
+
+.alpha {
+	margin-right: 50px;
+	height: 370px;
+}
+
+.alpha:last-child {
+	position: relative;
+	left: 10%;
+}
+
+.alpha a {
+	position: relative;
+	width: 100%;
+}
+
+.alpha a span[name=percentage] {
+	position: absolute;
+	right: 20px;
+}
+
+.alpha-info {
+	display: inline-block;
+	width: 54%;
+	vertical-align: top;
+}
+
+.overview {
+	height: 80px;
+	margin: 5px;
+}
+
+.detail {
+	margin: 5px;
+}
+
+.hr {
+	margin-bottom: 5px;
+}
+
+.red {
+	color: #f66a6e !important;
+}
+
+.green {
+	color: #66bd7d !important;
+}
+
+.yellow {
+	color: #fef104 !important;
+}
