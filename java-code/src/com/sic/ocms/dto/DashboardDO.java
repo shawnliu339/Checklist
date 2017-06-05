@@ -1,13 +1,13 @@
 package com.sic.ocms.dto;
 
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import com.sic.ocms.persistence.Item;
 
 public class DashboardDO {
 	//id name percentage
 	private String parentname;
-	private Set<Item> children;
+	private LinkedHashSet<Item> children;
 
 	public DashboardDO(){
 		parentname = "";
@@ -18,13 +18,13 @@ public class DashboardDO {
 	public String getParentname() {
 		return parentname;
 	}
-	public Set<Item> getChildren() {
+	public LinkedHashSet<Item> getChildren() {
 		return children;
 	}
 	public void setParentname(String parentname) {
 		this.parentname = parentname;
 	}
-	public void setChildren(Set<Item> children) {
+	public void setChildren(LinkedHashSet<Item> children) {
 		this.children = children;
 	}
 

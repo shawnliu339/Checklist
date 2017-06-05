@@ -2,6 +2,7 @@ package com.sic.ocms.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,30 +30,31 @@ public class ChecklistService {
 	ChecklistDO row = new ChecklistDO();
 	List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
-/*
- *
- * ダッシュボード用のデータを取得
- *
- */
+
+	//ダッシュボード用にデータを取得
 	public List<DashboardDO> getDashboard(){
 		List<DashboardDO> elements = new ArrayList<DashboardDO>();
 
-		List<Item> alpha = getAlphas();
-		for(Item item:alpha){
+		List<Item> alphas = getAlphas();
+		for(Item alpha:alphas){
 			DashboardDO element = new DashboardDO();
-			element.setParentname(item.getName());
-			element.setChildren(item.getChildren());
+			element.setParentname(alpha.getName());
+			//element.setChildren(alpha.getChildren());
 			elements.add(element);
+			LinkedHashSet<Item> children = new LinkedHashSet<Item>();
+			for(int i=1;i<=alpha.getChildren().size();i++){
+				for(Item state:alpha.getChildren()){
+					if(alpha.getItemId()!=state.getItemId()&&state.getRank()==i){
+						children.add(state);
+					}
+				}
+			}
+			element.setChildren(children);
 		}
 		return elements;
 	}
 
-/*
- *
- * アルファの名前をキーにして、そのアルファ以下の要素のデータを取得
- * チェックリスト表示用
- *
- */
+	//アルファの名前からそれ以下の要素を抽出
 	public DataGrid<ChecklistDO> getDataGrid(String alphaname) {
 		List<Item> items = itemDAO.list("from Item");
 		List<ChecklistDO> rows = new ArrayList<ChecklistDO>();
@@ -105,43 +107,38 @@ public class ChecklistService {
 
 	}
 
-/*
- *
- * データベースから全データを取得
- * チェックリスト表示用
- *
- */
+	//データベースからデータを取得
 	public DataGrid<ChecklistDO> getDataGrid() {
-		List<Item> items = itemDAO.list("from Item");
-		List<ChecklistDO> rows = new ArrayList<ChecklistDO>();
+		List<Item> itemｓ = itemDAO.list("from Item");
+		List<ChecklistDO> table = new ArrayList<ChecklistDO>();
 
 		//上から表示したい順に挿入していく
-		for(int n=1;n<items.size();n++){
-			for(Item field:items){
-				if(field.getParent().getItemId()==field.getItemId()&&field.getRank()==n){
-					Set<Item> alphas = field.getChildren();
-					for(int j=1;j<=alphas.size();j++){
-						for(Item alpha:alphas){
-							if(alpha.getItemId()!=alpha.getParent().getItemId()&&alpha.getRank()==j){
-								Set<Item> statuses = alpha.getChildren();
-								for(int k=1;k<=statuses.size();k++){
-									for(Item status:statuses){
-										if(status.getItemId()!=status.getParent().getItemId()&&status.getRank()==k){
-											Set<Checkitem> checkitems = status.getCheckitems();
+		for(int n=1;n<itemｓ.size();n++){
+			for(Item g1:itemｓ){
+				if(g1.getParent().getItemId()==g1.getItemId()&&g1.getRank()==n){
+					Set<Item> group2 = g1.getChildren();
+					for(int j=1;j<=group2.size();j++){
+						for(Item g2:group2){
+							if(g2.getItemId()!=g2.getParent().getItemId()&&g2.getRank()==j){
+								Set<Item> group3 = g2.getChildren();
+								for(int k=1;k<=group3.size();k++){
+									for(Item g3:group3){
+										if(g3.getItemId()!=g3.getParent().getItemId()&&g3.getRank()==k){
+											Set<Checkitem> checkitems = g3.getCheckitems();
 											for(int i=1;i<=checkitems.size();i++){
 												for(Checkitem checkitem:checkitems){
 													if(checkitem.getRank()==i){
 														Set<CheckitemStatus> checkitemstatuses = checkitem.getCheckitemstatus();
 														for(CheckitemStatus checkitemstatus:checkitemstatuses){
 															ChecklistDO row = new ChecklistDO();
-															row.setGroup1Id(field.getItemId());
-															row.setGroup1Name(field.getName());
+															row.setGroup1Id(g1.getItemId());
+															row.setGroup1Name(g1.getName());
 															DecimalFormat df = new DecimalFormat("#");
-															row.setGroup1Percentage( Double.valueOf(df.format(field.getPercentage())));
-															row.setGroup2Name(alpha.getName());
-															row.setGroup2Percentage( Double.valueOf(df.format(alpha.getPercentage())));
-															row.setGroup3Name(status.getName());
-															row.setGroup3Percentage( Double.valueOf(df.format(status.getPercentage())));
+															row.setGroup1Percentage( Double.valueOf(df.format(g1.getPercentage())));
+															row.setGroup2Name(g2.getName());
+															row.setGroup2Percentage( Double.valueOf(df.format(g2.getPercentage())));
+															row.setGroup3Name(g3.getName());
+															row.setGroup3Percentage( Double.valueOf(df.format(g3.getPercentage())));
 															row.setCheckitemContent(checkitem.getContent());
 															row.setDescription(checkitem.getDescrition());
 															row.setTypicalDeliverables(checkitem.getTypicalDeliverables());
@@ -152,7 +149,7 @@ public class ChecklistService {
 															row.setPrjtype(checkitemstatus.getPrjtype());
 															row.setImportance(checkitemstatus.getImportance());
 															row.setCheckitemId(checkitem.getCheckitemId());
-															rows.add(row);
+															table.add(row);
 														}
 													}
 												}
@@ -166,17 +163,12 @@ public class ChecklistService {
 				}
 			}
 		}
-		dg.setRows(rows);
-		dg.setTotal(rows.size());
+		dg.setRows(table);
+		dg.setTotal(table.size());
 		return dg;
 	}
 
-/*
- *
- * フロントから送られてきたデータを使ってデータベースの内容をアップデート
- * 変更してるかどうかの判断は行わず、フロントから送られてきたデータ全てで上書き
- *
- */
+	//データベースをアップデート
 	public void update(String rows) {
 		JSONArray jArr = JSONArray.fromObject(rows);
 		List<CheckitemStatus> checkitemstatuses = checkitemStatusDAO.list("from CheckitemStatus");
@@ -202,19 +194,23 @@ public class ChecklistService {
 		}
 	}
 
-/*
- *
- * itemの得点を計算にデータベースに保存
- * ステータス、アルファ、関心領域としたの階層から計算していく
- *
- */
+	//データベース内のitemの得点を計算
 	public void calculatePercentage(){
 		List<Item> items = itemDAO.list("from Item");
-		List<Item> fields = getFields();
-		List<Item> alphas = getAlphas();
-		List<Item> statuses = getStatuses();
+		List<Item> group1 = new ArrayList<Item>();
+		List<Item> group2 = new ArrayList<Item>();
+		List<Item> group3 = new ArrayList<Item>();
+		for(Item item:items){
+			if(item.getChildren().size()==0){
+				group3.add(item);
+			}else if(item.getItemId()==item.getParent().getItemId()){
+				group1.add(item);
+			}else{
+				group2.add(item);
+			}
+		}
 
-		for(Item item:statuses){
+		for(Item item:group3){//まずグループ3
 			int completioncounter = 0;		//完了数
 			int correspondencecounter = 0;	//対応中数
 			int notstartedcounter = 0;		//未着手数
@@ -241,7 +237,7 @@ public class ChecklistService {
 			itemDAO.update(item);
 		}
 
-		for(Item item:alphas){
+		for(Item item:group2){
 			Set<Item> children = item.getChildren();
 			int sum = 0;
 			for(Item child:children){
@@ -251,7 +247,7 @@ public class ChecklistService {
 			itemDAO.update(item);
 		}
 
-		for(Item item:fields){
+		for(Item item:group1){
 			Set<Item> children = item.getChildren();
 			int sum = 0;
 			for(Item child:children){
@@ -262,11 +258,7 @@ public class ChecklistService {
 		}
 	}
 
-/*
- *
- * データベースから関心領域のみをリストにして抽出
- *
- */
+	//グループ1の取得
 	public List<Item> getFields(){
 		List<Item> fields = new ArrayList<Item>();
 		List<Item> items = itemDAO.list("from Item");
@@ -279,11 +271,7 @@ public class ChecklistService {
 		return fields;
 	}
 
-/*
- *
- * データベースからアルファのみをリストにして抽出
- *
- */
+	//グループ2の取得
 	public List<Item> getAlphas(){
 		List<Item> alphas = new ArrayList<Item>();
 		List<Item> fields = getFields();
@@ -295,12 +283,7 @@ public class ChecklistService {
 		}
 		return alphas;
 	}
-
-/*
- *
- * データベースからステータスのみをリストにして抽出
- *
- */
+	//グループ3の取得
 	public List<Item> getStatuses(){
 		List<Item> Statuses = new ArrayList<Item>();
 		List<Item> alphas = getAlphas();
@@ -313,11 +296,6 @@ public class ChecklistService {
 		return Statuses;
 	}
 
-/*
- *
- * リソースの宣言
- *
- */
 	private ItemDAO itemDAO;
 	private CheckitemDAO checkitemDAO;
 	private CheckitemStatusDAO checkitemStatusDAO;
