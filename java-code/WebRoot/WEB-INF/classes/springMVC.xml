@@ -17,10 +17,10 @@
 		<beans:property name="prefix" value="/WEB-INF/jsp/ocms/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
 	<default-servlet-handler/>
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-	
+
 </beans:beans>
