@@ -48,7 +48,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${機会}">
-								<a href="checklist_goSubChecklist?alphaName=機会"
+								<a href="checklist_goSubChecklist?alphaName=%E6%A9%9F%E4%BC%9A"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -82,7 +82,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${ステークホルダー}">
-								<a href="checklist_goSubChecklist?alphaName=ステークホルダー"
+								<a href="checklist_goSubChecklist?alphaName=%E3%82%B9%E3%83%86%E3%83%BC%E3%82%AF%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -118,7 +118,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${要求}">
-								<a href="checklist_goSubChecklist?alphaName=要求"
+								<a href="checklist_goSubChecklist?alphaName=%E8%A6%81%E6%B1%82"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -153,7 +153,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${ソフトウェアシステム}">
-								<a href="checklist_goSubChecklist?alphaName=ソフトウェアシステム"
+								<a href="checklist_goSubChecklist?alphaName=%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -190,7 +190,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${仕事}">
-								<a href="checklist_goSubChecklist?alphaName=仕事"
+								<a href="checklist_goSubChecklist?alphaName=%E4%BB%95%E4%BA%8B"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -223,7 +223,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${チーム}">
-								<a href="checklist_goSubChecklist?alphaName=チーム"
+								<a href="checklist_goSubChecklist?alphaName=%E3%83%81%E3%83%BC%E3%83%A0"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
@@ -259,7 +259,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${仕事の仕方}">
-								<a href="checklist_goSubChecklist?alphaName=仕事の仕方"
+								<a href="checklist_goSubChecklist?alphaName=%E4%BB%95%E4%BA%8B%E3%81%AE%E4%BB%95%E6%96%B9"
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
