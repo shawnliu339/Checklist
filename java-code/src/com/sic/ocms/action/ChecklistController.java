@@ -1,6 +1,7 @@
 package com.sic.ocms.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +68,12 @@ public class ChecklistController{
 	
 	@RequestMapping("/checklist_goSubChecklist")
 	public String goSubChecklist(String alphaName, ModelMap map) {
+		try {
+			alphaName   =   java.net.URLDecoder.decode(alphaName, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
 		map.put("alphaName", alphaName);
 		return "subchecklist";
 	}

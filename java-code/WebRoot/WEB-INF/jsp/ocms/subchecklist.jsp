@@ -96,7 +96,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},{
 						title:'達成度',
 						field:'group3Percentage',
-						width:50
+						width:50,
+						formatter: function(value) {
+							if(value>=100)
+								return '<font color="green"><strong>'+value+'</strong></font>';
+							if(value>0&&value<100)
+								return '<font color="#f6d738"><strong>'+value+'</strong></font>';
+							if(value<=0)
+								return '<font color="red"><strong>'+value+'</strong></font>';
+						}
 					},{
 						title:'チェック項目ID',
 						field:'checkitemId',
