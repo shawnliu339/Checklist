@@ -48,7 +48,7 @@
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${機会}">
-								<a href="checklist_goSubChecklist?alphaName=%E6%A9%9F%E4%BC%9A"
+								<a href='checklist_goSubChecklist?alphaName="!E6!A9!9F!E4!BC!9A"'
 									class="list-group-item"> <span name="name"> <c:out
 											value="${item.name}" />
 								</span> <span name="percentage"> <fmt:formatNumber
