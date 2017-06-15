@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ public class ChecklistController{
 	public String index() {
 		return "checklist";
 	}
-	
+
 	@RequestMapping("/dashboard")
 	public String dashboard(ModelMap map) {
 		map.put("a", "aaa");
@@ -35,14 +34,14 @@ public class ChecklistController{
 		}
 		return "dashboard";
 	}
-	
+
 	/**
 	 * datagridを表示する
 	 * @return
 	 */
 	@RequestMapping("/checklist_dataGrid")
 	public void dataGrid(HttpServletResponse response) {
-		
+
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid();
 		response.setContentType("text/html;charset=utf-8");
 		try {
@@ -50,12 +49,12 @@ public class ChecklistController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@RequestMapping("/checklist_subDataGrid")
 	public void dataGrid(HttpServletResponse response, String alphaName) {
-		
+
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid(alphaName);
 		response.setContentType("text/html;charset=utf-8");
 		try {
@@ -63,9 +62,9 @@ public class ChecklistController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@RequestMapping("/checklist_goSubChecklist")
 	public String goSubChecklist(String alphaName, ModelMap map) {
 		try {
@@ -74,11 +73,11 @@ public class ChecklistController{
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}   
+		}
 		map.put("alphaName", alphaName);
 		return "subchecklist";
 	}
-	
+
 	@RequestMapping("/checklist_update")
 	public void update(String rows, HttpServletResponse response) {
 		Json json = new Json();
@@ -98,13 +97,13 @@ public class ChecklistController{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
-	 * 
+	 *
 	 * 以下宣言
-	 * 
+	 *
 	 * */
-	
+
 	private ChecklistService checklistService;
 	private ChecklistDO checklistDO;
 
