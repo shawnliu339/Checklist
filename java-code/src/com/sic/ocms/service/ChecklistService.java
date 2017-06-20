@@ -182,7 +182,7 @@ public class ChecklistService {
 			updatedcheckitemstatus.setComment(jObj.getString("comment"));
 			for (CheckitemStatus checkitemstatus : checkitemstatuses) {
 				// 同じIDならアップデート
-				if (updatedcheckitemstatus.getCheckItemStatusId() == checkitemstatus.getCheckItemStatusId()) {
+				if (updatedcheckitemstatus.getCheckItemStatusId().equals(checkitemstatus.getCheckItemStatusId())) {
 					checkitemstatus.setStatus(updatedcheckitemstatus.getStatus());
 					checkitemstatus.setComment(updatedcheckitemstatus.getComment());
 					checkitemstatus.setProblem(updatedcheckitemstatus.getProblem());
