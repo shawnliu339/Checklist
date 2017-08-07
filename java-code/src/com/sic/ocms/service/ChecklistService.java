@@ -2,6 +2,7 @@ package com.sic.ocms.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,12 +35,21 @@ public class ChecklistService {
 	public List<DashboardDO> getDashboard(){
 		List<DashboardDO> elements = new ArrayList<DashboardDO>();
 
-		List<Item> alpha = getAlphas();
-		for(Item item:alpha){
+		List<Item> alphas = getAlphas();
+		for(Item alpha:alphas){
 			DashboardDO element = new DashboardDO();
-			element.setParentname(item.getName());
-			element.setChildren(item.getChildren());
+			element.setParentname(alpha.getName());
+			//element.setChildren(alpha.getChildren());
 			elements.add(element);
+			LinkedHashSet<Item> children = new LinkedHashSet<Item>();
+			for(int i=1;i<=alpha.getChildren().size();i++){
+				for(Item state:alpha.getChildren()){
+					if(alpha.getItemId()!=state.getItemId()&&state.getRank()==i){
+						children.add(state);
+					}
+				}
+			}
+			element.setChildren(children);
 		}
 		return elements;
 	}

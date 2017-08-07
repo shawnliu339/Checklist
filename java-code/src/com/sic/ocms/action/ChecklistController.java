@@ -1,6 +1,7 @@
 package com.sic.ocms.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +55,13 @@ public class ChecklistController{
 	
 	@RequestMapping("/checklist_subDataGrid")
 	public void dataGrid(HttpServletResponse response, String alphaName) {
-		
+		try {
+			alphaName = alphaName.replace("!", "%");
+			alphaName   =   java.net.URLDecoder.decode(alphaName, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
 		DataGrid<ChecklistDO> dg = checklistService.getDataGrid(alphaName);
 		response.setContentType("text/html;charset=utf-8");
 		try {
@@ -67,6 +74,7 @@ public class ChecklistController{
 	
 	@RequestMapping("/checklist_goSubChecklist")
 	public String goSubChecklist(String alphaName, ModelMap map) {
+		
 		map.put("alphaName", alphaName);
 		return "subchecklist";
 	}
