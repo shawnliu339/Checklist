@@ -66,45 +66,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 				    },{
-				    	title:'関心領域',
+				    	//title:'関心領域',
+				    	title:'Area of Concern',
 						field:'group1Name',
-						width:100,
+						width:110,
 				    },{
-						title:'達成度',
+						//title:'達成度',
+						title:'Reach Rate',
 						field:'group1Percentage',
-						width:50
+						width:80
 					},{
-						title:'アルファ',
+						//title:'アルファ',
+						title:'Alpha',
 						field:'group2Name',
-						width:100,
+						width:80,
 						formatter: function(value) {
 							
 							return '<a href="checklist_goSubChecklist?alphaName='+value+'">'+value+'</a>';
 							
 						}
 					},{
-						title:'達成度',
+						//title:'達成度',
+						title:'Reach Rate',
 						field:'group2Percentage',
-						width:50
+						width:80
 					},{
-						title:'ステータス',
+						//title:'ステータス',
+						title:'State',
 						field:'group3Name',
-						width:100
+						width:80
 					},{
-						title:'達成度',
+						//title:'達成度',
+						title:'Reach Rate',
 						field:'group3Percentage',
-						width:50
+						width:80
 					},{
 						title:'チェック項目ID',
 						field:'checkitemId',
 						width:100,
 						hidden:true
 					},{
-						title:'チェック項目',
+						//title:'チェック項目',
+						title:'Check Item',
 						field:'checkitemContent',
 						width:100
 					},{
-						title:'補足説明',
+						//title:'補足説明',
+						title:'Explanation',
 						field:'description',
 						width:100,
 						editor:{
@@ -112,7 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},{
-						title:'成果物',
+						//title:'成果物',
+						title:'Deliverables',
 						field:'typicalDeliverables',
 						width:100,
 						editor:{
@@ -125,9 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 				    },{
-						title:'ステータス',
+						//title:'ステータス',
+						title:'status',
 						field:'status',
-						width:100,
+						width:80,
 						formatter:function(value){
 
 							var text = '保留';
@@ -138,9 +148,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							if(value==3)
 								text = '未着手';
 							if(value==4)
-								text = '対応中';
+								//text = '対応中';
+								text = 'solving';
 							if(value==5)
-								text = '完了';
+								//text = '完了';
+								text = 'finished';
 							return text;
 						},
 						editor:{
@@ -169,9 +181,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							}
 						}
 					},{
-						title:'不遵守事項有無',
+						//title:'不遵守事項有無',
+						title:'Breaking Some Rules',
 						field:'problem',
-						width:100,
+						width:140,
 						formatter:function(value){
 
 							var text = 'NO';
@@ -196,7 +209,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							}
 						}
 					},{
-						title:'コメント記入',
+						//title:'コメント記入',
+						title:'comments',
 						field:'comment',
 						width:100,
 						editor:{
@@ -204,13 +218,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},{
-						title:'prjタイプ',
+						//title:'prjタイプ',
+						title:'PRJ Type',
 						field:'prjtype',
-						width:100
+						width:80
 					},{
-						title:'重要度',
+						//title:'重要度',
+						title:'Importance',
 						field:'importance',
-						width:270
+						width:80
 					}
 				]],
 				
@@ -227,13 +243,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
-						text:'ダッシュボードへ',
+						//text:'ダッシュボードへ',
+						text:'Back to Dashboard',
 						iconCls:'icon-back',
 						handler:function(){
 							window.location.href = "dashboard";
 						}
 					},'-',{
-						text:'チェックリスト登録',
+						//text:'チェックリスト登録',
+						text:'Save Chcklist',
 						iconCls:'icon-save',
 						handler:function(){
 							var cell = $(checklist).datagrid('cell');
@@ -259,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},'-',{
-						text:'項目を削除する',
+						text:'Delete Checklist',
 						iconCls:'icon-remove',
 						handler:function(){
 
@@ -379,7 +397,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   <body>
   	<div id="lay" class="easyui-layout" fit=true >
-		<div region="center" title="チェックリスト一覧">
+		<div region="center" title="Checklist">
 			<table id="checklist"></table>
 		</div>
 	</div>
