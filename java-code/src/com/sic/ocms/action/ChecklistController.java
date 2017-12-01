@@ -24,7 +24,7 @@ public class ChecklistController{
 
 	@RequestMapping("/checklist")
 	public String index() {
-		return "checklist";
+		return "checklist-en";
 	}
 	
 	@RequestMapping("/dashboard")
@@ -33,7 +33,7 @@ public class ChecklistController{
 		for(DashboardDO alpha : checklistService.getDashboard()) {
 			map.put(alpha.getParentname(), alpha.getChildren());
 		}
-		return "dashboard";
+		return "dashboard-en";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class ChecklistController{
 	public String goSubChecklist(String alphaName, ModelMap map) {
 		
 		map.put("alphaName", alphaName);
-		return "subchecklist";
+		return "subchecklist-en";
 	}
 	
 	@RequestMapping("/checklist_update")
