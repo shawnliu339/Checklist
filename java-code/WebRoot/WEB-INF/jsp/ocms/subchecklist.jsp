@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
 
-    <title>チェックリスト一覧</title>
+    <title>Checklist</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -66,16 +66,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 				    },{
-				    	title:'関心領域',
+				    	title:'Area of Concern',
 						field:'group1Name',
 						width:100,
 						formatter: function(value) {
-							
+
 							return '<a href="checklist">'+value+'</a>';
-							
+
 						}
 				    },{
-						title:'アルファ',
+						title:'Alpha',
 						field:'group2Name',
 						width:100
 					},{
@@ -83,18 +83,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'order',
 						width:50,
 						formatter:function(value,row,index){
-							
+
 							index += 1;
 							var rows = $('#checklist').datagrid('getRows');
 							rows = rows.length;
 							return index + '/' + rows;
 						}
 					},{
-						title:'状態',
+						title:'State',
 						field:'group3Name',
 						width:100
 					},{
-						title:'達成度',
+						title:'Reach Rate',
 						field:'group3Percentage',
 						width:50,
 						formatter: function(value) {
@@ -111,11 +111,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 					},{
-						title:'チェック項目',
+						title:'Check Item',
 						field:'checkitemContent',
 						width:100
 					},{
-						title:'補足説明',
+						title:'Explanation',
 						field:'description',
 						width:100,
 						editor:{
@@ -128,22 +128,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:100,
 						hidden:true
 				    },{
-						title:'ステータス',
+						title:'Status',
 						field:'status',
 						width:100,
 						formatter:function(value){
 
-							var text = '保留';
+							var text = 'On Hold';
 							if(value==1)
-								text = '保留';
+								text = 'On Hold';
 							if(value==2)
-								text = '対象外';
+								text = 'Not Covered';
 							if(value==3)
-								text = '未着手';
+								text = 'Not Started';
 							if(value==4)
-								text = '対応中';
+								text = 'Solving';
 							if(value==5)
-								text = '完了';
+								text = 'Finished';
 							return text;
 						},
 						editor:{
@@ -154,25 +154,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								data: [{
 									value: '1',
-									text: '保留'
+									text: 'On Hold'
 								},{
 									value: '2',
-									text: '対象外'
+									text: 'Not Covered'
 								},{
 									value: '3',
-									text: '未着手'
+									text: 'Not Started'
 								},{
 									value: '4',
-									text: '対応中'
+									text: 'Solving'
 								},{
 									value: '5',
-									text: '完了'
+									text: 'Finished'
 								}]
 
 							}
 						}
 					},{
-						title:'判断根拠',
+						title:'Comments',
 						field:'comment',
 						width:100,
 						editor:{
@@ -181,11 +181,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					}
 				]],
-				
+
 				onLoadSuccess:function(data){
 					merge(data);
 				},
-				
+
 				onAfterEdit: function() {
 					var data = $('#checklist').datagrid('getData');
 					merge(data);
@@ -195,13 +195,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//增加工具栏，添加增删改查按钮
 				toolbar:[
 					{
-						text:'ダッシュボードへ',
+						text:'Back to Dashboard',
 						iconCls:'icon-back',
 						handler:function(){
 							window.location.href = "dashboard";
 						}
 					},'-',{
-						text:'チェックリスト登録',
+						text:'Save',
 						iconCls:'icon-save',
 						handler:function(){
 							var cell = $(checklist).datagrid('cell');
@@ -225,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						}
 					},'-',{
-						text:'項目を削除する',
+						text:'Delete Checkitem',
 						iconCls:'icon-remove',
 						handler:function(){
 
@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        });
 		}
 
-		
+
 
 	</script>
 

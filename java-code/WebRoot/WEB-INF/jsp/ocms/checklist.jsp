@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
 
-    <title>チェックリスト一覧</title>
+    <title>チェックリスト</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -78,9 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						field:'group2Name',
 						width:100,
 						formatter: function(value) {
-							
+
 							return '<a href="checklist_goSubChecklist?alphaName='+value+'">'+value+'</a>';
-							
+
 						}
 					},{
 						title:'達成度',
@@ -213,11 +213,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						width:270
 					}
 				]],
-				
+
 				onLoadSuccess:function(data){
 					merge(data);
 				},
-				
+
 				onAfterEdit: function() {
 					var data = $('#checklist').datagrid('getData');
 					merge(data);
@@ -242,13 +242,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							$.post('checklist_update', {rows:JSON.stringify(rows)}, function(result){
 								if(result){
-									
+
 									$.messager.show ({
 										title: 'ok!',
 										msg: '登録成功！'
 									});
 									$('#checklist').datagrid('reload');
-									
+
 								} else {
 									$.messager.show ({
 										title: 'fail!',
@@ -326,7 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			return obj;
 		}
-		
+
 		//合并单元格
 		function merge(data){
 			console.log(data);
@@ -336,12 +336,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var merge = new Object();
 			var flg = 0;
 			for(var i=0; i<rows.length; i++) {
-				
+
 				if(set.has(rows[i].group3Name) == false) {
 					flg++;
 					set.clear();
 					set.add(rows[i].group3Name);
-					
+
 					if(flg == 2) {
 						merge.rowspan = i - merge.index;
 						merges[merges.length] = merge;
@@ -350,7 +350,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					merge = new Object();
 					merge.index = i;
 				}
-				
+
 			}
 			//添加最后一个元素
 			merge.rowspan = rows.length - merge.index;
@@ -368,7 +368,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					field:'group3Name',
 					rowspan:merges[i].rowspan
 				});
-			
+
 		}
 
 

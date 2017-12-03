@@ -44,7 +44,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-success alpha">
-					<div class="panel-heading">機会</div>
+					<div class="panel-heading">Opportunity</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${機会}">
@@ -59,17 +59,24 @@
 						</div>
 						<div class="alpha-info">
 							<div class="overview">
-								<content> ソフトウェアシステムを開発、あるいは更新するための理由になり得る十分な状況
+								<content> The set of circumstances that makes it
+appropriate to develop or change a
+software system.
 								<hr>
 								</content>
 							</div>
 							<div class="detail">
-								良い機会は…
 								<ul>
-									<li>ソフトウェアシステムで解決すべき機会が特定されている</li>
-									<li>ソフトウェアシステム導入の価値が定義されている</li>
-									<li>QCDに見合ったソフトウェアが導入されている</li>
-									<li>明確な利益を生み出すことができる</li>
+									<li>A good opportunity is identified
+addressing the need for a softwarebased
+solution</li>
+									<li>A good opportunity has established
+value</li>
+									<li>A good opportunity has a softwarebased
+solution that can be
+produced quickly and cheaply</li>
+									<li>A good opportunity creates a
+tangible benefit</li>
 								</ul>
 							</div>
 						</div>
@@ -78,7 +85,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-success alpha">
-					<div class="panel-heading">ステークホルダ</div>
+					<div class="panel-heading">Stakeholders</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${ステークホルダー}">
@@ -93,17 +100,16 @@
 						</div>
 						<div class="alpha-info">
 							<div class="overview">
-								<content> ソフトウェアシステムに影響を与えたり、影響を受けたりする人、グループ、組織
+								<content> The people, groups, or organizations who affect or are affected by a software system.
 								<hr>
 								</content>
 							</div>
 							<div class="detail">
-								健全なステークホルダは…
 								<ul>
-									<li>ソフトウェアシステムに関与するグループや組織の代表者</li>
-									<li>ステークホルダ間で約束した役割を果たす</li>
-									<li>要求の合意形成のために協力する</li>
-									<li>ソフトウェアシステムの恩恵を受ける</li>
+									<li>Healthy stakeholders represent groups or organizations affected by the software system</li>
+									<li>Healthy stakeholder representatives carry out their agreed to responsibilities</li>
+									<li>Healthy stakeholder representatives cooperate to reach agreement</li>
+									<li>Healthy stakeholders are satisfied with the use of the software system</li>
 								</ul>
 							</div>
 						</div>
@@ -114,7 +120,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-warning alpha">
-					<div class="panel-heading">要求</div>
+					<div class="panel-heading">Requirements</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${要求}">
@@ -130,17 +136,22 @@
 						<div class="alpha-info">
 							<div class="overview">
 								<content>
-								ソフトウェアシステムが機会に対応するためにすべきこととステークホルダを満足させるためにすべきこと
+								What the software system must do to
+address the opportunity and satisfy
+the stakeholders.
 								<hr>
 								</content>
 							</div>
 							<div class="detail">
-								良い要求は…
 								<ul>
-									<li>現実的なニーズにマッチしている</li>
-									<li>スコープが明確になっている</li>
-									<li>一貫性があって体系化されている</li>
-									<li>開発推進を手助けしてくれる</li>
+									<li>Good Requirements meets real
+needs</li>
+									<li>Good Requirements has clear
+scope</li>
+									<li>Good Requirements are coherent
+and well organized</li>
+									<li>Good Requirements help drive
+development</li>
 								</ul>
 							</div>
 						</div>
@@ -149,7 +160,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-warning alpha">
-					<div class="panel-heading">ソフトウェアシステム</div>
+					<div class="panel-heading">Software System</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="item" items="${ソフトウェアシステム}">
@@ -165,17 +176,24 @@
 						<div class="alpha-info">
 							<div class="overview">
 								<content>
-								システムはソフトウェアとハードウェアおよびソフトウェアが作り出す価値あるデータで構成される
+								A system made up of software,
+hardware, and data that provides its
+primary value by the execution of the
+software.
 								<hr>
 								</content>
 							</div>
 							<div class="detail">
-								良いソフトウェアシステムは…
 								<ul>
-									<li>要求を満たしている</li>
-									<li>相応しいアーキテクチャを採用している</li>
-									<li>メンテナンス性、拡張性、テスト可能性を有す</li>
-									<li>低コストでサポートできる</li>
+									<li>Good Software System meets
+requirements</li>
+									<li>Good Software System has
+appropriate architecture</li>
+									<li>Good Software System is
+maintainable, extensible and
+testable</li>
+									<li>Good Software System has low
+support cost</li>
 								</ul>
 							</div>
 						</div>
