@@ -1,3 +1,3 @@
 # Checklist
 
-This is a project of Checklist, which will achieve SEMAT mind.
+早稲田大学の大学院で留学していたとき作るシステムです。
